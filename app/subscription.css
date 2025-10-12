@@ -1,0 +1,197 @@
+/* ================================
+   SUBSCRIPTION PAGE STYLES
+   Dedicated CSS for subscription/pricing page functionality
+   ================================ */
+
+/* Fonts for subscription page */
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+/* Font utility classes */
+.font-sora {
+  font-family: 'Sora', sans-serif;
+}
+
+.font-inter {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Remove arrows in Chrome, Safari, Edge, and Opera */
+.no-arrows::-webkit-outer-spin-button,
+.no-arrows::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Remove arrows in Firefox */
+.no-arrows[type=number] {
+  -moz-appearance: textfield;
+}
+
+.otpinput {
+  caret-color: transparent; /* Hides the blinking cursor */
+}
+
+.slick-slide {
+  padding: 0 10px; /* 10px gap on left/right */
+}
+
+.border-color {
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+.light-text {
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.pricing-off {
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.text-decoration {
+  text-decoration: line-through;
+  text-decoration-thickness: 2px; /* change line height/thickness */
+  text-decoration-color: rgba(0, 0, 0, 0.75); /* optional */
+}
+
+.slick-dots li button:before {
+  color: #D9D9D9 !important;
+  scale: 2.5;
+  margin-top: 20px;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #0C4C6B !important;
+  scale: 2.5;
+}
+
+.pricing-para {
+  height: 70px;
+}
+
+/* ===== Responsive Styles ===== */
+
+@media screen and (max-width: 1010px) {
+  .login-right { display: none; }
+  .login-left { width: 100%; }
+}
+
+@media screen and (max-width: 750px) {
+  .heading-h1 { font-size: 42px; text-align: center; }
+  .heading-h2 { font-size: 24px; }
+  .login-left img { padding-left: 20px; }
+}
+
+@media screen and (max-width: 600px) {
+  .heading-h1 { font-size: 29.85px; }
+  .heading-h2 { font-size: 25px; }
+  .login-left img { padding-left: 0px; }
+  .otp-box { height: 45px; width: 45px; }
+  .otp-box-gap { gap: 10px; }
+  .input-sections { width: 100% !important; }
+  .login-left { padding-left: 10px; padding-right: 10px; }
+  .text-align-center { text-align: center; }
+  .justify-content-center { justify-content: center; }
+  .line-height-full { line-height: 100%; }
+  .pricing-section-header-button { padding-left: 15px; padding-right: 15px; }
+  .pricing-header { justify-content: center; }
+  .pricing-section-price-in-doller, .pricing-section-dummy { display: none; }
+  .light-box, .dark-box { height: 160px; width: 220px; }
+  .light-box-text, .dark-box-text { font-size: 16px; }
+}
+
+@media screen and (max-width: 800px) {
+  .hear-about-card { width: 100%; }
+}
+
+@media screen and (max-width: 640px) {
+  .hear-about-section { padding-top: 50px; }
+  .onboarding-h1 { font-size: 26px; text-align: center; }
+}
+
+@media screen and (max-width: 500px) {
+  .your-style-button, .know-you-better-button, .what-stage-button { font-size: 14px; }
+  .light-box, .dark-box { height: 130px; width: 160px; }
+  .light-box-text, .dark-box-text { font-size: 14px; }
+}
+
+@media screen and (max-width: 550px) {
+  .ggg { font-size: 15px !important; }
+  .know-you-better-div { width: 100%; }
+  .know-you-better-div-2 { gap: 5px; }
+  .month-div { width: 50%; }
+  .year-div { width: 30%; }
+  .day-div { width: 20%; }
+}
+
+@media screen and (max-width: 450px) {
+  .what-stage-card { width: 100%; }
+}
+
+@media screen and (max-width: 950px) {
+  .pricing-card-button {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 18px;
+    letter-spacing: normal;
+    margin-top: 30px;
+  }
+  .pricing-component, .card-header-para, .pricing-section-header-text, .pricing-point-heading {
+    font-size: 16px;
+  }
+  .card-header-off {
+    font-size: 12px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .card-header-text { font-size: 22px; }
+  .card-header-price { font-size: 32px; }
+  .pricing-page-bottom-text {
+    font-size: 15px;
+    line-height: 140%;
+  }
+  .pricing-component-main { margin-top: 5px; }
+}
+
+@media screen and (max-width: 1655px) {
+  .pricing-para { height: 90px; }
+}
+
+@media screen and (max-width: 1150px) {
+  .pricing-para { height: 65px; }
+}
+
+@media screen and (max-width: 841px) {
+  .pricing-para { height: 85px; }
+}
+
+@media screen and (max-width: 721px) {
+  .pricing-para { height: 45px; }
+}
+
+@media screen and (max-width: 569px) {
+  .pricing-para { height: 65px; }
+}
+
+@media screen and (max-width: 396px) {
+  .pricing-para { height: 85px; }
+}
+
+@media screen and (max-width: 790px) {
+  .pricing-card { padding-left: 10px; padding-right: 10px; }
+  .subscription-page { padding-left: 10px !important; padding-right: 10px !important; }
+  .slick-slide { padding: 0 5px; }
+}
+
+@media screen and (max-width: 1570px) {
+  .subscription-page { padding-left: 100px; padding-right: 100px; }
+}
+
+@media screen and (max-width: 1335px) {
+  .subscription-page { padding-left: 50px; padding-right: 50px; }
+}
+
+@media screen and (max-width: 1200px) {
+  .subscription-page { padding-left: 20px; padding-right: 20px; }
+}

@@ -1,0 +1,49 @@
+name: CodeGuru Security Analysis
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+  schedule:
+    # Run weekly scan every Sunday at 2 AM UTC
+    - cron: '0 2 * * 0'
+
+permissions:
+  id-token: write
+  security-events: write
+  actions: read
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::388163694016:role/dropleather-codeguru-security-role
+          aws-region: us-east-1
+          role-session-name: GitHubActionScript
+
+      - name: CodeGuru Security
+        uses: aws-actions/codeguru-security@v1
+        with:
+          source_path: .
+          aws_region: us-east-1
+          fail_on_severity: Critical
+
+      - name: Print findings
+        run: |
+          ls -l
+          cat codeguru-security-results.sarif.json
+
+      - name: Upload result to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: codeguru-security-results.sarif.json

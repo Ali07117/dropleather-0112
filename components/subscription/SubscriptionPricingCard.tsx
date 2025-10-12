@@ -1,0 +1,311 @@
+"use client";
+
+import React, { useState, useEffect } from 'react';
+import { selectPlan } from '@/app/actions/subscription';
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import SubscriptionPricingFeature from './SubscriptionPricingFeature';
+import { SubscriptionButton } from '@/components/ui/subscription-button';
+import { SubscriptionCard, SubscriptionCardContent, SubscriptionCardDescription, SubscriptionCardHeader, SubscriptionCardTitle, SubscriptionCardFooter } from '@/components/ui/subscription-card';
+import { SubscriptionBadge } from '@/components/ui/subscription-badge';
+import { PricingPlan } from '@/types';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const PRICING_PLANS: PricingPlan[] = [
+  {
+    id: 'free',
+    name: 'Free Plan',
+    description: 'Perfect for testing the market and getting started with minimal investment.',
+    price: { monthly: 0, yearly: 0 },
+    features: [
+      { name: 'Premium Leather Products', included: true, details: 'Access to our curated collection of high-quality leather goods' },
+      { name: 'Your Logo on Every Product', included: false, details: 'Professional brand placement on all items' },
+      { name: 'Personalized Packaging', included: false, details: 'Branded boxes, tissue paper, and presentation materials' },
+      { name: 'Personalized Dust Bag', included: false, details: 'Elegant dust bags with your brand logo' },
+      { name: 'Personalized Hang Tags', included: false, details: 'Custom hang tags with your brand information' },
+      { name: 'Create Your Own Products', included: false, details: 'Design unique products exclusive to your brand' },
+      { name: 'Create Your Own Packaging', included: false, details: 'Complete control over packaging design and materials' },
+      { name: 'Personalized Ribbon', included: false, details: 'Custom ribbon with your brand colors and logo' },
+      { name: 'Personalized Wrapping Paper', included: false, details: 'Custom wrapping paper with your brand design' },
+      { name: 'AI Fashion Model', included: false, details: 'AI-powered model photos for product listings' },
+      { name: '360° Branding Views', included: false, details: 'Interactive 360-degree product photography' },
+      { name: '24/7 Support', included: true, details: 'Round-the-clock customer support' }
+    ]
+  },
+  {
+    id: 'pro',
+    name: 'Professional Plan',
+    description: 'The perfect balance for growing brands that want premium features.',
+    price: { monthly: 24, yearly: 299 },
+    originalPrice: { monthly: 49, yearly: 588 },
+    features: [
+      { name: 'Premium Leather Products', included: true, details: 'Access to our curated collection of high-quality leather goods' },
+      { name: 'Your Logo on Every Product', included: true, details: 'Professional brand placement on all items' },
+      { name: 'Personalized Packaging', included: true, details: 'Branded boxes, tissue paper, and presentation materials' },
+      { name: 'Personalized Dust Bag', included: true, details: 'Elegant dust bags with your brand logo' },
+      { name: 'Personalized Hang Tags', included: true, details: 'Custom hang tags with your brand information' },
+      { name: 'Create Your Own Products', included: false, details: 'Design unique products exclusive to your brand' },
+      { name: 'Create Your Own Packaging', included: false, details: 'Complete control over packaging design and materials' },
+      { name: 'Personalized Ribbon', included: false, details: 'Custom ribbon with your brand colors and logo' },
+      { name: 'Personalized Wrapping Paper', included: false, details: 'Custom wrapping paper with your brand design' },
+      { name: 'AI Fashion Model', included: true, details: 'AI-powered model photos for product listings' },
+      { name: '360° Branding Views', included: true, details: 'Interactive 360-degree product photography' },
+      { name: '24/7 Support', included: true, details: 'Round-the-clock customer support' }
+    ]
+  },
+  {
+    id: 'enterprise',
+    name: 'Enterprise Plan',
+    description: 'Complete white-label solution for established brands wanting full control.',
+    price: { monthly: 49, yearly: 599 },
+    originalPrice: { monthly: 99, yearly: 1188 },
+    features: [
+      { name: 'Premium Leather Products', included: true, details: 'Access to our curated collection of high-quality leather goods' },
+      { name: 'Your Logo on Every Product', included: true, details: 'Professional brand placement on all items' },
+      { name: 'Personalized Packaging', included: true, details: 'Branded boxes, tissue paper, and presentation materials' },
+      { name: 'Personalized Dust Bag', included: true, details: 'Elegant dust bags with your brand logo' },
+      { name: 'Personalized Hang Tags', included: true, details: 'Custom hang tags with your brand information' },
+      { name: 'Create Your Own Products', included: true, details: 'Design unique products exclusive to your brand' },
+      { name: 'Create Your Own Packaging', included: true, details: 'Complete control over packaging design and materials' },
+      { name: 'Personalized Ribbon', included: true, details: 'Custom ribbon with your brand colors and logo' },
+      { name: 'Personalized Wrapping Paper', included: true, details: 'Custom wrapping paper with your brand design' },
+      { name: 'AI Fashion Model', included: true, details: 'AI-powered model photos for product listings' },
+      { name: '360° Branding Views', included: true, details: 'Interactive 360-degree product photography' },
+      { name: '24/7 Support', included: true, details: 'Round-the-clock customer support' }
+    ]
+  }
+];
+
+interface SubscriptionPricingCardProps {
+  billingPeriod?: 'monthly' | 'yearly';
+  currency?: 'USD' | 'EUR';
+  onPlanSelect?: (planId: string) => void;
+}
+
+const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billingPeriod = 'monthly', currency = 'USD', onPlanSelect }) => {
+  // 🔐 SECURITY UPGRADE: All authentication moved to server actions
+  // Zero token exposure, maximum security
+  const [submittingPlan, setSubmittingPlan] = useState<string | null>(null);
+  // Animation variants for price changes
+  const priceVariants = {
+    enter: {
+      y: billingPeriod === 'yearly' ? 30 : -30,
+      opacity: 0
+    },
+    center: {
+      y: 0,
+      opacity: 1
+    },
+    exit: {
+      y: billingPeriod === 'yearly' ? -30 : 30,
+      opacity: 0
+    }
+  };
+
+  // Handle plan selection
+  const handleSelectPlan = async (planId: string) => {
+    if (submittingPlan) return;
+    
+    setSubmittingPlan(planId);
+
+    try {
+      // Use parent component's debug handler if provided
+      if (onPlanSelect) {
+        await onPlanSelect(planId);
+      } else {
+        // Fallback to original server action approach
+        const formData = new FormData();
+        formData.append('planId', planId);
+        formData.append('billingPeriod', billingPeriod);
+        await selectPlan(formData);
+      }
+
+    } catch (error) {
+      console.error('❌ Plan selection failed:', error);
+    } finally {
+      setSubmittingPlan(null);
+    }
+  };
+
+  const renderFeaturesByCategory = (features: PricingPlan['features']) => {
+    const categories = {
+      'Products': ['Premium Leather Products', 'Create Your Own Products'],
+      'Customization': [
+        'Your Logo on Every Product',
+        'Personalized Packaging',
+        'Personalized Dust Bag',
+        'Personalized Hang Tags',
+        'Create Your Own Packaging',
+        'Personalized Ribbon',
+        'Personalized Wrapping Paper',
+      ],
+      'Technology': ['AI Fashion Model', '360° Branding Views'],
+      'Support': ['24/7 Support']
+    };
+
+    return Object.entries(categories).map(([category, categoryFeatures]) => (
+      <div key={category}>
+        <h4 className="font-[400] text-[14px] leading-extra mb-3 lg:mb-4 mt-4 lg:mt-5 font-inter">
+          {category}
+        </h4>
+        {categoryFeatures.map(featureName => {
+          const feature = features.find(f => f.name === featureName);
+          if (!feature) return null;
+          
+          return (
+            <SubscriptionPricingFeature
+              key={feature.name}
+              text={feature.name}
+              available={feature.included ? 'add' : 'remove'}
+              option={feature.name}
+              i={feature.details ? 'i' : undefined}
+            />
+          );
+        })}
+      </div>
+    ));
+  };
+
+  return (
+    <div className="w-full flex justify-center">
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-6 justify-center items-center lg:items-stretch">
+        {PRICING_PLANS.map((plan) => (
+          <SubscriptionCard key={plan.id} className="w-full max-w-sm lg:w-[340px] relative border-gray-300 shadow-none">
+            <SubscriptionCardHeader className="pb-4">
+              <SubscriptionCardTitle className="font-sora font-medium text-xl lg:text-[26px] leading-7 tracking-tight">
+                {plan.name}
+              </SubscriptionCardTitle>
+              
+              <div className="h-1"></div>
+              
+              <div className="relative">
+                <div className="flex items-center min-h-[32px]">
+                  {plan.id === 'free' ? (
+                    // Free plan - no animation
+                    <>
+                      <span className="font-sora font-semibold text-2xl lg:text-[28px] leading-7">
+                        {currency === 'USD' ? '$' : '€'}{plan.price[billingPeriod]}
+                      </span>
+                      <span className="font-sora font-semibold text-lg lg:text-[20px] leading-extra pl-1 pt-1">
+                        /forever
+                      </span>
+                    </>
+                  ) : (
+                    // Paid plans - with animation
+                    <>
+                      {plan.originalPrice && (
+                        <div className="relative overflow-hidden mr-2 h-[28px] flex items-center">
+                          <AnimatePresence mode="wait">
+                            <motion.span
+                              key={`${plan.id}-original-${billingPeriod}`}
+                              variants={priceVariants}
+                              initial="enter"
+                              animate="center"
+                              exit="exit"
+                              transition={{ duration: 0.3, ease: "easeInOut" }}
+                              className="font-sora font-normal text-base lg:text-[18px] leading-5 text-[#EBEBEB] line-through"
+                            >
+                              {currency === 'USD' ? '$' : '€'}{plan.originalPrice[billingPeriod]}
+                            </motion.span>
+                          </AnimatePresence>
+                        </div>
+                      )}
+                      <div className="relative overflow-hidden h-[28px] flex items-center">
+                        <AnimatePresence mode="wait">
+                          <motion.span
+                            key={`${plan.id}-price-${billingPeriod}`}
+                            variants={priceVariants}
+                            initial="enter"
+                            animate="center"
+                            exit="exit"
+                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                            className="font-sora font-semibold text-2xl lg:text-[28px] leading-7"
+                          >
+                            {currency === 'USD' ? '$' : '€'}{plan.price[billingPeriod]}
+                          </motion.span>
+                        </AnimatePresence>
+                      </div>
+                      <div className="relative overflow-hidden pl-1 pt-1 h-[28px] flex items-center">
+                        <AnimatePresence mode="wait">
+                          <motion.span
+                            key={`${plan.id}-period-${billingPeriod}`}
+                            variants={priceVariants}
+                            initial="enter"
+                            animate="center"
+                            exit="exit"
+                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                            className="font-sora font-semibold text-lg lg:text-[20px] leading-extra"
+                          >
+                            /{billingPeriod === 'monthly' ? 'mo' : 'yr'}
+                          </motion.span>
+                        </AnimatePresence>
+                      </div>
+                    </>
+                  )}
+                </div>
+                {plan.originalPrice && (
+                  <div className="absolute top-0 right-0">
+                    <SubscriptionBadge variant="secondary" className="bg-green-100 text-green-800 hover:bg-green-100">
+                      {billingPeriod === 'monthly' ? 'First month 50% off' : '50% off yearly'}
+                    </SubscriptionBadge>
+                  </div>
+                )}
+              </div>
+              
+              <SubscriptionCardDescription className="font-inter font-normal text-[14px] leading-normal text-gray-600 mt-6">
+                {plan.description}
+              </SubscriptionCardDescription>
+            </SubscriptionCardHeader>
+            
+            <SubscriptionCardContent className="pb-4">
+              {/* 🔐 SECURE BUTTON: Uses server action, no token exposure */}
+              <SubscriptionButton
+                onClick={() => handleSelectPlan(plan.id)}
+                disabled={submittingPlan === plan.id}
+                className="w-full text-white font-sora text-[16px] relative overflow-hidden bg-black hover:bg-black border-0 group"
+                variant="default"
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.setProperty('--show-light', '1');
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.setProperty('--show-light', '0');
+                }}
+                onMouseMove={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  const x = e.clientX - rect.left;
+                  const y = e.clientY - rect.top;
+                  e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+                  e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+                }}
+                style={{
+                  background: `
+                    radial-gradient(
+                      200px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+                      rgba(255, 255, 255, calc(0.4 * var(--show-light, 0))),
+                      transparent 40%
+                    ),
+                    black
+                  `
+                }}
+              >
+                <motion.span
+                  animate={submittingPlan === plan.id ? { opacity: [1, 0.5, 1] } : { opacity: 1 }}
+                  transition={{ duration: 1, repeat: submittingPlan === plan.id ? Infinity : 0 }}
+                  className="relative z-10"
+                >
+                  {submittingPlan === plan.id ? 'Processing...' : 'Select plan'}
+                </motion.span>
+              </SubscriptionButton>
+              
+              <div className="space-y-1">
+                {renderFeaturesByCategory(plan.features)}
+              </div>
+            </SubscriptionCardContent>
+          </SubscriptionCard>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default SubscriptionPricingCard;
