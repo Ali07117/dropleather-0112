@@ -132,11 +132,11 @@ const chartConfig = {
   },
   desktop: {
     label: "Desktop",
-    color: "var(--primary)",
+    color: "#266DF0",
   },
   mobile: {
     label: "Mobile",
-    color: "var(--primary)",
+    color: "#2D60FF",
   },
 } satisfies ChartConfig
 
@@ -167,8 +167,8 @@ export function ChartAreaInteractive() {
   return (
     <Card className="@container/card">
       <CardHeader>
-        <CardTitle>Total Visitors</CardTitle>
-        <CardDescription>
+        <CardTitle className="font-sans">Total Visitors</CardTitle>
+        <CardDescription className="font-sans">
           <span className="hidden @[540px]/card:block">
             Total for the last 3 months
           </span>
@@ -180,7 +180,7 @@ export function ChartAreaInteractive() {
             value={timeRange}
             onValueChange={setTimeRange}
             variant="outline"
-            className="hidden *:data-[slot=toggle-group-item]:!px-4 @[767px]/card:flex"
+            className="hidden *:data-[slot=toggle-group-item]:!px-4 @[767px]/card:flex font-sans"
           >
             <ToggleGroupItem value="90d">Last 3 months</ToggleGroupItem>
             <ToggleGroupItem value="30d">Last 30 days</ToggleGroupItem>
@@ -188,13 +188,13 @@ export function ChartAreaInteractive() {
           </ToggleGroup>
           <Select value={timeRange} onValueChange={setTimeRange}>
             <SelectTrigger
-              className="flex w-40 **:data-[slot=select-value]:block **:data-[slot=select-value]:truncate @[767px]/card:hidden"
+              className="flex w-40 **:data-[slot=select-value]:block **:data-[slot=select-value]:truncate @[767px]/card:hidden font-sans"
               size="sm"
               aria-label="Select a value"
             >
               <SelectValue placeholder="Last 3 months" />
             </SelectTrigger>
-            <SelectContent className="rounded-xl">
+            <SelectContent className="rounded-xl font-sans">
               <SelectItem value="90d" className="rounded-lg">
                 Last 3 months
               </SelectItem>

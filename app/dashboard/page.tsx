@@ -7,31 +7,27 @@ import {
   SidebarInset,
   SidebarProvider,
 } from "@/components/ui/sidebar"
-import { requireAuth } from "@/lib/requireAuth"
-import { createServerSupabase } from "@/utils/supabase/server"
+import { Metadata } from "next"
+// Temporarily removed auth for public access
 
 import data from "./data.json"
 
-export default async function Page() {
-  const session = await requireAuth()
-  
-  // Fetch user profile data
-  const supabase = await createServerSupabase()
-  const { data: profile } = await supabase
-    .schema('api')
-    .from('seller_profiles')
-    .select('name, email')
-    .eq('id', session.user.id)
-    .single()
+export const metadata: Metadata = {
+  title: "Dashboard | Dropleather Inc.",
+}
 
-  // Prepare user data with fallbacks
+export default async function Page() {
+  // 📂 TEMPORARY PUBLIC ACCESS: Dashboard is now accessible without authentication
+  
+  // Default user data for public access
   const userData = {
-    name: profile?.name || session.user.email?.split('@')[0] || 'User',
-    email: profile?.email || session.user.email || '',
+    name: 'Demo User',
+    email: 'demo@dropleather.com',
     avatar: "/avatars/shadcn.jpg",
   }
   return (
     <SidebarProvider
+      className="font-sans"
       style={
         {
           "--sidebar-width": "calc(var(--spacing) * 72)",

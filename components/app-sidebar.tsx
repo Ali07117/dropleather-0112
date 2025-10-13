@@ -2,20 +2,12 @@
 
 import * as React from "react"
 import {
-  IconDashboard,
-  IconDatabase,
-  IconFileAi,
-  IconFileDescription,
-  IconFileWord,
   IconHelp,
   IconInnerShadowTop,
-  IconPackage,
-  IconPalette,
-  IconReport,
-  IconSearch,
-  IconSettings,
-  IconShoppingCart,
+  IconBook,
 } from "@tabler/icons-react"
+import { MoreHorizontal } from "lucide-react"
+import Image from "next/image"
 
 import { NavDocuments } from "@/components/nav-documents"
 import { NavSecondary } from "@/components/nav-secondary"
@@ -38,7 +30,6 @@ import {
   SidebarMenuSubItem,
   SidebarGroup,
 } from "@/components/ui/sidebar"
-import { Plus, Minus } from "lucide-react"
 
 const data = {
   user: {
@@ -50,12 +41,14 @@ const data = {
     {
       title: "Dashboard",
       url: "/dashboard",
-      icon: IconDashboard,
+      icon: () => <Image src="/images/dashboard.svg" alt="Dashboard" width={20} height={20} />,
+      showCount: false,
     },
     {
       title: "Branding",
       url: "#",
-      icon: IconPalette,
+      icon: () => <Image src="/images/branding.svg" alt="Branding" width={20} height={20} />,
+      showCount: true,
       items: [
         {
           title: "Brand Lab",
@@ -70,7 +63,8 @@ const data = {
     {
       title: "Products",
       url: "#",
-      icon: IconPackage,
+      icon: () => <Image src="/images/products.svg" alt="Products" width={20} height={20} />,
+      showCount: true,
       items: [
         {
           title: "Products Showcase",
@@ -93,7 +87,8 @@ const data = {
     {
       title: "Orders",
       url: "#",
-      icon: IconShoppingCart,
+      icon: () => <Image src="/images/orders.svg" alt="Orders" width={20} height={20} />,
+      showCount: true,
       items: [
         {
           title: "Orders Control",
@@ -108,36 +103,37 @@ const data = {
   ],
   navSecondary: [
     {
-      title: "Settings",
+      title: "Resource Center",
       url: "#",
-      icon: IconSettings,
+      icon: IconBook,
     },
     {
       title: "Get Help",
       url: "#",
       icon: IconHelp,
     },
-    {
-      title: "Search",
-      url: "#",
-      icon: IconSearch,
-    },
   ],
   documents: [
     {
-      name: "Data Library",
+      name: "Integration",
       url: "#",
-      icon: IconDatabase,
+      icon: () => <Image src="/images/integrations.svg" alt="Integration" width={20} height={20} />,
+      showCount: true,
     },
     {
-      name: "Reports",
+      name: "Subscription",
       url: "#",
-      icon: IconReport,
-    },
-    {
-      name: "Word Assistant",
-      url: "#",
-      icon: IconFileWord,
+      icon: () => <Image src="/images/billing.svg" alt="Subscription" width={20} height={20} />,
+      items: [
+        {
+          title: "Subscription Plans",
+          url: "#",
+        },
+        {
+          title: "Billing History",
+          url: "#",
+        },
+      ],
     },
   ],
 }
@@ -153,7 +149,7 @@ export function AppSidebar({
   }
 }) {
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
+    <Sidebar collapsible="offcanvas" className="font-sans font-normal" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -162,37 +158,45 @@ export function AppSidebar({
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
               <a href="#">
-                <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
+                <IconInnerShadowTop className="!size-6" />
+                <span className="text-base font-sans font-semibold">Acme Inc.</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="pt-2">
         <SidebarGroup>
           <SidebarMenu>
             {data.navMain.map((item) => (
               <Collapsible
                 key={item.title}
-                defaultOpen={false}
+                defaultOpen={true}
                 className="group/collapsible"
               >
                 <SidebarMenuItem>
                   {item.items?.length ? (
                     <CollapsibleTrigger asChild>
                       <SidebarMenuButton>
-                        {item.icon && <item.icon />}
-                        {item.title}
-                        <Plus className="ml-auto group-data-[state=open]/collapsible:hidden" />
-                        <Minus className="ml-auto group-data-[state=closed]/collapsible:hidden" />
+                        {item.icon && <item.icon className="!size-5" />}
+                        <span className="text-sm font-sans font-normal">{item.title}</span>
+                        {item.showCount && (
+                          <div className="ml-auto min-w-[16px] max-w-[32px] h-[16px] flex items-center justify-center rounded text-[10px] font-bold px-1" style={{backgroundColor: '#266DF0', color: '#FFFFFF'}}>
+                            {0 > 99 ? '+99' : 0}
+                          </div>
+                        )}
                       </SidebarMenuButton>
                     </CollapsibleTrigger>
                   ) : (
                     <SidebarMenuButton asChild>
                       <a href={item.url}>
-                        {item.icon && <item.icon />}
-                        {item.title}
+                        {item.icon && <item.icon className="!size-5" />}
+                        <span className="text-sm font-sans font-normal">{item.title}</span>
+                        {item.showCount && (
+                          <div className="ml-auto min-w-[16px] max-w-[32px] h-[16px] flex items-center justify-center rounded text-[10px] font-bold px-1" style={{backgroundColor: '#266DF0', color: '#FFFFFF'}}>
+                            {0 > 99 ? '+99' : 0}
+                          </div>
+                        )}
                       </a>
                     </SidebarMenuButton>
                   )}
