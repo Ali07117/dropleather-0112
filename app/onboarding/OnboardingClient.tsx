@@ -603,7 +603,7 @@ const OnboardingPage: React.FC = () => {
                   : "w-9 bg-black rounded-full"
                 : formData.theme === 'dark' 
                   ? "w-2 bg-white rounded-full"
-                  : "w-2 bg-black rounded-full"
+                  : "w-2 bg-black/60 rounded-full"
             )}
           />
         ))}
