@@ -697,7 +697,7 @@ const OnboardingPage: React.FC = () => {
                     black
                   `
               }}
-              className={cn("px-6 py-2.5 mt-0 gap-2 transition-colors duration-300 relative overflow-hidden font-sora font-medium text-base rounded-lg",
+              className={cn("px-6 py-2.5 mt-0 gap-2 transition-colors duration-300 relative overflow-hidden font-sora font-medium text-sm rounded-lg",
                 formData.theme === 'dark' 
                   ? "!text-black" 
                   : "!text-white",
