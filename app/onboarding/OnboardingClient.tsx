@@ -615,14 +615,12 @@ const OnboardingPage: React.FC = () => {
           : "flex items-center justify-center"
       )}>
         {/* Step 1: Choose Style */}
-        <div className={cn("flex flex-col items-center w-full px-4", currentStep === 0 ? "block" : "hidden")}>
-          <h1 className={cn("font-sora font-bold text-2xl sm:text-3xl text-center leading-full mb-8 sm:mb-12 transition-colors duration-300",
-            formData.theme === 'dark' ? 'text-white' : 'text-primary'
-          )}>
+        <div className={cn("flex flex-col items-center justify-center w-full px-4 min-h-[70vh] text-center", currentStep === 0 ? "block" : "hidden")}>
+          <h1 className="font-sora font-semibold text-4xl sm:text-5xl text-center mb-12 transition-colors duration-300 text-black">
             Choose your style
           </h1>
           
-          <div className="flex flex-row gap-3 sm:gap-2.5 justify-center sm:max-w-max">
+          <div className="flex flex-row gap-8 sm:gap-8 justify-center mb-12">
             <button
               type="button"
               onClick={() => handleThemeSelect('dark')}
@@ -659,7 +657,7 @@ const OnboardingPage: React.FC = () => {
           </div>
 
           <motion.div
-            className="inline-block"
+            className="flex justify-center"
           >
             <OnboardingButton
               onClick={async () => {
@@ -699,7 +697,7 @@ const OnboardingPage: React.FC = () => {
                     black
                   `
               }}
-              className={cn("px-6 sm:px-2.5 py-2 mt-16 sm:mt-10 gap-2 transition-colors duration-300 relative overflow-hidden",
+              className={cn("px-8 py-3 mt-0 gap-2 transition-colors duration-300 relative overflow-hidden font-sora font-semibold text-lg rounded-lg",
                 formData.theme === 'dark' 
                   ? "!text-black" 
                   : "!text-white",
@@ -709,7 +707,7 @@ const OnboardingPage: React.FC = () => {
               <motion.span
                 animate={isLoading ? { opacity: [1, 0.5, 1] } : { opacity: 1 }}
                 transition={{ duration: 1, repeat: isLoading ? Infinity : 0 }}
-                className="relative z-10"
+                className="relative z-10 font-sora"
               >
                 {isLoading ? 'Processing...' : 'Continue'}
               </motion.span>
