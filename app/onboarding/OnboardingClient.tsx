@@ -616,7 +616,9 @@ const OnboardingPage: React.FC = () => {
       )}>
         {/* Step 1: Choose Style */}
         <div className={cn("w-full h-full", currentStep === 0 ? "flex flex-col items-center justify-center px-4 text-center" : "hidden")}>
-          <h1 className="font-sora font-semibold text-2xl sm:text-3xl text-center mb-8 transition-colors duration-300 text-black">
+          <h1 className={cn("font-sora font-semibold text-2xl sm:text-3xl text-center mb-8 transition-colors duration-300",
+            formData.theme === 'dark' ? 'text-black' : 'text-black'
+          )}>
             Choose your style
           </h1>
           
