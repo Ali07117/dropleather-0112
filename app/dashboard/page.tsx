@@ -7,10 +7,29 @@ import {
   SidebarInset,
   SidebarProvider,
 } from "@/components/ui/sidebar"
+import { requireAuth } from "@/lib/requireAuth"
+import { createClientSupabase } from "@/utils/supabase/client"
 
 import data from "./data.json"
 
-export default function Page() {
+export default async function Page() {
+  const session = await requireAuth()
+  
+  // Fetch user profile data
+  const supabase = createClientSupabase()
+  const { data: profile } = await supabase
+    .schema('api')
+    .from('seller_profiles')
+    .select('name, email')
+    .eq('id', session.user.id)
+    .single()
+
+  // Prepare user data with fallbacks
+  const userData = {
+    name: profile?.name || session.user.email?.split('@')[0] || 'User',
+    email: profile?.email || session.user.email || '',
+    avatar: "/avatars/shadcn.jpg",
+  }
   return (
     <SidebarProvider
       style={
@@ -20,7 +39,7 @@ export default function Page() {
         } as React.CSSProperties
       }
     >
-      <AppSidebar variant="inset" />
+      <AppSidebar variant="inset" user={userData} />
       <SidebarInset>
         <SiteHeader />
         <div className="flex flex-1 flex-col">

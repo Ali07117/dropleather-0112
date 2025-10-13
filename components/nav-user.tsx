@@ -7,6 +7,7 @@ import {
   IconNotification,
   IconUserCircle,
 } from "@tabler/icons-react"
+import { logout } from "@/app/actions/auth"
 
 import {
   Avatar,
@@ -98,7 +99,12 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem 
+              onClick={async () => {
+                await logout()
+              }}
+              className="cursor-pointer"
+            >
               <IconLogout />
               Log out
             </DropdownMenuItem>
