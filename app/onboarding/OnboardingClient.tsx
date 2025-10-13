@@ -734,8 +734,16 @@ const OnboardingPage: React.FC = () => {
 
           {/* General Error Message */}
           {errors.general && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-md">
-              <p className="text-red-600 text-sm font-medium">{errors.general}</p>
+            <div className="flex items-start gap-1 mt-1 mb-4">
+              <img 
+                className="w-4 h-4 mt-0.5 flex-shrink-0 filter-red" 
+                src="/images/helper.svg" 
+                alt="Error icon"
+                style={{ filter: 'brightness(0) saturate(100%) invert(11%) sepia(100%) saturate(7500%) hue-rotate(0deg) brightness(97%) contrast(107%)' }}
+              />
+              <p className="text-sm text-error font-inter" role="alert">
+                {errors.general}
+              </p>
             </div>
           )}
 
@@ -940,12 +948,12 @@ const OnboardingPage: React.FC = () => {
                 )}
               />
               <label htmlFor="agreeToMarketing" className="flex-1 cursor-pointer">
-                <p className={cn("font-sora text-xs font-normal leading-tight transition-colors duration-300",
+                <p className={cn("font-inter text-xs font-normal leading-tight transition-colors duration-300",
                   formData.theme === 'dark' ? 'text-white' : ''
                 )} style={formData.theme === 'light' ? { color: 'var(--gray-alpha-150)' } : {}}>
                   I want to receive updates, special offers, and promotional emails.
                 </p>
-                <p className={cn("font-sora text-xs font-normal leading-tight mt-1 transition-colors duration-300",
+                <p className={cn("font-inter text-xs font-normal leading-tight mt-1 transition-colors duration-300",
                   formData.theme === 'dark' ? 'text-white' : ''
                 )} style={formData.theme === 'light' ? { color: 'var(--gray-alpha-150)' } : {}}>
                   I understand that I can opt out at any time.
