@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { createClient } from '@/utils/supabase/client'
+import { createClientSupabase } from '@/utils/supabase/client'
 
 interface Product {
   id: string
@@ -39,8 +39,8 @@ export function useProductsRealtime({ onProductChange }: UseProductsRealtimeProp
     async function setupRealtime() {
       try {
         // Dynamically import Supabase client to avoid hydration issues
-        const { createClient } = await import('@/utils/supabase/client')
-        supabase = createClient()
+        const { createClientSupabase } = await import('@/utils/supabase/client')
+        supabase = await createClientSupabase()
 
         // 🚀 Optimized subscription - specific to products table only
         const subscription = supabase

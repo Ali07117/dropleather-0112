@@ -64,7 +64,7 @@ export function NavDocuments({
               {item.items?.length ? (
                 <CollapsibleTrigger asChild>
                   <SidebarMenuButton>
-                    {typeof item.icon === 'function' ? item.icon() : <item.icon className="!size-5" />}
+                    {item.icon && <item.icon />}
                     <span className="text-sm font-sans font-normal">{item.name}</span>
                     {item.showCount && (
                       <div className="ml-auto min-w-[16px] max-w-[32px] h-[16px] flex items-center justify-center rounded text-[10px] font-bold px-1" style={{backgroundColor: '#266DF0', color: '#FFFFFF'}}>
@@ -76,7 +76,7 @@ export function NavDocuments({
               ) : (
                 <SidebarMenuButton asChild>
                   <a href={item.url}>
-                    {typeof item.icon === 'function' ? item.icon() : <item.icon className="!size-5" />}
+                    {item.icon && <item.icon />}
                     <span className="text-sm font-sans font-normal">{item.name}</span>
                     {item.showCount && (
                       <div className="ml-auto min-w-[16px] max-w-[32px] h-[16px] flex items-center justify-center rounded text-[10px] font-bold px-1" style={{backgroundColor: '#266DF0', color: '#FFFFFF'}}>

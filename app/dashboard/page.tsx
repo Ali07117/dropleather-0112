@@ -8,7 +8,8 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar"
 import { Metadata } from "next"
-// Temporarily removed auth for public access
+import { requireAuth } from "@/lib/requireAuth"
+import { createServerSupabase } from "@/utils/supabase/server"
 
 import data from "./data.json"
 
@@ -17,12 +18,21 @@ export const metadata: Metadata = {
 }
 
 export default async function Page() {
-  // 📂 TEMPORARY PUBLIC ACCESS: Dashboard is now accessible without authentication
-  
-  // Default user data for public access
+  const session = await requireAuth()
+
+  // Fetch user profile data
+  const supabase = await createServerSupabase()
+  const { data: profile } = await supabase
+    .schema('api')
+    .from('seller_profiles')
+    .select('name, email')
+    .eq('id', session.user.id)
+    .single()
+
+  // Prepare user data with fallbacks
   const userData = {
-    name: 'Demo User',
-    email: 'demo@dropleather.com',
+    name: profile?.name || session.user.email?.split('@')[0] || 'User',
+    email: profile?.email || session.user.email || '',
     avatar: "/avatars/shadcn.jpg",
   }
   return (

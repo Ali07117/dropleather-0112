@@ -19,8 +19,8 @@ export default async function ProductsShowcasePage() {
   
   // User data from authenticated seller
   const userData = {
-    name: profile.full_name || session.user.email?.split('@')[0] || 'Seller',
-    email: session.user.email || profile.email,
+    name: profile?.full_name || session.user.email?.split('@')[0] || 'Seller',
+    email: session.user.email || profile?.email,
     avatar: "/avatars/shadcn.jpg",
   }
 

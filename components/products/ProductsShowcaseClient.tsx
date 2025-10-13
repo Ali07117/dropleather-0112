@@ -16,7 +16,7 @@ import { useProductsRealtime } from "@/hooks/useProductsRealtime"
 import { ProductsLoading } from "./ProductsLoading"
 import { ProductsError } from "./ProductsError"
 import { ProductsEmpty } from "./ProductsEmpty"
-import { createClient } from "@/utils/supabase/client"
+import { createClientSupabase } from "@/utils/supabase/client"
 
 interface Product {
   id: string
@@ -45,7 +45,7 @@ interface Product {
 // API function to fetch products
 async function fetchActiveProducts(): Promise<Product[]> {
   try {
-    const supabase = createClient()
+    const supabase = await createClientSupabase()
     const { data: { session } } = await supabase.auth.getSession()
     
     if (!session?.access_token) {
@@ -275,8 +275,8 @@ export function ProductsShowcaseClient() {
                       <div key={category} className="flex items-center justify-between">
                         <span className="text-sm font-sans">{category}</span>
                         <Checkbox 
-                          checked={selectedCategories.includes(category)}
-                          onCheckedChange={() => handleCategoryChange(category)}
+                          checked={category ? selectedCategories.includes(category) : false}
+                          onCheckedChange={() => category && handleCategoryChange(category)}
                         />
                       </div>
                     ))}

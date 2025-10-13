@@ -61,7 +61,7 @@ export async function requireSellerAuth() {
     // Check user profile for seller role
     const { data: profile, error: profileError } = await supabase
       .from('user_profiles')
-      .select('id, role, is_active, email')
+      .select('id, role, is_active, email, full_name')
       .eq('id', session.user.id)
       .single()
 
