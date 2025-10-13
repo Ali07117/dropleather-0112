@@ -600,10 +600,10 @@ const OnboardingPage: React.FC = () => {
               currentStep === i
                 ? formData.theme === 'dark'
                   ? "w-9 bg-white rounded-full"
-                  : "w-9 bg-primary rounded-full"
+                  : "w-9 bg-black rounded-full"
                 : formData.theme === 'dark' 
-                  ? "w-2 bg-gray-600 rounded-full"
-                  : "w-2 bg-gray-lightest rounded-full"
+                  ? "w-2 bg-white/40 rounded-full"
+                  : "w-2 bg-black/40 rounded-full"
             )}
           />
         ))}
