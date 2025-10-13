@@ -615,12 +615,12 @@ const OnboardingPage: React.FC = () => {
           : "flex items-center justify-center"
       )}>
         {/* Step 1: Choose Style */}
-        <div className={cn("flex flex-col items-center justify-center w-full px-4 min-h-[70vh] text-center", currentStep === 0 ? "block" : "hidden")}>
-          <h1 className="font-sora font-semibold text-4xl sm:text-5xl text-center mb-12 transition-colors duration-300 text-black">
+        <div className={cn("w-full h-full", currentStep === 0 ? "flex flex-col items-center justify-center px-4 text-center" : "hidden")}>
+          <h1 className="font-sora font-semibold text-2xl sm:text-3xl text-center mb-8 transition-colors duration-300 text-black">
             Choose your style
           </h1>
           
-          <div className="flex flex-row gap-8 sm:gap-8 justify-center mb-12">
+          <div className="flex flex-row gap-6 sm:gap-8 justify-center mb-8">
             <button
               type="button"
               onClick={() => handleThemeSelect('dark')}
@@ -697,7 +697,7 @@ const OnboardingPage: React.FC = () => {
                     black
                   `
               }}
-              className={cn("px-8 py-3 mt-0 gap-2 transition-colors duration-300 relative overflow-hidden font-sora font-semibold text-lg rounded-lg",
+              className={cn("px-6 py-2.5 mt-0 gap-2 transition-colors duration-300 relative overflow-hidden font-sora font-medium text-base rounded-lg",
                 formData.theme === 'dark' 
                   ? "!text-black" 
                   : "!text-white",
