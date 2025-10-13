@@ -741,7 +741,7 @@ const OnboardingPage: React.FC = () => {
 
           <div className="space-y-5">
             <div>
-              <label className={cn("text-sm font-medium block mb-1 transition-colors duration-300",
+              <label className={cn("text-sm font-medium block mb-1 transition-colors duration-300 font-sora",
                 formData.theme === 'dark' ? 'text-white' : 'text-primary'
               )}>
                 What&apos;s your name?
@@ -775,7 +775,7 @@ const OnboardingPage: React.FC = () => {
             </div>
 
             <div>
-              <label className={cn("text-sm font-medium block mb-1 transition-colors duration-300",
+              <label className={cn("text-sm font-medium block mb-1 transition-colors duration-300 font-sora",
                 formData.theme === 'dark' ? 'text-white' : 'text-primary'
               )}>
                 What&apos;s your date of birth?
@@ -940,12 +940,12 @@ const OnboardingPage: React.FC = () => {
                 )}
               />
               <label htmlFor="agreeToMarketing" className="flex-1 cursor-pointer">
-                <p className={cn("font-inter text-xs font-normal leading-tight transition-colors duration-300",
+                <p className={cn("font-sora text-xs font-normal leading-tight transition-colors duration-300",
                   formData.theme === 'dark' ? 'text-white' : ''
                 )} style={formData.theme === 'light' ? { color: 'var(--gray-alpha-150)' } : {}}>
                   I want to receive updates, special offers, and promotional emails.
                 </p>
-                <p className={cn("font-inter text-xs font-normal leading-tight mt-1 transition-colors duration-300",
+                <p className={cn("font-sora text-xs font-normal leading-tight mt-1 transition-colors duration-300",
                   formData.theme === 'dark' ? 'text-white' : ''
                 )} style={formData.theme === 'light' ? { color: 'var(--gray-alpha-150)' } : {}}>
                   I understand that I can opt out at any time.
