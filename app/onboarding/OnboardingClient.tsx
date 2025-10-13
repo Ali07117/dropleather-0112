@@ -797,10 +797,10 @@ const OnboardingPage: React.FC = () => {
                   onChange={handleDateChange('day')}
                   onBlur={handleDayBlur}
                   className={cn(
-                    "w-20 px-3 border rounded-sm h-10 text-base sm:text-sm outline-none bg-transparent transition-colors duration-300",
+                    "w-20 px-3 border rounded-sm h-10 text-base sm:text-sm outline-none bg-transparent transition-colors duration-300 font-sora",
                     formData.theme === 'dark' 
                       ? "border-white text-white focus:border-white placeholder:text-white/60" 
-                      : "border-gray-light text-primary focus:border-primary placeholder:text-primary/60"
+                      : "border-gray-light text-black focus:border-primary placeholder:text-primary/60"
                   )}
                 />
                 
@@ -809,10 +809,10 @@ const OnboardingPage: React.FC = () => {
                     value={formData.dateOfBirth.month}
                     onChange={handleDateChange('month')}
                     className={cn(
-                      "appearance-none w-full px-3 border rounded-sm h-10 text-base sm:text-sm outline-none bg-transparent transition-colors duration-300",
+                      "appearance-none w-full px-3 border rounded-sm h-10 text-base sm:text-sm outline-none bg-transparent transition-colors duration-300 font-sora",
                       formData.theme === 'dark' 
-                        ? "border-white text-white/60 focus:border-white" 
-                        : "border-gray-light text-primary/40 focus:border-primary"
+                        ? "border-white text-white focus:border-white" 
+                        : "border-gray-light text-black focus:border-primary"
                     )}
                   >
                     {MONTHS.map((month, index) => (
@@ -843,10 +843,10 @@ const OnboardingPage: React.FC = () => {
                   value={formData.dateOfBirth.year}
                   onChange={handleDateChange('year')}
                   className={cn(
-                    "w-20 px-3 border rounded-sm h-10 text-base sm:text-sm outline-none bg-transparent transition-colors duration-300",
+                    "w-20 px-3 border rounded-sm h-10 text-base sm:text-sm outline-none bg-transparent transition-colors duration-300 font-sora",
                     formData.theme === 'dark' 
                       ? "border-white text-white focus:border-white placeholder:text-white/60" 
-                      : "border-gray-light text-primary focus:border-primary placeholder:text-primary/60"
+                      : "border-gray-light text-black focus:border-primary placeholder:text-primary/60"
                   )}
                 />
               </div>
