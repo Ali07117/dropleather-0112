@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import {
-  IconCamera,
+  IconBrandAirbnb,
   IconChartBar,
   IconDashboard,
   IconDatabase,
@@ -13,16 +13,29 @@ import {
   IconHelp,
   IconInnerShadowTop,
   IconListDetails,
+  IconPackage,
+  IconPalette,
   IconReport,
+  IconRobot,
   IconSearch,
   IconSettings,
+  IconShoppingCart,
   IconUsers,
+  IconWallet,
+  IconHeart,
+  IconTruck,
+  IconClipboardList,
 } from "@tabler/icons-react"
 
 import { NavDocuments } from "@/components/nav-documents"
 import { NavMain } from "@/components/nav-main"
 import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible"
 import {
   Sidebar,
   SidebarContent,
@@ -31,7 +44,12 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+  SidebarGroup,
 } from "@/components/ui/sidebar"
+import { Plus, Minus } from "lucide-react"
 
 const data = {
   user: {
@@ -42,28 +60,61 @@ const data = {
   navMain: [
     {
       title: "Dashboard",
-      url: "#",
+      url: "/dashboard",
       icon: IconDashboard,
     },
     {
-      title: "Lifecycle",
+      title: "Branding",
       url: "#",
-      icon: IconListDetails,
+      icon: IconPalette,
+      items: [
+        {
+          title: "Brand Lab",
+          url: "#",
+        },
+        {
+          title: "AI Virtual Model",
+          url: "#",
+        },
+      ],
     },
     {
-      title: "Analytics",
+      title: "Products",
       url: "#",
-      icon: IconChartBar,
+      icon: IconPackage,
+      items: [
+        {
+          title: "Products Showcase",
+          url: "#",
+        },
+        {
+          title: "Private Products",
+          url: "#",
+        },
+        {
+          title: "Wishlist",
+          url: "#",
+        },
+        {
+          title: "Shipping Fees",
+          url: "#",
+        },
+      ],
     },
     {
-      title: "Projects",
+      title: "Orders",
       url: "#",
-      icon: IconFolder,
-    },
-    {
-      title: "Team",
-      url: "#",
-      icon: IconUsers,
+      icon: IconShoppingCart,
+      items: [
+        {
+          title: "Orders Control",
+          url: "#",
+        },
+        {
+          title: "Payments History",
+          url: "#",
+        },
+      ],
     },
   ],
   navClouds: [
@@ -178,7 +229,50 @@ export function AppSidebar({
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <SidebarGroup>
+          <SidebarMenu>
+            {data.navMain.map((item, index) => (
+              <Collapsible
+                key={item.title}
+                defaultOpen={false}
+                className="group/collapsible"
+              >
+                <SidebarMenuItem>
+                  {item.items?.length ? (
+                    <CollapsibleTrigger asChild>
+                      <SidebarMenuButton>
+                        {item.icon && <item.icon />}
+                        {item.title}
+                        <Plus className="ml-auto group-data-[state=open]/collapsible:hidden" />
+                        <Minus className="ml-auto group-data-[state=closed]/collapsible:hidden" />
+                      </SidebarMenuButton>
+                    </CollapsibleTrigger>
+                  ) : (
+                    <SidebarMenuButton asChild>
+                      <a href={item.url}>
+                        {item.icon && <item.icon />}
+                        {item.title}
+                      </a>
+                    </SidebarMenuButton>
+                  )}
+                  {item.items?.length ? (
+                    <CollapsibleContent>
+                      <SidebarMenuSub>
+                        {item.items.map((subItem) => (
+                          <SidebarMenuSubItem key={subItem.title}>
+                            <SidebarMenuSubButton asChild>
+                              <a href={subItem.url}>{subItem.title}</a>
+                            </SidebarMenuSubButton>
+                          </SidebarMenuSubItem>
+                        ))}
+                      </SidebarMenuSub>
+                    </CollapsibleContent>
+                  ) : null}
+                </SidebarMenuItem>
+              </Collapsible>
+            ))}
+          </SidebarMenu>
+        </SidebarGroup>
         <NavDocuments items={data.documents} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
