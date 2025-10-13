@@ -203,7 +203,7 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
                               animate="center"
                               exit="exit"
                               transition={{ duration: 0.3, ease: "easeInOut" }}
-                              className="font-sora font-normal text-base lg:text-[18px] leading-5 text-[#EBEBEB] line-through"
+                              className="font-sora font-normal text-base lg:text-[18px] leading-5 text-[#2c2c2c] line-through"
                             >
                               {currency === 'USD' ? '$' : '€'}{plan.originalPrice[billingPeriod]}
                             </motion.span>
