@@ -8,7 +8,7 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar"
 import { requireAuth } from "@/lib/requireAuth"
-import { createClientSupabase } from "@/utils/supabase/client"
+import { createServerSupabase } from "@/utils/supabase/server"
 
 import data from "./data.json"
 
@@ -16,7 +16,7 @@ export default async function Page() {
   const session = await requireAuth()
   
   // Fetch user profile data
-  const supabase = createClientSupabase()
+  const supabase = await createServerSupabase()
   const { data: profile } = await supabase
     .schema('api')
     .from('seller_profiles')

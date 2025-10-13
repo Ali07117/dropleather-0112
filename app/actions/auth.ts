@@ -1,12 +1,12 @@
 'use server'
 
-import { createClientSupabase } from '@/utils/supabase/client'
+import { createServerSupabase } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 
 export async function logout() {
   try {
-    const supabase = createClientSupabase()
+    const supabase = await createServerSupabase()
     
     // Server-side session termination using Supabase auth
     const { error } = await supabase.auth.signOut()
