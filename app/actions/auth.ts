@@ -22,6 +22,6 @@ export async function logout() {
     console.error('Logout process failed:', error)
   }
   
-  // Server-side redirect to login
-  redirect('/login')
+  // Server-side redirect to auth service login
+  redirect('https://auth.dropleather.com/login')
 }
