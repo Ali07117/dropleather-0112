@@ -374,7 +374,7 @@ export function ProductsShowcaseClient() {
                     <div className="px-4 pb-0 pt-6 space-y-0">
                       {/* Category */}
                       <p className="text-xl font-sora font-semibold text-black">
-                        Leather {product.category || 'Product'}
+                        {product.category || 'Uncategorized'}
                       </p>
 
                       {/* Title */}
