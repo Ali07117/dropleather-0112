@@ -55,7 +55,7 @@ async function fetchActiveProducts(): Promise<Product[]> {
 
     console.log('🛍️ [FETCH PRODUCTS] Making API request without auth...')
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/seller/products/active`, {
+    const response = await fetch(`https://api.dropleather.com/v1/seller/products/active`, {
       headers: {
         // 'Authorization': `Bearer ${session.access_token}`,
         'Content-Type': 'application/json'
