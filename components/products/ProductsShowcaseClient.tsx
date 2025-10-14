@@ -45,18 +45,19 @@ interface Product {
 // API function to fetch products
 async function fetchActiveProducts(): Promise<Product[]> {
   try {
-    const supabase = await createClientSupabase()
-    const { data: { session } } = await supabase.auth.getSession()
-    
-    if (!session?.access_token) {
-      throw new Error('No valid session')
-    }
+    // 📂 TEMPORARY: Bypass auth for testing
+    // const supabase = await createClientSupabase()
+    // const { data: { session } } = await supabase.auth.getSession()
+    // 
+    // if (!session?.access_token) {
+    //   throw new Error('No valid session')
+    // }
 
-    console.log('🛍️ [FETCH PRODUCTS] Making API request...')
+    console.log('🛍️ [FETCH PRODUCTS] Making API request without auth...')
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/seller/products/active`, {
       headers: {
-        'Authorization': `Bearer ${session.access_token}`,
+        // 'Authorization': `Bearer ${session.access_token}`,
         'Content-Type': 'application/json'
       }
     })
