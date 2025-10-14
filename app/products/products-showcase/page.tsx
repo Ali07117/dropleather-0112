@@ -14,13 +14,13 @@ export const metadata: Metadata = {
 }
 
 export default async function ProductsShowcasePage() {
-  // Check authentication and seller role
-  const { session, profile } = await requireSellerAuth()
+  // 📂 TEMPORARY PUBLIC ACCESS: Disabled auth for testing
+  // const { session, profile } = await requireSellerAuth()
   
-  // User data from authenticated seller
+  // Default user data for public access
   const userData = {
-    name: profile?.full_name || session.user.email?.split('@')[0] || 'Seller',
-    email: session.user.email || profile?.email,
+    name: 'Demo Seller',
+    email: 'demo@dropleather.com',
     avatar: "/avatars/shadcn.jpg",
   }
 

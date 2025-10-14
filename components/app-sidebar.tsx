@@ -68,7 +68,7 @@ const data = {
       items: [
         {
           title: "Products Showcase",
-          url: "#",
+          url: "/products/products-showcase",
         },
         {
           title: "Private Products",
