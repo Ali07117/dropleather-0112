@@ -14,13 +14,12 @@ export const metadata: Metadata = {
 }
 
 export default async function ProductsShowcasePage() {
-  // 📂 TEMPORARY PUBLIC ACCESS: Disabled auth for testing
-  // const { session, profile } = await requireSellerAuth()
-  
-  // Default user data for public access
+  const { session, profile } = await requireSellerAuth()
+
+  // User data from authenticated seller
   const userData = {
-    name: 'Demo Seller',
-    email: 'demo@dropleather.com',
+    name: profile.full_name || 'Seller',
+    email: profile.email || session.user.email || 'seller@dropleather.com',
     avatar: "/avatars/shadcn.jpg",
   }
 

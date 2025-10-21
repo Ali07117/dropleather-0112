@@ -45,19 +45,18 @@ interface Product {
 // API function to fetch products
 async function fetchActiveProducts(): Promise<Product[]> {
   try {
-    // 📂 TEMPORARY: Bypass auth for testing
-    // const supabase = await createClientSupabase()
-    // const { data: { session } } = await supabase.auth.getSession()
-    // 
-    // if (!session?.access_token) {
-    //   throw new Error('No valid session')
-    // }
+    const supabase = await createClientSupabase()
+    const { data: { session } } = await supabase.auth.getSession()
 
-    console.log('🛍️ [FETCH PRODUCTS] Making API request without auth...')
+    if (!session?.access_token) {
+      throw new Error('No valid session')
+    }
+
+    console.log('🛍️ [FETCH PRODUCTS] Making authenticated API request...')
 
     const response = await fetch(`https://api.dropleather.com/v1/seller/products/active`, {
       headers: {
-        // 'Authorization': `Bearer ${session.access_token}`,
+        'Authorization': `Bearer ${session.access_token}`,
         'Content-Type': 'application/json'
       }
     })
