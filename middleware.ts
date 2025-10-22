@@ -15,6 +15,12 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // BYPASS: Skip middleware for products showcase page
+  if (pathname.includes('/products/products-showcase')) {
+    console.log('🚫 [MIDDLEWARE] BYPASSED for products showcase page');
+    return NextResponse.next();
+  }
+
   // Update Supabase session
   return await updateSession(request);
 }
