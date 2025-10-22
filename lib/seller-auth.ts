@@ -37,10 +37,12 @@ export async function requireSellerAuth() {
   try {
     // Fetch Supabase config
     const configResponse = await fetch('https://api.dropleather.com/v1/config/supabase')
-    if (!configResponse.ok) throw new Error('Failed to fetch config')
-    
+    if (!configResponse.ok) {
+      throw new Error(`Failed to fetch config: ${configResponse.status} ${configResponse.statusText}`)
+    }
+
     const { config } = await configResponse.json()
-    
+
     // Create server client
     const cookieStore = await cookies()
     const supabase = createServerClient(config.url, config.anonKey, {
@@ -54,8 +56,13 @@ export async function requireSellerAuth() {
     const { data: { session }, error } = await supabase.auth.getSession()
 
     if (!session || error) {
-      // Redirect to auth service
-      redirect(`${AUTH_BASE_URL}/login?redirect_to=${encodeURIComponent('https://app.dropleather.com/Products/Products-Showcase')}`)
+      // DEBUG: Show what went wrong instead of redirecting
+      throw new Error(`Session check failed: ${JSON.stringify({
+        hasSession: !!session,
+        sessionError: error?.message,
+        sessionUserId: session?.user?.id,
+        availableCookies: Array.from(cookieStore.getAll()).map(c => c.name)
+      })}`)
     }
 
     // Check user profile for seller role
@@ -67,22 +74,34 @@ export async function requireSellerAuth() {
       .single()
 
     if (profileError || !profile) {
-      console.error('Failed to fetch user profile:', profileError)
-      redirect(`${AUTH_BASE_URL}/access-denied?redirect_to=${encodeURIComponent('https://app.dropleather.com/Products/Products-Showcase')}`)
+      // DEBUG: Show profile error instead of redirecting
+      throw new Error(`Profile check failed: ${JSON.stringify({
+        profileError: profileError?.message,
+        profileCode: profileError?.code,
+        profileDetails: profileError?.details,
+        profileHint: profileError?.hint,
+        hasProfile: !!profile,
+        userId: session.user.id,
+        userEmail: session.user.email
+      })}`)
     }
 
     if (profile.role !== 'seller' || !profile.is_active) {
-      console.log('Access denied - not an active seller:', {
+      // DEBUG: Show role/active status instead of redirecting
+      throw new Error(`Access denied: ${JSON.stringify({
         role: profile.role,
         isActive: profile.is_active,
-        userId: session.user.id
-      })
-      redirect(`${AUTH_BASE_URL}/access-denied?redirect_to=${encodeURIComponent('https://app.dropleather.com/Products/Products-Showcase')}`)
+        userId: session.user.id,
+        userEmail: session.user.email,
+        requiredRole: 'seller',
+        requiredActive: true
+      })}`)
     }
 
     return { session, profile }
   } catch (error) {
-    console.error('Seller auth error:', error)
-    redirect(`${AUTH_BASE_URL}/login?redirect_to=${encodeURIComponent('https://app.dropleather.com/Products/Products-Showcase')}`)
+    console.error('🔍 [SELLER AUTH DEBUG]', error.message)
+    // For now, throw the error to see it on the page instead of redirecting
+    throw error
   }
 }
