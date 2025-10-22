@@ -16,7 +16,7 @@ import { useProductsRealtime } from "@/hooks/useProductsRealtime"
 import { ProductsLoading } from "./ProductsLoading"
 import { ProductsError } from "./ProductsError"
 import { ProductsEmpty } from "./ProductsEmpty"
-import { createClientSupabase } from "@/utils/supabase/client"
+import { createClientSupabase, getCurrentSession } from "@/utils/supabase/client"
 
 interface Product {
   id: string
@@ -42,17 +42,20 @@ interface Product {
   updatedAt: string
 }
 
-// API function to fetch products
+// Professional API function with Supabase automatic session handling
 async function fetchActiveProducts(): Promise<Product[]> {
   try {
-    const supabase = await createClientSupabase()
-    const { data: { session } } = await supabase.auth.getSession()
+    // Get current session (Supabase auto-refreshes if needed)
+    const session = await getCurrentSession()
 
     if (!session?.access_token) {
-      throw new Error('No valid session')
+      console.warn('🔄 [FETCH PRODUCTS] No valid session, redirecting to auth')
+      window.location.href = 'https://auth.dropleather.com/login?redirect_to=' +
+                             encodeURIComponent(window.location.href)
+      throw new Error('Authentication required')
     }
 
-    console.log('🛍️ [FETCH PRODUCTS] Making authenticated API request...')
+    console.log('🛍️ [FETCH PRODUCTS] Making authenticated API request with auto-refreshed token')
 
     const response = await fetch(`https://api.dropleather.com/v1/seller/products/active`, {
       headers: {
@@ -60,23 +63,24 @@ async function fetchActiveProducts(): Promise<Product[]> {
         'Content-Type': 'application/json'
       }
     })
-    
+
     console.log('🛍️ [FETCH PRODUCTS] API response status:', response.status)
-    
+
     if (response.status === 401) {
-      // Token expired - redirect to auth
-      window.location.href = 'https://auth.dropleather.com/login?redirect_to=' + 
+      // This should rarely happen now with auto-refresh, but handle gracefully
+      console.warn('🔄 [FETCH PRODUCTS] Unexpected 401, redirecting to auth')
+      window.location.href = 'https://auth.dropleather.com/login?redirect_to=' +
                              encodeURIComponent(window.location.href)
       throw new Error('Authentication required')
     }
-    
+
     if (!response.ok) {
       throw new Error(`API Error: ${response.status}`)
     }
-    
+
     const data = await response.json()
     console.log('🛍️ [FETCH PRODUCTS] Success:', data.data?.products?.length || 0, 'products')
-    
+
     return data.data?.products || []
   } catch (error) {
     console.error('❌ [FETCH PRODUCTS] Error:', error)
