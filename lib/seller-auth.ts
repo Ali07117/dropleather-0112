@@ -100,7 +100,8 @@ export async function requireSellerAuth() {
 
     return { session, profile }
   } catch (error) {
-    console.error('🔍 [SELLER AUTH DEBUG]', error.message)
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    console.error('🔍 [SELLER AUTH DEBUG]', errorMessage)
     // For now, throw the error to see it on the page instead of redirecting
     throw error
   }
