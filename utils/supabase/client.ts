@@ -1,7 +1,8 @@
-import { createBrowserClient, type SupabaseClient } from '@supabase/ssr';
+import { createBrowserClient } from '@supabase/ssr';
+import type { SupabaseClient } from '@supabase/supabase-js';
 
 // Global client instance - create once, use everywhere
-let supabaseClient: SupabaseClient | null = null;
+let supabaseClient: SupabaseClient<any, 'public', any> | null = null;
 
 /**
  * Professional Supabase Client with Automatic Session Management
@@ -9,7 +10,7 @@ let supabaseClient: SupabaseClient | null = null;
  * - Session persistence across browser refreshes
  * - Proper error handling and auth state changes
  */
-export async function createClientSupabase(): Promise<SupabaseClient> {
+export async function createClientSupabase(): Promise<SupabaseClient<any, 'public', any>> {
   // Return existing client if already created
   if (supabaseClient) {
     return supabaseClient;
