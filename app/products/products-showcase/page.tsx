@@ -14,12 +14,32 @@ export const metadata: Metadata = {
 }
 
 export default async function ProductsShowcasePage() {
-  const { session, profile } = await requireSellerAuth()
+  let session, profile, authError = null;
+
+  try {
+    const result = await requireSellerAuth();
+    session = result.session;
+    profile = result.profile;
+  } catch (error) {
+    authError = error instanceof Error ? error.message : String(error);
+  }
+
+  // Show error if authentication failed
+  if (authError) {
+    return (
+      <div className="p-8">
+        <h1 className="text-2xl font-bold mb-4">Authentication Error</h1>
+        <div className="bg-red-50 border border-red-200 rounded p-4">
+          <pre className="text-sm text-red-800 whitespace-pre-wrap">{authError}</pre>
+        </div>
+      </div>
+    );
+  }
 
   // User data from authenticated seller
   const userData = {
-    name: profile.full_name || 'Seller',
-    email: profile.email || session.user.email || 'seller@dropleather.com',
+    name: profile?.full_name || 'Seller',
+    email: profile?.email || session?.user?.email || 'seller@dropleather.com',
     avatar: "/avatars/shadcn.jpg",
   }
 
