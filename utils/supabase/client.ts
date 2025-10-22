@@ -38,21 +38,7 @@ export async function createClientSupabase(): Promise<SupabaseClient<any, 'publi
           persistSession: true,
           // Detect session in URL (for auth redirects)
           detectSessionInUrl: true,
-          // Storage method for session persistence
-          storage: {
-            getItem: (key: string) => {
-              if (typeof window === 'undefined') return null;
-              return window.localStorage.getItem(key);
-            },
-            setItem: (key: string, value: string) => {
-              if (typeof window === 'undefined') return;
-              window.localStorage.setItem(key, value);
-            },
-            removeItem: (key: string) => {
-              if (typeof window === 'undefined') return;
-              window.localStorage.removeItem(key);
-            },
-          },
+          // Let Supabase handle storage - will use cookies by default with SSR
         },
         // Cookie handling for SSR compatibility
         cookies: {
