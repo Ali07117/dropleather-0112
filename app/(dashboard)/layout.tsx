@@ -1,19 +1,13 @@
 import { AppSidebar } from "@/components/app-sidebar"
-import { SiteHeader } from "@/components/site-header"
-import { ProductsShowcaseClient } from "@/components/products/ProductsShowcaseClient"
-import {
-  SidebarInset,
-  SidebarProvider,
-} from "@/components/ui/sidebar"
-import { Metadata } from "next"
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 import { requireSellerAuth } from "@/lib/seller-auth"
 import { QueryProvider } from "@/providers/query-provider"
 
-export const metadata: Metadata = {
-  title: "Products Showcase | Dropleather Inc.",
-}
-
-export default async function ProductsShowcasePage() {
+export default async function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   let session, profile, authError = null;
 
   try {
@@ -36,9 +30,9 @@ export default async function ProductsShowcasePage() {
     );
   }
 
-  // User data from authenticated seller
+  // Prepare user data with fallbacks
   const userData = {
-    name: profile?.full_name || 'Seller',
+    name: profile?.full_name || session?.user?.email?.split('@')[0] || 'Seller',
     email: profile?.email || session?.user?.email || 'seller@dropleather.com',
     avatar: "/avatars/shadcn.jpg",
   }
@@ -56,10 +50,7 @@ export default async function ProductsShowcasePage() {
       >
         <AppSidebar variant="inset" user={userData} />
         <SidebarInset>
-          <SiteHeader title="Products Showcase" />
-          <div className="flex flex-1 flex-col">
-            <ProductsShowcaseClient />
-          </div>
+          {children}
         </SidebarInset>
       </SidebarProvider>
     </QueryProvider>
