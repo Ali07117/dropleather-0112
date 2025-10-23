@@ -65,36 +65,48 @@ export async function requireSellerAuth() {
       })}`)
     }
 
-    // Check user profile for seller role
-    const { data: profile, error: profileError } = await supabase
+    // Check user role from user_profiles
+    const { data: userProfile, error: userError } = await supabase
       .schema('api')
       .from('user_profiles')
-      .select('id, role, is_active, email, full_name')
+      .select('role, is_active')
       .eq('id', session.user.id)
       .single()
 
-    if (profileError || !profile) {
-      // DEBUG: Show profile error instead of redirecting
-      throw new Error(`Profile check failed: ${JSON.stringify({
-        profileError: profileError?.message,
-        profileCode: profileError?.code,
-        profileDetails: profileError?.details,
-        profileHint: profileError?.hint,
-        hasProfile: !!profile,
+    if (userError || !userProfile) {
+      throw new Error(`User profile check failed: ${JSON.stringify({
+        userError: userError?.message,
+        hasUserProfile: !!userProfile,
         userId: session.user.id,
         userEmail: session.user.email
       })}`)
     }
 
-    if (profile.role !== 'seller' || !profile.is_active) {
-      // DEBUG: Show role/active status instead of redirecting
+    if (userProfile.role !== 'seller' || !userProfile.is_active) {
       throw new Error(`Access denied: ${JSON.stringify({
-        role: profile.role,
-        isActive: profile.is_active,
+        role: userProfile.role,
+        isActive: userProfile.is_active,
         userId: session.user.id,
         userEmail: session.user.email,
         requiredRole: 'seller',
         requiredActive: true
+      })}`)
+    }
+
+    // Fetch seller display data from seller_profiles
+    const { data: profile, error: profileError } = await supabase
+      .schema('api')
+      .from('seller_profiles')
+      .select('name, email, subscription_plan')
+      .eq('id', session.user.id)
+      .single()
+
+    if (profileError || !profile) {
+      throw new Error(`Seller profile check failed: ${JSON.stringify({
+        profileError: profileError?.message,
+        hasProfile: !!profile,
+        userId: session.user.id,
+        userEmail: session.user.email
       })}`)
     }
 

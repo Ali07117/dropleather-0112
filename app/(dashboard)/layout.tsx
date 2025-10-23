@@ -32,9 +32,10 @@ export default async function DashboardLayout({
 
   // Prepare user data with fallbacks
   const userData = {
-    name: profile?.full_name || session?.user?.email?.split('@')[0] || 'Seller',
+    name: profile?.name || session?.user?.email?.split('@')[0] || 'Seller',
     email: profile?.email || session?.user?.email || 'seller@dropleather.com',
     avatar: "/avatars/shadcn.jpg",
+    subscription_plan: profile?.subscription_plan || 'free',
   }
 
   return (
