@@ -37,9 +37,41 @@ export function NavUser({
     name: string
     email: string
     avatar: string
+    subscription_plan?: string
   }
 }) {
   const { isMobile } = useSidebar()
+
+  // Get subscription plan badge styles
+  const getSubscriptionBadge = (plan?: string) => {
+    const planLower = plan?.toLowerCase() || 'free'
+
+    const styles = {
+      free: {
+        bg: 'transparent',
+        text: 'text-muted-foreground',
+        border: 'border border-muted-foreground/30'
+      },
+      professional: {
+        bg: 'bg-blue-500',
+        text: 'text-white',
+        border: ''
+      },
+      enterprise: {
+        bg: 'bg-purple-500',
+        text: 'text-white',
+        border: ''
+      }
+    }
+
+    const style = styles[planLower as keyof typeof styles] || styles.free
+    const displayName = planLower === 'professional' ? 'Pro' :
+                       planLower.charAt(0).toUpperCase() + planLower.slice(1)
+
+    return { style, displayName }
+  }
+
+  const { style: badgeStyle, displayName } = getSubscriptionBadge(user.subscription_plan)
 
   return (
     <SidebarMenu>
@@ -55,7 +87,12 @@ export function NavUser({
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{user.name}</span>
+                <div className="flex items-center gap-2">
+                  <span className="truncate font-medium">{user.name}</span>
+                  <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${badgeStyle.bg} ${badgeStyle.text} ${badgeStyle.border}`}>
+                    {displayName}
+                  </span>
+                </div>
                 <span className="text-muted-foreground truncate text-xs">
                   {user.email}
                 </span>
@@ -76,7 +113,12 @@ export function NavUser({
                   <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{user.name}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="truncate font-medium">{user.name}</span>
+                    <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${badgeStyle.bg} ${badgeStyle.text} ${badgeStyle.border}`}>
+                      {displayName}
+                    </span>
+                  </div>
                   <span className="text-muted-foreground truncate text-xs">
                     {user.email}
                   </span>

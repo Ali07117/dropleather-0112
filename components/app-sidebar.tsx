@@ -146,6 +146,7 @@ export function AppSidebar({
     name: string
     email: string
     avatar: string
+    subscription_plan?: string
   }
 }) {
   return (
