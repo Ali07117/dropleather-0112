@@ -67,7 +67,7 @@ export function NavDocuments({
                     {item.icon && <item.icon />}
                     <span className="text-sm font-sans font-normal">{item.name}</span>
                     {item.showCount && (
-                      <div className="ml-auto min-w-[16px] max-w-[32px] h-[16px] flex items-center justify-center rounded text-[10px] font-bold px-1" style={{backgroundColor: '#266DF0', color: '#FFFFFF'}}>
+                      <div className="ml-auto min-w-[16px] max-w-[32px] h-[16px] flex items-center justify-center rounded text-[10px] font-bold px-1 bg-sidebar-accent text-sidebar-accent-foreground">
                         {0 > 99 ? '+99' : 0}
                       </div>
                     )}
@@ -79,7 +79,7 @@ export function NavDocuments({
                     {item.icon && <item.icon />}
                     <span className="text-sm font-sans font-normal">{item.name}</span>
                     {item.showCount && (
-                      <div className="ml-auto min-w-[16px] max-w-[32px] h-[16px] flex items-center justify-center rounded text-[10px] font-bold px-1" style={{backgroundColor: '#266DF0', color: '#FFFFFF'}}>
+                      <div className="ml-auto min-w-[16px] max-w-[32px] h-[16px] flex items-center justify-center rounded text-[10px] font-bold px-1 bg-sidebar-accent text-sidebar-accent-foreground">
                         {0 > 99 ? '+99' : 0}
                       </div>
                     )}

@@ -14,7 +14,7 @@ export function SectionCards() {
   return (
     <div className="space-y-8">
       {/* First Row - 4 Cards */}
-      <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-4 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs lg:px-6">
+      <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs lg:px-6">
         <Card className="@container/card">
           <CardHeader>
             <CardDescription className="font-sans">Total Orders</CardDescription>
@@ -22,7 +22,7 @@ export function SectionCards() {
               1,234
             </CardTitle>
             <CardAction>
-              <Badge variant="outline" style={{color: '#266DF0', borderColor: '#266DF0'}}>
+              <Badge variant="outline">
                 <IconTrendingUp />
                 +12.5%
               </Badge>
@@ -44,7 +44,7 @@ export function SectionCards() {
               $45,230
             </CardTitle>
             <CardAction>
-              <Badge variant="outline" style={{color: '#266DF0', borderColor: '#266DF0'}}>
+              <Badge variant="outline">
                 <IconTrendingUp />
                 +8.2%
               </Badge>
@@ -66,7 +66,7 @@ export function SectionCards() {
               $12,580
             </CardTitle>
             <CardAction>
-              <Badge variant="outline" style={{color: '#266DF0', borderColor: '#266DF0'}}>
+              <Badge variant="outline">
                 <IconTrendingUp />
                 +15.3%
               </Badge>
@@ -86,7 +86,7 @@ export function SectionCards() {
               $36.70
             </CardTitle>
             <CardAction>
-              <Badge variant="outline" style={{color: '#266DF0', borderColor: '#266DF0'}}>
+              <Badge variant="outline">
                 <IconTrendingUp />
                 +4.1%
               </Badge>
@@ -102,7 +102,7 @@ export function SectionCards() {
       </div>
 
       {/* Second Row - 4 Cards */}
-      <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-4 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs lg:px-6">
+      <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs lg:px-6">
         <Card className="@container/card">
           <CardHeader>
             <CardDescription className="font-sans">Processing Orders</CardDescription>
@@ -110,7 +110,7 @@ export function SectionCards() {
               89
             </CardTitle>
             <CardAction>
-              <Badge variant="outline" style={{color: '#266DF0', borderColor: '#266DF0'}}>
+              <Badge variant="outline">
                 <IconTrendingUp />
                 +5.2%
               </Badge>
@@ -132,7 +132,7 @@ export function SectionCards() {
               543
             </CardTitle>
             <CardAction>
-              <Badge variant="outline" style={{color: '#266DF0', borderColor: '#266DF0'}}>
+              <Badge variant="outline">
                 <IconTrendingUp />
                 +12.8%
               </Badge>
@@ -154,7 +154,7 @@ export function SectionCards() {
               1,156
             </CardTitle>
             <CardAction>
-              <Badge variant="outline" style={{color: '#266DF0', borderColor: '#266DF0'}}>
+              <Badge variant="outline">
                 <IconTrendingUp />
                 +18.7%
               </Badge>
@@ -174,7 +174,7 @@ export function SectionCards() {
               23
             </CardTitle>
             <CardAction>
-              <Badge variant="outline" style={{color: '#266DF0', borderColor: '#266DF0'}}>
+              <Badge variant="outline">
                 <IconTrendingDown />
                 -2.1%
               </Badge>

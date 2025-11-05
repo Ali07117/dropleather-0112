@@ -48,11 +48,12 @@ const data = {
       title: "Branding",
       url: "#",
       icon: () => <Image src="/images/branding.svg" alt="Branding" width={20} height={20} />,
-      showCount: true,
+      showCount: false,
       items: [
         {
           title: "Brand Lab",
           url: "#",
+          showCount: true,
         },
         {
           title: "AI Virtual Model",
@@ -64,19 +65,22 @@ const data = {
       title: "Products",
       url: "#",
       icon: () => <Image src="/images/products.svg" alt="Products" width={20} height={20} />,
-      showCount: true,
+      showCount: false,
       items: [
         {
           title: "Products Showcase",
           url: "/products/products-showcase",
+          showCount: true,
         },
         {
           title: "Private Products",
           url: "#",
+          showCount: true,
         },
         {
           title: "Wishlist",
           url: "#",
+          showCount: true,
         },
         {
           title: "Shipping Fees",
@@ -88,11 +92,12 @@ const data = {
       title: "Orders",
       url: "#",
       icon: () => <Image src="/images/orders.svg" alt="Orders" width={20} height={20} />,
-      showCount: true,
+      showCount: false,
       items: [
         {
           title: "Orders Control",
           url: "#",
+          showCount: true,
         },
         {
           title: "Payments History",
@@ -160,7 +165,7 @@ export function AppSidebar({
             >
               <a href="#">
                 <IconInnerShadowTop className="!size-6" />
-                <span className="text-base font-sans font-semibold">Acme Inc.</span>
+                <span className="text-base font-sans font-semibold">DropLeather Inc.</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -182,7 +187,7 @@ export function AppSidebar({
                         {item.icon && <item.icon />}
                         <span className="text-sm font-sans font-normal">{item.title}</span>
                         {item.showCount && (
-                          <div className="ml-auto min-w-[16px] max-w-[32px] h-[16px] flex items-center justify-center rounded text-[10px] font-bold px-1" style={{backgroundColor: '#266DF0', color: '#FFFFFF'}}>
+                          <div className="ml-auto min-w-[16px] max-w-[32px] h-[16px] flex items-center justify-center rounded text-[10px] font-bold px-1 bg-sidebar-accent text-sidebar-accent-foreground">
                             {0 > 99 ? '+99' : 0}
                           </div>
                         )}
@@ -194,7 +199,7 @@ export function AppSidebar({
                         {item.icon && <item.icon />}
                         <span className="text-sm font-sans font-normal">{item.title}</span>
                         {item.showCount && (
-                          <div className="ml-auto min-w-[16px] max-w-[32px] h-[16px] flex items-center justify-center rounded text-[10px] font-bold px-1" style={{backgroundColor: '#266DF0', color: '#FFFFFF'}}>
+                          <div className="ml-auto min-w-[16px] max-w-[32px] h-[16px] flex items-center justify-center rounded text-[10px] font-bold px-1 bg-sidebar-accent text-sidebar-accent-foreground">
                             {0 > 99 ? '+99' : 0}
                           </div>
                         )}
@@ -207,7 +212,14 @@ export function AppSidebar({
                         {item.items.map((subItem) => (
                           <SidebarMenuSubItem key={subItem.title}>
                             <SidebarMenuSubButton asChild>
-                              <a href={subItem.url}>{subItem.title}</a>
+                              <a href={subItem.url}>
+                                {subItem.title}
+                                {subItem.showCount && (
+                                  <div className="ml-auto min-w-[16px] max-w-[32px] h-[16px] flex items-center justify-center rounded text-[10px] font-bold px-1 bg-sidebar-accent text-sidebar-accent-foreground">
+                                    {0 > 99 ? '+99' : 0}
+                                  </div>
+                                )}
+                              </a>
                             </SidebarMenuSubButton>
                           </SidebarMenuSubItem>
                         ))}
