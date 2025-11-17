@@ -31,16 +31,12 @@ export const useSubscription = (): SubscriptionContextType => {
 }
 
 export const createSubscriptionValue = (userPlan: string): SubscriptionContextType => {
-  console.log('DEBUG: Raw userPlan:', userPlan, 'Type:', typeof userPlan)
   const plan = (userPlan?.toLowerCase() || 'free') as SubscriptionPlan
-  console.log('DEBUG: Processed plan:', plan)
   const isLoading = false
 
   const hasFeature = (feature: string): boolean => {
     const allowedPlans = FEATURE_ACCESS[feature]
-    const hasAccess = allowedPlans ? allowedPlans.includes(plan) : true
-    console.log('DEBUG: hasFeature check - feature:', feature, 'plan:', plan, 'allowedPlans:', allowedPlans, 'hasAccess:', hasAccess)
-    return hasAccess
+    return allowedPlans ? allowedPlans.includes(plan) : true
   }
 
   const canAccess = (feature: string): boolean => {
