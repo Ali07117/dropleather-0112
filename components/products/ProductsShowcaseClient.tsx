@@ -33,7 +33,7 @@ interface Product {
   categoryId?: string
   images: Array<{
     id: string
-    url: string
+    image_path: string
     isPrimary: boolean
     altText?: string
     position: number
@@ -355,7 +355,7 @@ export function ProductsShowcaseClient() {
                     <div className="relative w-full h-[238px] flex items-center justify-center">
                       <div className="relative">
                         <img
-                          src={product.images.find(img => img.isPrimary)?.url || product.images[0]?.url || "/images/product.png"}
+                          src={product.images.find(img => img.isPrimary)?.image_path || product.images[0]?.image_path || "/images/product.png"}
                           alt={product.title}
                           className="max-w-full max-h-full object-contain"
                           width={251}
