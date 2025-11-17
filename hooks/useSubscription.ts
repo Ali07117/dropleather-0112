@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react'
 
-export type SubscriptionPlan = 'free' | 'pro' | 'enterprise'
+export type SubscriptionPlan = 'free' | 'professional' | 'enterprise'
 
 interface SubscriptionContextType {
   plan: SubscriptionPlan
@@ -13,11 +13,11 @@ interface SubscriptionContextType {
 
 // Feature access mapping - Free users get NONE of these features
 const FEATURE_ACCESS: Record<string, SubscriptionPlan[]> = {
-  'branding': ['pro', 'enterprise'],
-  'brand-lab-ai': ['pro', 'enterprise'],
-  'virtual-model': ['pro', 'enterprise'],
-  'private-products': ['pro', 'enterprise'],
-  'integration': ['pro', 'enterprise']
+  'branding': ['professional', 'enterprise'],
+  'brand-lab-ai': ['professional', 'enterprise'],
+  'virtual-model': ['professional', 'enterprise'],
+  'private-products': ['professional', 'enterprise'],
+  'integration': ['professional', 'enterprise']
 }
 
 const SubscriptionContext = createContext<SubscriptionContextType | undefined>(undefined)
@@ -31,12 +31,16 @@ export const useSubscription = (): SubscriptionContextType => {
 }
 
 export const createSubscriptionValue = (userPlan: string): SubscriptionContextType => {
+  console.log('DEBUG: Raw userPlan:', userPlan, 'Type:', typeof userPlan)
   const plan = (userPlan?.toLowerCase() || 'free') as SubscriptionPlan
+  console.log('DEBUG: Processed plan:', plan)
   const isLoading = false
 
   const hasFeature = (feature: string): boolean => {
     const allowedPlans = FEATURE_ACCESS[feature]
-    return allowedPlans ? allowedPlans.includes(plan) : true
+    const hasAccess = allowedPlans ? allowedPlans.includes(plan) : true
+    console.log('DEBUG: hasFeature check - feature:', feature, 'plan:', plan, 'allowedPlans:', allowedPlans, 'hasAccess:', hasAccess)
+    return hasAccess
   }
 
   const canAccess = (feature: string): boolean => {
@@ -44,7 +48,7 @@ export const createSubscriptionValue = (userPlan: string): SubscriptionContextTy
   }
 
   const isFreePlan = plan === 'free'
-  const isPaidPlan = plan === 'pro' || plan === 'enterprise'
+  const isPaidPlan = plan === 'professional' || plan === 'enterprise'
 
   return {
     plan,
