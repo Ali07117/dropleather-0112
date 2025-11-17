@@ -37,7 +37,7 @@ export default function AccountDetailsPage() {
             </div>
             
             {/* Save Button Section */}
-            <div className="border border-[#EAEAEA] rounded-lg p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+            <div className="bg-[#F9F9F9] border border-[#EAEAEA] rounded-lg px-4 h-[43px] flex flex-row items-center justify-between gap-4 mb-8">
               <p className="font-['Sora'] text-sm text-gray-700">Happy with the changes? Just press save.</p>
               <Button 
                 onClick={handleSave}
