@@ -117,7 +117,7 @@ export function BusinessInfoSection({ data, onChange }: BusinessInfoSectionProps
         </div>
 
         {/* Delete Workspace Section */}
-        <div className="mt-8 border border-red-300 bg-red-50 rounded-lg p-4 flex flex-row items-center justify-between gap-4">
+        <div className="mt-8 border border-[#F65351] bg-transparent rounded-[7px] p-4 flex flex-row items-center justify-between gap-4">
           <div>
             <h3 className="font-['Sora'] text-sm font-medium text-red-800">Delete Workspace</h3>
             <p className="font-['Inter'] text-xs text-red-600 mt-1">
@@ -125,7 +125,7 @@ export function BusinessInfoSection({ data, onChange }: BusinessInfoSectionProps
             </p>
           </div>
           <Button 
-            className="bg-transparent hover:bg-red-50 border border-[#F65351] text-[#F65351] font-['Inter'] text-sm font-medium h-[28px] w-auto rounded-[7px] flex items-center gap-2"
+            className="bg-[#F65351] hover:bg-red-600 border border-[#C03634] text-white font-['Inter'] text-sm font-medium h-[28px] w-auto rounded-[9.85px] flex items-center gap-2"
           >
             <Image 
               src="/images/trash.svg" 
