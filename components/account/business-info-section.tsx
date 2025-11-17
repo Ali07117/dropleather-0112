@@ -125,15 +125,15 @@ export function BusinessInfoSection({ data, onChange }: BusinessInfoSectionProps
             </p>
           </div>
           <Button 
-            className="bg-[#F65351] hover:bg-red-600 border border-[#C03634] text-white font-['Inter'] text-sm font-medium flex items-center gap-2"
+            className="bg-transparent hover:bg-red-50 border border-[#F65351] text-[#F65351] font-['Inter'] text-sm font-medium h-[28px] w-auto rounded-[7px] flex items-center gap-2"
           >
             <Image 
               src="/images/trash.svg" 
               alt="Delete" 
-              width={16} 
-              height={16} 
+              width={20} 
+              height={20} 
             />
-            Delete
+            Delete workspace
           </Button>
         </div>
       </div>
