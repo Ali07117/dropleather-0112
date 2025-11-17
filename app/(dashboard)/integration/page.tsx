@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useSubscription } from "@/hooks/useSubscription"
 
 export default function IntegrationPage() {

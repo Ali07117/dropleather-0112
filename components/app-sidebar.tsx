@@ -6,7 +6,7 @@ import {
   IconInnerShadowTop,
   IconBook,
 } from "@tabler/icons-react"
-import { MoreHorizontal, Lock } from "lucide-react"
+import { Lock } from "lucide-react"
 import Image from "next/image"
 
 import { NavDocuments } from "@/components/nav-documents"
@@ -161,7 +161,7 @@ export function AppSidebar({
     subscription_plan?: string
   }
 }) {
-  const { hasFeature, isFreePlan } = useSubscription()
+  const { hasFeature } = useSubscription()
 
   const handleRestrictedClick = (e: React.MouseEvent, feature: string) => {
     if (!hasFeature(feature)) {
@@ -171,7 +171,13 @@ export function AppSidebar({
     }
   }
 
-  const renderMenuItem = (item: any, isSubItem = false) => {
+  const renderMenuItem = (item: {
+    title: string;
+    url: string;
+    icon?: () => React.ReactNode;
+    requiresFeature?: string;
+    showCount?: boolean;
+  }, isSubItem = false) => {
     const isRestricted = item.requiresFeature && !hasFeature(item.requiresFeature)
     const MenuComponent = isSubItem ? SidebarMenuSubButton : SidebarMenuButton
     const tooltipMessage = isRestricted ? `Upgrade to Pro to unlock ${item.title}` : ""
@@ -257,7 +263,12 @@ export function AppSidebar({
                     {item.items?.length ? (
                       <CollapsibleContent>
                         <SidebarMenuSub>
-                          {item.items.map((subItem: any) => (
+                          {item.items.map((subItem: {
+                            title: string;
+                            url: string;
+                            requiresFeature?: string;
+                            showCount?: boolean;
+                          }) => (
                             <SidebarMenuSubItem key={subItem.title}>
                               {renderMenuItem(subItem, true)}
                             </SidebarMenuSubItem>
