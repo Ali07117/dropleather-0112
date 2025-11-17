@@ -6,12 +6,14 @@ import {
   IconInnerShadowTop,
   IconBook,
 } from "@tabler/icons-react"
-import { MoreHorizontal } from "lucide-react"
+import { MoreHorizontal, Lock } from "lucide-react"
 import Image from "next/image"
 
 import { NavDocuments } from "@/components/nav-documents"
 import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
+import { useSubscription } from "@/hooks/useSubscription"
+import { DisabledTooltip } from "@/components/ui/disabled-tooltip"
 import {
   Collapsible,
   CollapsibleContent,
@@ -49,15 +51,18 @@ const data = {
       url: "#",
       icon: () => <Image src="/images/branding.svg" alt="Branding" width={20} height={20} />,
       showCount: false,
+      requiresFeature: "branding",
       items: [
         {
           title: "Brand Lab",
-          url: "#",
+          url: "/branding/brand-lab",
           showCount: true,
+          requiresFeature: "brand-lab-ai",
         },
         {
           title: "AI Virtual Model",
-          url: "#",
+          url: "/branding/virtual-model",
+          requiresFeature: "virtual-model",
         },
       ],
     },
@@ -74,8 +79,9 @@ const data = {
         },
         {
           title: "Private Products",
-          url: "#",
+          url: "/products/private-products",
           showCount: true,
+          requiresFeature: "private-products",
         },
         {
           title: "Wishlist",
@@ -121,9 +127,10 @@ const data = {
   documents: [
     {
       name: "Integration",
-      url: "#",
+      url: "/integration",
       icon: () => <Image src="/images/integrations.svg" alt="Integration" width={20} height={20} />,
       showCount: true,
+      requiresFeature: "integration",
     },
     {
       name: "Subscription",
@@ -132,7 +139,7 @@ const data = {
       items: [
         {
           title: "Subscription Plans",
-          url: "#",
+          url: "/subscription-plan",
         },
         {
           title: "Billing History",
@@ -154,6 +161,62 @@ export function AppSidebar({
     subscription_plan?: string
   }
 }) {
+  const { hasFeature, isFreePlan } = useSubscription()
+
+  const handleRestrictedClick = (e: React.MouseEvent, feature: string) => {
+    if (!hasFeature(feature)) {
+      e.preventDefault()
+      // Redirect to subscription page
+      window.location.href = `/subscription-plan?feature=${feature}`
+    }
+  }
+
+  const renderMenuItem = (item: any, isSubItem = false) => {
+    const isRestricted = item.requiresFeature && !hasFeature(item.requiresFeature)
+    const MenuComponent = isSubItem ? SidebarMenuSubButton : SidebarMenuButton
+    const tooltipMessage = isRestricted ? `Upgrade to Pro to unlock ${item.title}` : ""
+
+    const menuButton = (
+      <MenuComponent
+        asChild={!isRestricted}
+        className={isRestricted ? "text-gray-400 cursor-not-allowed" : ""}
+        disabled={isRestricted}
+      >
+        {isRestricted ? (
+          <div
+            className="flex items-center gap-2 w-full"
+            onClick={(e) => handleRestrictedClick(e, item.requiresFeature)}
+          >
+            {!isSubItem && item.icon && <item.icon />}
+            <span className="text-sm font-sans font-normal">{item.title}</span>
+            {isRestricted && <Lock className="w-3 h-3 ml-auto" />}
+            {item.showCount && !isRestricted && (
+              <div className="ml-auto min-w-[16px] max-w-[32px] h-[16px] flex items-center justify-center rounded text-[10px] font-bold px-1 bg-sidebar-accent text-sidebar-accent-foreground">
+                {0 > 99 ? '+99' : 0}
+              </div>
+            )}
+          </div>
+        ) : (
+          <a href={item.url}>
+            {!isSubItem && item.icon && <item.icon />}
+            <span className="text-sm font-sans font-normal">{item.title}</span>
+            {item.showCount && (
+              <div className="ml-auto min-w-[16px] max-w-[32px] h-[16px] flex items-center justify-center rounded text-[10px] font-bold px-1 bg-sidebar-accent text-sidebar-accent-foreground">
+                {0 > 99 ? '+99' : 0}
+              </div>
+            )}
+          </a>
+        )}
+      </MenuComponent>
+    )
+
+    return isRestricted ? (
+      <DisabledTooltip disabled={true} message={tooltipMessage}>
+        {menuButton}
+      </DisabledTooltip>
+    ) : menuButton
+  }
+
   return (
     <Sidebar collapsible="offcanvas" className="font-sans font-normal" {...props}>
       <SidebarHeader>
@@ -174,61 +237,38 @@ export function AppSidebar({
       <SidebarContent className="pt-2">
         <SidebarGroup>
           <SidebarMenu>
-            {data.navMain.map((item) => (
-              <Collapsible
-                key={item.title}
-                defaultOpen={true}
-                className="group/collapsible"
-              >
-                <SidebarMenuItem>
-                  {item.items?.length ? (
-                    <CollapsibleTrigger asChild>
-                      <SidebarMenuButton>
-                        {item.icon && <item.icon />}
-                        <span className="text-sm font-sans font-normal">{item.title}</span>
-                        {item.showCount && (
-                          <div className="ml-auto min-w-[16px] max-w-[32px] h-[16px] flex items-center justify-center rounded text-[10px] font-bold px-1 bg-sidebar-accent text-sidebar-accent-foreground">
-                            {0 > 99 ? '+99' : 0}
-                          </div>
-                        )}
-                      </SidebarMenuButton>
-                    </CollapsibleTrigger>
-                  ) : (
-                    <SidebarMenuButton asChild>
-                      <a href={item.url}>
-                        {item.icon && <item.icon />}
-                        <span className="text-sm font-sans font-normal">{item.title}</span>
-                        {item.showCount && (
-                          <div className="ml-auto min-w-[16px] max-w-[32px] h-[16px] flex items-center justify-center rounded text-[10px] font-bold px-1 bg-sidebar-accent text-sidebar-accent-foreground">
-                            {0 > 99 ? '+99' : 0}
-                          </div>
-                        )}
-                      </a>
-                    </SidebarMenuButton>
-                  )}
-                  {item.items?.length ? (
-                    <CollapsibleContent>
-                      <SidebarMenuSub>
-                        {item.items.map((subItem) => (
-                          <SidebarMenuSubItem key={subItem.title}>
-                            <SidebarMenuSubButton asChild>
-                              <a href={subItem.url}>
-                                {subItem.title}
-                                {subItem.showCount && (
-                                  <div className="ml-auto min-w-[16px] max-w-[32px] h-[16px] flex items-center justify-center rounded text-[10px] font-bold px-1 bg-sidebar-accent text-sidebar-accent-foreground">
-                                    {0 > 99 ? '+99' : 0}
-                                  </div>
-                                )}
-                              </a>
-                            </SidebarMenuSubButton>
-                          </SidebarMenuSubItem>
-                        ))}
-                      </SidebarMenuSub>
-                    </CollapsibleContent>
-                  ) : null}
-                </SidebarMenuItem>
-              </Collapsible>
-            ))}
+            {data.navMain.map((item) => {
+              const isRestricted = item.requiresFeature && !hasFeature(item.requiresFeature)
+              
+              return (
+                <Collapsible
+                  key={item.title}
+                  defaultOpen={true}
+                  className="group/collapsible"
+                >
+                  <SidebarMenuItem>
+                    {item.items?.length ? (
+                      <CollapsibleTrigger asChild disabled={isRestricted}>
+                        {renderMenuItem(item)}
+                      </CollapsibleTrigger>
+                    ) : (
+                      renderMenuItem(item)
+                    )}
+                    {item.items?.length ? (
+                      <CollapsibleContent>
+                        <SidebarMenuSub>
+                          {item.items.map((subItem: any) => (
+                            <SidebarMenuSubItem key={subItem.title}>
+                              {renderMenuItem(subItem, true)}
+                            </SidebarMenuSubItem>
+                          ))}
+                        </SidebarMenuSub>
+                      </CollapsibleContent>
+                    ) : null}
+                  </SidebarMenuItem>
+                </Collapsible>
+              )
+            })}
           </SidebarMenu>
         </SidebarGroup>
         <NavDocuments items={data.documents} />

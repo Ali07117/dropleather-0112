@@ -2,6 +2,7 @@ import { AppSidebar } from "@/components/app-sidebar"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 import { requireSellerAuth } from "@/lib/seller-auth"
 import { QueryProvider } from "@/providers/query-provider"
+import { SubscriptionProvider } from "@/providers/subscription-provider"
 
 export default async function DashboardLayout({
   children,
@@ -40,20 +41,22 @@ export default async function DashboardLayout({
 
   return (
     <QueryProvider>
-      <SidebarProvider
-        className="font-sans"
-        style={
-          {
-            "--sidebar-width": "calc(var(--spacing) * 72)",
-            "--header-height": "calc(var(--spacing) * 12)",
-          } as React.CSSProperties
-        }
-      >
-        <AppSidebar variant="inset" user={userData} />
-        <SidebarInset>
-          {children}
-        </SidebarInset>
-      </SidebarProvider>
+      <SubscriptionProvider userPlan={userData.subscription_plan}>
+        <SidebarProvider
+          className="font-sans"
+          style={
+            {
+              "--sidebar-width": "calc(var(--spacing) * 72)",
+              "--header-height": "calc(var(--spacing) * 12)",
+            } as React.CSSProperties
+          }
+        >
+          <AppSidebar variant="inset" user={userData} />
+          <SidebarInset>
+            {children}
+          </SidebarInset>
+        </SidebarProvider>
+      </SubscriptionProvider>
     </QueryProvider>
   )
 }
