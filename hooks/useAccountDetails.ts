@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { AccountDetails, AccountDetailsUpdateRequest, AccountDetailsResponse } from '@/types/account';
+import { getCurrentSession } from '@/utils/supabase/client';
 
 export const useAccountDetails = () => {
   const [accountDetails, setAccountDetails] = useState<AccountDetails | null>(null);
@@ -14,13 +15,32 @@ export const useAccountDetails = () => {
       setIsLoading(true);
       setError(null);
 
+      // Get current session with access token (same pattern as products showcase)
+      const session = await getCurrentSession();
+
+      if (!session?.access_token) {
+        console.warn('🔄 [ACCOUNT DETAILS] No valid session, redirecting to auth');
+        window.location.href = 'https://auth.dropleather.com/login?redirect_to=' +
+                               encodeURIComponent(window.location.href);
+        throw new Error('Authentication required');
+      }
+
+      console.log('👤 [ACCOUNT DETAILS] Making authenticated API request');
+
       const response = await fetch('https://api.dropleather.com/v1/seller/account/details', {
         method: 'GET',
-        credentials: 'include',
         headers: {
+          'Authorization': `Bearer ${session.access_token}`,
           'Content-Type': 'application/json',
         },
       });
+
+      if (response.status === 401) {
+        console.warn('🔄 [ACCOUNT DETAILS] Unexpected 401, redirecting to auth');
+        window.location.href = 'https://auth.dropleather.com/login?redirect_to=' +
+                               encodeURIComponent(window.location.href);
+        throw new Error('Authentication required');
+      }
 
       if (!response.ok) {
         throw new Error(`Failed to fetch account details: ${response.status}`);
@@ -46,14 +66,33 @@ export const useAccountDetails = () => {
       setIsUpdating(true);
       setError(null);
 
+      // Get current session with access token
+      const session = await getCurrentSession();
+
+      if (!session?.access_token) {
+        console.warn('🔄 [ACCOUNT DETAILS UPDATE] No valid session, redirecting to auth');
+        window.location.href = 'https://auth.dropleather.com/login?redirect_to=' +
+                               encodeURIComponent(window.location.href);
+        throw new Error('Authentication required');
+      }
+
+      console.log('👤 [ACCOUNT DETAILS UPDATE] Making authenticated API request');
+
       const response = await fetch('https://api.dropleather.com/v1/seller/account/details', {
         method: 'PUT',
-        credentials: 'include',
         headers: {
+          'Authorization': `Bearer ${session.access_token}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(updateData),
       });
+
+      if (response.status === 401) {
+        console.warn('🔄 [ACCOUNT DETAILS UPDATE] Unexpected 401, redirecting to auth');
+        window.location.href = 'https://auth.dropleather.com/login?redirect_to=' +
+                               encodeURIComponent(window.location.href);
+        throw new Error('Authentication required');
+      }
 
       if (!response.ok) {
         throw new Error(`Failed to update account details: ${response.status}`);
