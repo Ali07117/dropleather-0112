@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useState, forwardRef, useImperativeHandle } from 'react';
 import { useAccountDetails } from '@/hooks/useAccountDetails';
 import { PersonalInfoSection } from './personal-info-section';
 import { BusinessInfoSection } from './business-info-section';
@@ -9,7 +9,13 @@ import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import { AccountDetailsUpdateRequest } from '@/types/account';
 
-export function AccountDetailsForm() {
+export interface AccountDetailsFormRef {
+  save: () => Promise<void>;
+  hasChanges: boolean;
+  isUpdating: boolean;
+}
+
+export const AccountDetailsForm = forwardRef<AccountDetailsFormRef>((props, ref) => {
   const { accountDetails, isLoading, error, isUpdating, updateAccountDetails } = useAccountDetails();
   const [personalData, setPersonalData] = useState({
     name: '',
@@ -106,6 +112,13 @@ export function AccountDetailsForm() {
     }
   };
 
+  // Expose save function and state to parent component
+  useImperativeHandle(ref, () => ({
+    save: handleSave,
+    hasChanges,
+    isUpdating
+  }), [handleSave, hasChanges, isUpdating]);
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center p-8">
@@ -142,16 +155,6 @@ export function AccountDetailsForm() {
         />
       </div>
 
-      <div className="flex justify-end space-x-4 pt-4">
-        <Button 
-          onClick={handleSave}
-          disabled={!hasChanges || isUpdating}
-          className="bg-blue-600 hover:bg-blue-700 text-white"
-        >
-          {isUpdating && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          Save Changes
-        </Button>
-      </div>
     </div>
   );
-}
+});
