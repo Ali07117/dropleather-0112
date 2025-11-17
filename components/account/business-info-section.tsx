@@ -113,5 +113,7 @@ export function BusinessInfoSection({ data, onChange }: BusinessInfoSectionProps
             </SelectContent>
           </Select>
         </div>
+      </div>
+    </div>
   );
 }

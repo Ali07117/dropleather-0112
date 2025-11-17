@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, forwardRef, useImperativeHandle } from 'react';
+import React, { useState, forwardRef, useImperativeHandle, useCallback } from 'react';
 import { useAccountDetails } from '@/hooks/useAccountDetails';
 import { PersonalInfoSection } from './personal-info-section';
 import { BusinessInfoSection } from './business-info-section';
@@ -61,7 +61,7 @@ export const AccountDetailsForm = forwardRef<AccountDetailsFormRef>((props, ref)
     setHasChanges(true);
   };
 
-  const handleSave = async () => {
+  const handleSave = useCallback(async () => {
     if (!accountDetails) return;
 
     const updateRequest: AccountDetailsUpdateRequest = {};
@@ -110,7 +110,7 @@ export const AccountDetailsForm = forwardRef<AccountDetailsFormRef>((props, ref)
     if (result.success) {
       setHasChanges(false);
     }
-  };
+  }, [accountDetails, personalData, businessData, updateAccountDetails]);
 
   // Expose save function and state to parent component
   useImperativeHandle(ref, () => ({
@@ -158,3 +158,5 @@ export const AccountDetailsForm = forwardRef<AccountDetailsFormRef>((props, ref)
     </div>
   );
 });
+
+AccountDetailsForm.displayName = 'AccountDetailsForm';

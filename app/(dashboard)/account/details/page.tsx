@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react';
 import { AccountDetailsForm, AccountDetailsFormRef } from '@/components/account/account-details-form';
+import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 
 export default function AccountDetailsPage() {
@@ -33,14 +34,14 @@ export default function AccountDetailsPage() {
         <div className="px-4 sm:px-6">
           <div className="bg-[#F9F9F9] rounded-lg p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <p className="font-['Inter'] text-sm text-gray-700">Happy with the changes? Just press save.</p>
-            <button 
+            <Button 
               onClick={handleSave}
               disabled={isLoading || !formRef.current?.hasChanges}
-              className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-6 py-2 rounded-md font-['Inter'] text-sm font-medium transition-colors flex items-center"
+              className="bg-blue-600 hover:bg-blue-700 font-['Inter'] text-sm font-medium"
             >
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Save
-            </button>
+            </Button>
           </div>
         </div>
         <main className="grid flex-1 gap-4 overflow-auto p-4 md:grid-cols-1 md:gap-8 md:p-6">
