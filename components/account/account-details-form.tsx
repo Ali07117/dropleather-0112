@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useAccountDetails } from '@/hooks/useAccountDetails';
 import { PersonalInfoSection } from './personal-info-section';
 import { BusinessInfoSection } from './business-info-section';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import { AccountDetailsUpdateRequest } from '@/types/account';
