@@ -42,7 +42,7 @@ export default function AccountDetailsPage() {
               <Button 
                 onClick={handleSave}
                 disabled={isLoading || !formRef.current?.hasChanges}
-                className="bg-transparent hover:bg-gray-50 border border-[#696969] border-opacity-60 text-gray-900 font-['Inter'] text-sm font-medium"
+                className="bg-transparent hover:bg-gray-50 border border-[#696969] border-opacity-60 text-gray-900 font-['Inter'] text-sm font-medium h-[28px]"
               >
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Save

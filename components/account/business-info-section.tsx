@@ -4,6 +4,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import Image from 'next/image';
 
 interface BusinessInfoSectionProps {
   data: {
@@ -112,6 +114,27 @@ export function BusinessInfoSection({ data, onChange }: BusinessInfoSectionProps
               ))}
             </SelectContent>
           </Select>
+        </div>
+
+        {/* Delete Workspace Section */}
+        <div className="mt-8 border border-red-300 bg-red-50 rounded-lg p-4 flex flex-row items-center justify-between gap-4">
+          <div>
+            <h3 className="font-['Sora'] text-sm font-medium text-red-800">Delete Workspace</h3>
+            <p className="font-['Inter'] text-xs text-red-600 mt-1">
+              Once deleted, your workspace cannot be recovered
+            </p>
+          </div>
+          <Button 
+            className="bg-[#F65351] hover:bg-red-600 border border-[#C03634] text-white font-['Inter'] text-sm font-medium flex items-center gap-2"
+          >
+            <Image 
+              src="/images/trash.svg" 
+              alt="Delete" 
+              width={16} 
+              height={16} 
+            />
+            Delete
+          </Button>
         </div>
       </div>
     </div>
