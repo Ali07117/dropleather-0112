@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react';
+import { SiteHeader } from "@/components/site-header";
 import { AccountDetailsForm, AccountDetailsFormRef } from '@/components/account/account-details-form';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
@@ -21,17 +22,18 @@ export default function AccountDetailsPage() {
   };
 
   return (
-    <div className="flex min-h-screen w-full flex-col">
-      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
-        <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-          <div className="flex flex-col items-start w-full">
-            <h1 className="text-2xl font-bold font-['Sora'] text-left">Account Details</h1>
-            <p className="text-muted-foreground font-['Inter'] text-left mt-1">Manage your personal and business information</p>
+    <>
+      <SiteHeader title="Account Details" />
+      <div className="flex flex-1 flex-col">
+        <div className="flex flex-col gap-4 p-4 md:gap-8 md:p-6">
+          {/* Page Description */}
+          <div className="space-y-2">
+            <p className="text-muted-foreground font-['Inter'] text-sm">
+              Manage your personal and business information
+            </p>
           </div>
-        </header>
-        
-        {/* Save Button Section */}
-        <div className="px-4 sm:px-6">
+          
+          {/* Save Button Section */}
           <div className="bg-[#F9F9F9] rounded-lg p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <p className="font-['Inter'] text-sm text-gray-700">Happy with the changes? Just press save.</p>
             <Button 
@@ -43,11 +45,10 @@ export default function AccountDetailsPage() {
               Save
             </Button>
           </div>
-        </div>
-        <main className="grid flex-1 gap-4 overflow-auto p-4 md:grid-cols-1 md:gap-8 md:p-6">
+          
           <AccountDetailsForm ref={formRef} />
-        </main>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
