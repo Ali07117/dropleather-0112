@@ -119,13 +119,13 @@ export function BusinessInfoSection({ data, onChange }: BusinessInfoSectionProps
         {/* Delete Workspace Section */}
         <div className="mt-8 border border-[#F65351] bg-transparent rounded-[7px] p-4 flex flex-row items-center justify-between gap-4">
           <div>
-            <h3 className="font-['Sora'] text-sm font-medium text-red-800">Delete Workspace</h3>
-            <p className="font-['Inter'] text-xs text-red-600 mt-1">
+            <h3 className="font-['Sora'] text-sm font-medium text-black">Delete Workspace</h3>
+            <p className="font-['Inter'] text-xs text-black mt-1">
               Once deleted, your workspace cannot be recovered
             </p>
           </div>
           <Button 
-            className="bg-[#F65351] hover:bg-red-600 border border-[#C03634] text-white font-['Inter'] text-sm font-medium h-[28px] w-auto rounded-[9.85px] flex items-center gap-2"
+            className="bg-[#F65351] hover:bg-red-600 border border-[#C03634] text-white font-['Inter'] text-sm font-medium h-[32px] w-auto rounded-[9.85px] flex items-center gap-2"
           >
             <Image 
               src="/images/trash.svg" 
