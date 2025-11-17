@@ -1,0 +1,157 @@
+'use client'
+
+import React, { useState } from 'react';
+import { useAccountDetails } from '@/hooks/useAccountDetails';
+import { PersonalInfoSection } from './personal-info-section';
+import { BusinessInfoSection } from './business-info-section';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Loader2 } from 'lucide-react';
+import { AccountDetailsUpdateRequest } from '@/types/account';
+
+export function AccountDetailsForm() {
+  const { accountDetails, isLoading, error, isUpdating, updateAccountDetails } = useAccountDetails();
+  const [personalData, setPersonalData] = useState({
+    name: '',
+    email: '',
+    phone: ''
+  });
+  const [businessData, setBusinessData] = useState({
+    company_name: '',
+    business_address: '',
+    state_province: '',
+    city: '',
+    zip_code: '',
+    country: 'US'
+  });
+  const [hasChanges, setHasChanges] = useState(false);
+
+  // Update local state when account details are loaded
+  React.useEffect(() => {
+    if (accountDetails) {
+      setPersonalData({
+        name: accountDetails.personal.name || '',
+        email: accountDetails.personal.email || '',
+        phone: accountDetails.personal.phone || ''
+      });
+      setBusinessData({
+        company_name: accountDetails.business.company_name || '',
+        business_address: accountDetails.business.business_address || '',
+        state_province: accountDetails.business.state_province || '',
+        city: accountDetails.business.city || '',
+        zip_code: accountDetails.business.zip_code || '',
+        country: accountDetails.business.country || 'US'
+      });
+    }
+  }, [accountDetails]);
+
+  const handlePersonalChange = (field: string, value: string) => {
+    setPersonalData(prev => ({ ...prev, [field]: value }));
+    setHasChanges(true);
+  };
+
+  const handleBusinessChange = (field: string, value: string) => {
+    setBusinessData(prev => ({ ...prev, [field]: value }));
+    setHasChanges(true);
+  };
+
+  const handleSave = async () => {
+    if (!accountDetails) return;
+
+    const updateRequest: AccountDetailsUpdateRequest = {};
+
+    // Check for personal info changes
+    if (personalData.name !== (accountDetails.personal.name || '') ||
+        personalData.phone !== (accountDetails.personal.phone || '')) {
+      updateRequest.personal = {};
+      if (personalData.name !== (accountDetails.personal.name || '')) {
+        updateRequest.personal.name = personalData.name;
+      }
+      if (personalData.phone !== (accountDetails.personal.phone || '')) {
+        updateRequest.personal.phone = personalData.phone || null;
+      }
+    }
+
+    // Check for business info changes
+    if (businessData.company_name !== (accountDetails.business.company_name || '') ||
+        businessData.business_address !== (accountDetails.business.business_address || '') ||
+        businessData.state_province !== (accountDetails.business.state_province || '') ||
+        businessData.city !== (accountDetails.business.city || '') ||
+        businessData.zip_code !== (accountDetails.business.zip_code || '') ||
+        businessData.country !== (accountDetails.business.country || 'US')) {
+      updateRequest.business = {};
+      if (businessData.company_name !== (accountDetails.business.company_name || '')) {
+        updateRequest.business.company_name = businessData.company_name || null;
+      }
+      if (businessData.business_address !== (accountDetails.business.business_address || '')) {
+        updateRequest.business.business_address = businessData.business_address || null;
+      }
+      if (businessData.state_province !== (accountDetails.business.state_province || '')) {
+        updateRequest.business.state_province = businessData.state_province || null;
+      }
+      if (businessData.city !== (accountDetails.business.city || '')) {
+        updateRequest.business.city = businessData.city || null;
+      }
+      if (businessData.zip_code !== (accountDetails.business.zip_code || '')) {
+        updateRequest.business.zip_code = businessData.zip_code || null;
+      }
+      if (businessData.country !== (accountDetails.business.country || 'US')) {
+        updateRequest.business.country = businessData.country;
+      }
+    }
+
+    const result = await updateAccountDetails(updateRequest);
+    if (result.success) {
+      setHasChanges(false);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <Loader2 className="h-8 w-8 animate-spin" />
+        <span className="ml-2">Loading account details...</span>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-red-600">Error</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-red-600">{error}</p>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      <PersonalInfoSection 
+        data={personalData}
+        onChange={handlePersonalChange}
+      />
+      
+      <div className="border-t pt-6">
+        <BusinessInfoSection 
+          data={businessData}
+          onChange={handleBusinessChange}
+        />
+      </div>
+
+      <div className="flex justify-end space-x-4 pt-4">
+        <Button 
+          onClick={handleSave}
+          disabled={!hasChanges || isUpdating}
+          className="bg-blue-600 hover:bg-blue-700 text-white"
+        >
+          {isUpdating && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          Save Changes
+        </Button>
+      </div>
+    </div>
+  );
+}
