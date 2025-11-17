@@ -178,7 +178,7 @@ export function AppSidebar({
     requiresFeature?: string;
     showCount?: boolean;
   }, isSubItem = false) => {
-    const isRestricted = item.requiresFeature && !hasFeature(item.requiresFeature)
+    const isRestricted = Boolean(item.requiresFeature && !hasFeature(item.requiresFeature))
     const MenuComponent = isSubItem ? SidebarMenuSubButton : SidebarMenuButton
     const tooltipMessage = isRestricted ? `Upgrade to Pro to unlock ${item.title}` : ""
 
@@ -191,7 +191,7 @@ export function AppSidebar({
         {isRestricted ? (
           <div
             className="flex items-center gap-2 w-full"
-            onClick={(e) => handleRestrictedClick(e, item.requiresFeature)}
+            onClick={(e) => handleRestrictedClick(e, item.requiresFeature!)}
           >
             {!isSubItem && item.icon && <item.icon />}
             <span className="text-sm font-sans font-normal">{item.title}</span>
@@ -244,7 +244,7 @@ export function AppSidebar({
         <SidebarGroup>
           <SidebarMenu>
             {data.navMain.map((item) => {
-              const isRestricted = item.requiresFeature && !hasFeature(item.requiresFeature)
+              const isRestricted = Boolean(item.requiresFeature && !hasFeature(item.requiresFeature))
               
               return (
                 <Collapsible

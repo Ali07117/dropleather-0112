@@ -66,7 +66,7 @@ export function NavDocuments({
       <SidebarGroupLabel>Settings</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => {
-          const isRestricted = item.requiresFeature && !hasFeature(item.requiresFeature)
+          const isRestricted = Boolean(item.requiresFeature && !hasFeature(item.requiresFeature))
           const tooltipMessage = isRestricted ? `Upgrade to Pro to unlock ${item.name}` : ""
 
           return (

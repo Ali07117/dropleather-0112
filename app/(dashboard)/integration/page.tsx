@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useSubscription } from "@/hooks/useSubscription"
 
 export default function IntegrationPage() {
-  const { hasFeature, isFreePlan, subscription } = useSubscription()
+  const { hasFeature, isFreePlan, plan } = useSubscription()
   const [testResult, setTestResult] = useState<string>("")
   const [loading, setLoading] = useState(false)
 
@@ -53,7 +53,7 @@ export default function IntegrationPage() {
             Integration features are available with Pro and Enterprise plans.
           </p>
           <p className="text-sm text-amber-600 mb-4">
-            Current Plan: <strong>{subscription?.plan || "Free"}</strong>
+            Current Plan: <strong>{plan || "Free"}</strong>
           </p>
           <a 
             href="/subscription-plan?feature=integration"
@@ -66,7 +66,7 @@ export default function IntegrationPage() {
         <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
           <h3 className="font-semibold text-gray-800 mb-2">Subscription Debug Info:</h3>
           <pre className="text-xs text-gray-600 bg-white p-2 rounded border overflow-auto">
-            {JSON.stringify(subscription, null, 2)}
+            {JSON.stringify({ plan, isFreePlan, hasIntegration: hasFeature("integration") }, null, 2)}
           </pre>
         </div>
       </div>
@@ -83,7 +83,7 @@ export default function IntegrationPage() {
           Hi! The subscription workflow is working! You have access to integration features.
         </p>
         <p className="text-sm text-green-600">
-          Current Plan: <strong>{subscription?.plan || "Unknown"}</strong>
+          Current Plan: <strong>{plan || "Unknown"}</strong>
         </p>
       </div>
 
@@ -119,7 +119,7 @@ export default function IntegrationPage() {
           
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
-              <strong>Plan:</strong> {subscription?.plan || "Loading..."}
+              <strong>Plan:</strong> {plan || "Loading..."}
             </div>
             <div>
               <strong>Integration Access:</strong> {canAccessIntegration ? "✅ Yes" : "❌ No"}
@@ -128,20 +128,9 @@ export default function IntegrationPage() {
               <strong>Is Free Plan:</strong> {isFreePlan ? "Yes" : "No"}
             </div>
             <div>
-              <strong>Features Available:</strong> {subscription?.features?.length || 0}
+              <strong>Brand Lab Access:</strong> {hasFeature("brand-lab-ai") ? "✅ Yes" : "❌ No"}
             </div>
           </div>
-          
-          {subscription?.features && subscription.features.length > 0 && (
-            <div className="mt-4">
-              <strong>Available Features:</strong>
-              <ul className="list-disc list-inside text-sm text-gray-600 mt-2">
-                {subscription.features.map((feature: string) => (
-                  <li key={feature}>{feature}</li>
-                ))}
-              </ul>
-            </div>
-          )}
         </div>
 
         {/* Debug Info */}
@@ -149,7 +138,7 @@ export default function IntegrationPage() {
           <h3 className="text-lg font-semibold mb-4">🔍 Debug Information</h3>
           <pre className="text-xs text-gray-600 bg-gray-50 p-3 rounded border overflow-auto">
             {JSON.stringify({
-              subscription,
+              plan,
               hasFeature: {
                 integration: hasFeature("integration"),
                 branding: hasFeature("branding"),
