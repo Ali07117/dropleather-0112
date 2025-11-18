@@ -325,118 +325,97 @@ export function ProductsShowcaseClient() {
           </div>
 
           {/* Product Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredProducts.map((product) => (
-              <div
-                key={product.id}
-                className="group relative"
-              >
-                {/* Heart Icon */}
-                <button
-                  onClick={() => toggleFavorite(product.id)}
-                  className="absolute top-[15px] right-[15px] z-10 transition-colors w-4 h-4 flex items-center justify-center"
-                >
-                  <Heart className={cn(
-                    "w-4 h-4",
-                    favorites.includes(product.id) 
-                      ? "fill-red-500 text-red-500" 
-                      : "text-black hover:text-red-500"
-                  )} />
-                </button>
+              <Card key={product.id} className="overflow-hidden group">
+                <CardContent className="p-0">
+                  {/* Product Image */}
+                  <div className="relative aspect-square overflow-hidden">
+                    <img
+                      src={
+                        product.images.find(img => img.isPrimary)?.image_path 
+                          ? `https://data.dropleather.com/storage/v1/object/public/product-images/${product.images.find(img => img.isPrimary)?.image_path}`
+                          : product.images[0]?.image_path 
+                            ? `https://data.dropleather.com/storage/v1/object/public/product-images/${product.images[0]?.image_path}`
+                            : "/images/product.png"
+                      }
+                      alt={product.title}
+                      className="w-full h-full object-cover transition-transform group-hover:scale-105"
+                    />
+                    
+                    {/* Overlay actions */}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                    
+                    {/* Heart icon */}
+                    <Button
+                      size="icon-sm"
+                      variant="ghost"
+                      onClick={() => toggleFavorite(product.id)}
+                      className="absolute top-2 right-2 h-8 w-8 bg-white/90 hover:bg-white"
+                    >
+                      <Heart className={cn(
+                        "h-4 w-4",
+                        favorites.includes(product.id) 
+                          ? "fill-red-500 text-red-500" 
+                          : "text-gray-600"
+                      )} />
+                    </Button>
+                  </div>
 
-                {/* Checkbox */}
-                <div className="absolute top-[15px] left-[15px] z-10">
-                  <Checkbox />
-                </div>
-                
-                <Card className="overflow-hidden shadow-none">
-                  <CardContent className="p-0">
-                    {/* Product Image */}
-                    <div className="relative w-full aspect-square bg-gray-50 overflow-hidden rounded-t-lg">
-                      <img
-                        src={
-                          product.images.find(img => img.isPrimary)?.image_path 
-                            ? `https://data.dropleather.com/storage/v1/object/public/product-images/${product.images.find(img => img.isPrimary)?.image_path}`
-                            : product.images[0]?.image_path 
-                              ? `https://data.dropleather.com/storage/v1/object/public/product-images/${product.images[0]?.image_path}`
-                              : "/images/product.png"
-                        }
-                        alt={product.title}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                      />
-                      
-                      {/* Colors Icon */}
-                      <div className="absolute bottom-3 right-3 z-10">
-                        <img
-                          src="/images/colors.svg"
-                          alt="Colors"
-                          className="w-[35px] h-[35px] drop-shadow-lg"
+                  {/* Product Details */}
+                  <div className="p-4 space-y-3">
+                    {/* Category */}
+                    <div className="text-sm text-muted-foreground font-medium">
+                      {product.category || 'Uncategorized'}
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="font-semibold text-sm leading-tight line-clamp-2">
+                      {product.title}
+                    </h3>
+
+                    {/* Colors */}
+                    <div className="flex items-center gap-1">
+                      {productColors.slice(0, 4).map((color, index) => (
+                        <button
+                          key={index}
+                          onClick={() => selectProductColor(product.id, index)}
+                          className={cn(
+                            "w-6 h-6 rounded-full border-2 transition-all",
+                            selectedProductColors[product.id] === index
+                              ? "border-gray-800 scale-110"
+                              : "border-gray-200 hover:border-gray-400"
+                          )}
+                          style={{ backgroundColor: color.value }}
+                          title={color.name}
                         />
-                      </div>
+                      ))}
                     </div>
 
-                    {/* Product Details */}
-                    <div className="px-4 pb-0 pt-6 space-y-0">
-                      {/* Category */}
-                      <p className="text-xl font-sora font-semibold text-black">
-                        {product.category || 'Uncategorized'}
-                      </p>
-
-                      {/* Title */}
-                      <h3 className="font-medium font-sora text-base line-clamp-2 mb-4" style={{ color: '#000000' }}>
-                        {product.title}
-                      </h3>
-
-                      {/* Colors */}
-                      <div className="mb-4">
-                        <div className="flex items-center gap-2">
-                          {productColors.map((color, index) => (
-                            <div
-                              key={index}
-                              onClick={() => selectProductColor(product.id, index)}
-                              className={cn(
-                                "w-[36px] h-[36px] rounded-full flex items-center justify-center cursor-pointer",
-                                selectedProductColors[product.id] === index
-                                  ? "border border-[#D9D9D9] bg-transparent"
-                                  : ""
-                              )}
-                            >
-                              <div
-                                className="w-7 h-7 rounded-full"
-                                style={{ backgroundColor: color.value }}
-                                title={color.name}
-                              />
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Prices */}
-                      <div className="space-y-1">
-                        {product.comparePrice && product.comparePrice > product.price && (
-                          <div className="text-base text-black opacity-60 font-geist font-normal line-through">
-                            Previously ${product.comparePrice.toFixed(2)}
-                          </div>
-                        )}
-                        <div className="text-[22px] font-bold font-sora text-black">
+                    {/* Prices */}
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-lg">
                           ${product.price.toFixed(2)}
-                        </div>
-                        <p className="text-xs text-muted-foreground font-sans">
-                          VAT included
-                        </p>
+                        </span>
+                        {product.comparePrice && product.comparePrice > product.price && (
+                          <span className="text-sm text-muted-foreground line-through">
+                            ${product.comparePrice.toFixed(2)}
+                          </span>
+                        )}
                       </div>
-
-                      {/* See Details Button */}
-                      <Button 
-                        variant="outline"
-                        className="w-full font-sora font-semibold text-[18px] h-[53px] rounded-[11px] bg-transparent border-[#E3E3E3] hover:bg-black hover:border-black text-black hover:text-white transition-all duration-300 mt-6"
-                      >
-                        See Details
-                      </Button>
+                      <p className="text-xs text-muted-foreground">
+                        VAT included
+                      </p>
                     </div>
-                  </CardContent>
-                </Card>
-              </div>
+
+                    {/* Action Button */}
+                    <Button className="w-full" variant="outline">
+                      View Details
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
 
