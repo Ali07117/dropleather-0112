@@ -358,7 +358,13 @@ export function ProductsShowcaseClient() {
                     <div className="relative w-full h-[238px] flex items-center justify-center">
                       <div className="relative">
                         <img
-                          src={product.images.find(img => img.isPrimary)?.image_path || product.images[0]?.image_path || "/images/product.png"}
+                          src={
+                            product.images.find(img => img.isPrimary)?.image_path 
+                              ? `https://data.dropleather.com/storage/v1/object/public/product-images/${product.images.find(img => img.isPrimary)?.image_path}`
+                              : product.images[0]?.image_path 
+                                ? `https://data.dropleather.com/storage/v1/object/public/product-images/${product.images[0]?.image_path}`
+                                : "/images/product.png"
+                          }
                           alt={product.title}
                           className="max-w-full max-h-full object-contain"
                           width={251}
