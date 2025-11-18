@@ -458,8 +458,19 @@ export function ProductsShowcaseClient() {
 }
 
 // Simple Auth Debugger Component
+interface AuthInfo {
+  hasSession: boolean;
+  userId?: string;
+  email?: string;
+  role?: string;
+  tokenValid?: boolean;
+  expiresAt?: string;
+  timeUntilExpiry?: number;
+  error?: string;
+}
+
 function AuthDebugger() {
-  const [authInfo, setAuthInfo] = React.useState<any>(null);
+  const [authInfo, setAuthInfo] = React.useState<AuthInfo | null>(null);
 
   React.useEffect(() => {
     async function checkAuth() {
