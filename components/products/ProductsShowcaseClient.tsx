@@ -233,9 +233,6 @@ export function ProductsShowcaseClient() {
 
   return (
     <div className="@container/main flex flex-1 flex-col gap-2">
-      {/* Auth Debugger */}
-      <AuthDebugger />
-      
       <div className="flex flex-col lg:flex-row gap-6 py-4 md:py-6 px-4 lg:px-6">
         {/* Left Sidebar - Filters */}
         <div className="w-full lg:w-80 flex-shrink-0">
@@ -355,30 +352,26 @@ export function ProductsShowcaseClient() {
                 <Card className="overflow-hidden shadow-none">
                   <CardContent className="p-0">
                     {/* Product Image */}
-                    <div className="relative w-full h-[238px] flex items-center justify-center">
-                      <div className="relative">
+                    <div className="relative w-full aspect-square bg-gray-50 overflow-hidden rounded-t-lg">
+                      <img
+                        src={
+                          product.images.find(img => img.isPrimary)?.image_path 
+                            ? `https://data.dropleather.com/storage/v1/object/public/product-images/${product.images.find(img => img.isPrimary)?.image_path}`
+                            : product.images[0]?.image_path 
+                              ? `https://data.dropleather.com/storage/v1/object/public/product-images/${product.images[0]?.image_path}`
+                              : "/images/product.png"
+                        }
+                        alt={product.title}
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                      
+                      {/* Colors Icon */}
+                      <div className="absolute bottom-3 right-3 z-10">
                         <img
-                          src={
-                            product.images.find(img => img.isPrimary)?.image_path 
-                              ? `https://data.dropleather.com/storage/v1/object/public/product-images/${product.images.find(img => img.isPrimary)?.image_path}`
-                              : product.images[0]?.image_path 
-                                ? `https://data.dropleather.com/storage/v1/object/public/product-images/${product.images[0]?.image_path}`
-                                : "/images/product.png"
-                          }
-                          alt={product.title}
-                          className="max-w-full max-h-full object-contain"
-                          width={251}
-                          height={238}
+                          src="/images/colors.svg"
+                          alt="Colors"
+                          className="w-[35px] h-[35px] drop-shadow-lg"
                         />
-                        
-                        {/* Colors Icon */}
-                        <div className="absolute -bottom-3 -right-3 z-5">
-                          <img
-                            src="/images/colors.svg"
-                            alt="Colors"
-                            className="w-[35px] h-[35px]"
-                          />
-                        </div>
                       </div>
                     </div>
 
@@ -463,149 +456,3 @@ export function ProductsShowcaseClient() {
   )
 }
 
-// Simple Auth Debugger Component
-interface AuthInfo {
-  hasSession: boolean;
-  userId?: string;
-  email?: string;
-  role?: string;
-  tokenValid?: boolean;
-  expiresAt?: string;
-  timeUntilExpiry?: number;
-  authUid?: string;
-  error?: string;
-}
-
-function AuthDebugger() {
-  const [authInfo, setAuthInfo] = React.useState<AuthInfo | null>(null);
-
-  React.useEffect(() => {
-    async function checkAuth() {
-      try {
-        console.log('🔍 [AUTH DEBUG] Checking authentication...');
-        
-        const session = await getCurrentSession();
-        
-        if (!session) {
-          setAuthInfo({
-            hasSession: false,
-            error: 'No session found'
-          });
-          return;
-        }
-
-        const now = Date.now();
-        const expiresAt = session.expires_at ? session.expires_at * 1000 : 0;
-        const timeUntilExpiry = expiresAt - now;
-
-        // Test auth.uid() in frontend Supabase context
-        let authUidResult = 'testing...';
-        try {
-          const supabase = await createClientSupabase();
-          const { data: uidTest } = await supabase.rpc('auth.uid');
-          authUidResult = uidTest ? `✅ ${uidTest}` : '❌ undefined';
-        } catch (uidError) {
-          authUidResult = `❌ error: ${uidError instanceof Error ? uidError.message : 'unknown'}`;
-        }
-
-        setAuthInfo({
-          hasSession: true,
-          userId: session.user?.id,
-          email: session.user?.email,
-          role: session.user?.role,
-          tokenValid: timeUntilExpiry > 0,
-          expiresAt: new Date(expiresAt).toISOString(),
-          timeUntilExpiry: Math.max(0, Math.floor(timeUntilExpiry / 1000)),
-          authUid: authUidResult,
-          error: timeUntilExpiry <= 0 ? 'Token expired' : undefined
-        });
-
-        console.log('🔍 [AUTH DEBUG] Session info:', {
-          hasSession: true,
-          userId: session.user?.id,
-          email: session.user?.email,
-          role: session.user?.role,
-          tokenValid: timeUntilExpiry > 0,
-          expiresAt: new Date(expiresAt).toISOString(),
-          timeUntilExpiry: Math.max(0, Math.floor(timeUntilExpiry / 1000))
-        });
-
-      } catch (error) {
-        console.error('🔍 [AUTH DEBUG] Error:', error);
-        setAuthInfo({
-          hasSession: false,
-          error: error instanceof Error ? error.message : 'Unknown error'
-        });
-      }
-    }
-
-    checkAuth();
-  }, []);
-
-  if (!authInfo) {
-    return (
-      <div className="fixed top-4 right-4 bg-gray-100 border border-gray-300 rounded-lg p-4 text-xs max-w-sm z-50">
-        <h3 className="font-bold text-gray-800 mb-2">🔍 Auth Debug</h3>
-        <p>Loading...</p>
-      </div>
-    );
-  }
-
-  return (
-    <div className={`fixed top-4 right-4 border rounded-lg p-4 text-xs max-w-sm z-50 ${
-      authInfo.hasSession && authInfo.tokenValid 
-        ? 'bg-green-100 border-green-300' 
-        : 'bg-red-100 border-red-300'
-    }`}>
-      <h3 className="font-bold text-gray-800 mb-2">🔍 Auth Debug</h3>
-      
-      <div className="space-y-1">
-        <div className={`font-medium ${authInfo.hasSession ? 'text-green-700' : 'text-red-700'}`}>
-          Session: {authInfo.hasSession ? '✅ Found' : '❌ None'}
-        </div>
-        
-        {authInfo.userId && (
-          <div className="text-gray-600">
-            User ID: {authInfo.userId.substring(0, 8)}...
-          </div>
-        )}
-        
-        {authInfo.email && (
-          <div className="text-gray-600">
-            Email: {authInfo.email}
-          </div>
-        )}
-        
-        {authInfo.role && (
-          <div className="text-gray-600">
-            Role: {authInfo.role}
-          </div>
-        )}
-        
-        {authInfo.tokenValid !== undefined && (
-          <div className={`font-medium ${authInfo.tokenValid ? 'text-green-700' : 'text-red-700'}`}>
-            Token: {authInfo.tokenValid ? '✅ Valid' : '❌ Invalid'}
-          </div>
-        )}
-        
-        {authInfo.timeUntilExpiry !== undefined && (
-          <div className="text-gray-600">
-            Expires in: {authInfo.timeUntilExpiry}s
-          </div>
-        )}
-        
-        {authInfo.authUid && (
-          <div className="text-gray-600">
-            auth.uid(): {authInfo.authUid}
-          </div>
-        )}
-        
-        {authInfo.error && (
-          <div className="text-red-700 font-medium">
-            Error: {authInfo.error}
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
