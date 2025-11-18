@@ -328,9 +328,9 @@ export function ProductsShowcaseClient() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredProducts.map((product) => (
               <Card key={product.id} className="overflow-hidden group">
-                <CardContent className="p-0">
+                <CardContent className="p-4">
                   {/* Product Image */}
-                  <div className="relative aspect-square overflow-hidden">
+                  <div className="relative aspect-square overflow-hidden rounded-lg mb-3">
                     <img
                       src={
                         product.images.find(img => img.isPrimary)?.image_path 
@@ -363,7 +363,7 @@ export function ProductsShowcaseClient() {
                   </div>
 
                   {/* Product Details */}
-                  <div className="p-4 space-y-3">
+                  <div className="space-y-3">
                     {/* Category */}
                     <div className="text-sm text-muted-foreground font-medium">
                       {product.category || 'Uncategorized'}
