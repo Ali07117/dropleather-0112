@@ -340,11 +340,8 @@ export function ProductsShowcaseClient() {
                             : "/images/product.png"
                       }
                       alt={product.title}
-                      className="w-full h-full object-cover transition-transform group-hover:scale-105"
+                      className="w-full h-full object-cover"
                     />
-                    
-                    {/* Overlay actions */}
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
                     
                     {/* Heart icon */}
                     <Button
