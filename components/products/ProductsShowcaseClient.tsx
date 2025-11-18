@@ -466,6 +466,7 @@ interface AuthInfo {
   tokenValid?: boolean;
   expiresAt?: string;
   timeUntilExpiry?: number;
+  authUid?: string;
   error?: string;
 }
 
@@ -491,6 +492,16 @@ function AuthDebugger() {
         const expiresAt = session.expires_at ? session.expires_at * 1000 : 0;
         const timeUntilExpiry = expiresAt - now;
 
+        // Test auth.uid() in frontend Supabase context
+        let authUidResult = 'testing...';
+        try {
+          const supabase = await createClientSupabase();
+          const { data: uidTest } = await supabase.rpc('auth.uid');
+          authUidResult = uidTest ? `✅ ${uidTest}` : '❌ undefined';
+        } catch (uidError) {
+          authUidResult = `❌ error: ${uidError instanceof Error ? uidError.message : 'unknown'}`;
+        }
+
         setAuthInfo({
           hasSession: true,
           userId: session.user?.id,
@@ -499,6 +510,7 @@ function AuthDebugger() {
           tokenValid: timeUntilExpiry > 0,
           expiresAt: new Date(expiresAt).toISOString(),
           timeUntilExpiry: Math.max(0, Math.floor(timeUntilExpiry / 1000)),
+          authUid: authUidResult,
           error: timeUntilExpiry <= 0 ? 'Token expired' : undefined
         });
 
@@ -573,6 +585,12 @@ function AuthDebugger() {
         {authInfo.timeUntilExpiry !== undefined && (
           <div className="text-gray-600">
             Expires in: {authInfo.timeUntilExpiry}s
+          </div>
+        )}
+        
+        {authInfo.authUid && (
+          <div className="text-gray-600">
+            auth.uid(): {authInfo.authUid}
           </div>
         )}
         
