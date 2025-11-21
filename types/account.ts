@@ -6,6 +6,7 @@ export interface PersonalInfo {
 
 export interface BusinessInfo {
   company_name: string | null;
+  registration_number: string | null;
   business_address: string | null;
   state_province: string | null;
   city: string | null;
