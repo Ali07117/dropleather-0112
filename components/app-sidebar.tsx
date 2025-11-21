@@ -195,7 +195,7 @@ export function AppSidebar({
           >
             {!isSubItem && item.icon && <item.icon />}
             <span className="text-sm font-sans font-normal">{item.title}</span>
-            {isRestricted && <Lock className="w-3 h-3 ml-auto" />}
+            {isRestricted && item.requiresFeature !== 'branding' && <Lock className="w-3 h-3 ml-auto" />}
             {item.showCount && !isRestricted && (
               <div className="ml-auto min-w-[16px] max-w-[32px] h-[16px] flex items-center justify-center rounded text-[10px] font-bold px-1 bg-sidebar-accent text-sidebar-accent-foreground">
                 {0 > 99 ? '+99' : 0}
