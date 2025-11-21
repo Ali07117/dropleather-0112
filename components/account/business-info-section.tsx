@@ -10,6 +10,7 @@ import Image from 'next/image';
 interface BusinessInfoSectionProps {
   data: {
     company_name: string;
+    registration_number?: string;
     business_address: string;
     state_province: string;
     city: string;
@@ -42,25 +43,37 @@ export function BusinessInfoSection({ data, onChange }: BusinessInfoSectionProps
         </p>
       </div>
       <div className="space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="company-name" className="font-['Sora'] text-sm font-medium">Business Name</Label>
-          <Input
-            id="company-name"
-            value={data.company_name}
-            onChange={(e) => onChange('company_name', e.target.value)}
-            placeholder="Enter your business or company name"
-            className="font-['Inter']"
-          />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="company-name" className="font-['Sora'] text-sm font-medium">Business Name</Label>
+            <Input
+              id="company-name"
+              value={data.company_name}
+              onChange={(e) => onChange('company_name', e.target.value)}
+              placeholder="Enter your business or company name"
+              className="font-['Inter']"
+            />
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="registration-number" className="font-['Sora'] text-sm font-medium">Registration Number</Label>
+            <Input
+              id="registration-number"
+              value={data.registration_number || ''}
+              onChange={(e) => onChange('registration_number', e.target.value)}
+              placeholder="Enter your business registration number"
+              className="font-['Inter']"
+            />
+          </div>
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="business-address" className="font-['Sora'] text-sm font-medium">Business Address</Label>
-          <Textarea
+          <Input
             id="business-address"
             value={data.business_address}
             onChange={(e) => onChange('business_address', e.target.value)}
             placeholder="Enter your full business address"
-            rows={3}
             className="font-['Inter']"
           />
         </div>

@@ -51,16 +51,18 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
           </div>
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="phone" className="font-['Sora'] text-sm font-medium">Phone Number</Label>
-          <Input
-            id="phone"
-            type="tel"
-            value={data.phone}
-            onChange={(e) => onChange('phone', e.target.value)}
-            placeholder="+1 (555) 123-4567"
-            className="md:w-1/2 font-['Inter']"
-          />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="phone" className="font-['Sora'] text-sm font-medium">Phone Number</Label>
+            <Input
+              id="phone"
+              type="tel"
+              value={data.phone}
+              onChange={(e) => onChange('phone', e.target.value)}
+              placeholder="+1 (555) 123-4567"
+              className="font-['Inter']"
+            />
+          </div>
         </div>
 
         <div className="space-y-2">

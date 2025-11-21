@@ -24,6 +24,7 @@ export const AccountDetailsForm = forwardRef<AccountDetailsFormRef>((props, ref)
   });
   const [businessData, setBusinessData] = useState({
     company_name: '',
+    registration_number: '',
     business_address: '',
     state_province: '',
     city: '',
@@ -42,6 +43,7 @@ export const AccountDetailsForm = forwardRef<AccountDetailsFormRef>((props, ref)
       });
       setBusinessData({
         company_name: accountDetails.business.company_name || '',
+        registration_number: accountDetails.business.registration_number || '',
         business_address: accountDetails.business.business_address || '',
         state_province: accountDetails.business.state_province || '',
         city: accountDetails.business.city || '',
@@ -80,6 +82,7 @@ export const AccountDetailsForm = forwardRef<AccountDetailsFormRef>((props, ref)
 
     // Check for business info changes
     if (businessData.company_name !== (accountDetails.business.company_name || '') ||
+        businessData.registration_number !== (accountDetails.business.registration_number || '') ||
         businessData.business_address !== (accountDetails.business.business_address || '') ||
         businessData.state_province !== (accountDetails.business.state_province || '') ||
         businessData.city !== (accountDetails.business.city || '') ||
@@ -88,6 +91,9 @@ export const AccountDetailsForm = forwardRef<AccountDetailsFormRef>((props, ref)
       updateRequest.business = {};
       if (businessData.company_name !== (accountDetails.business.company_name || '')) {
         updateRequest.business.company_name = businessData.company_name || null;
+      }
+      if (businessData.registration_number !== (accountDetails.business.registration_number || '')) {
+        updateRequest.business.registration_number = businessData.registration_number || null;
       }
       if (businessData.business_address !== (accountDetails.business.business_address || '')) {
         updateRequest.business.business_address = businessData.business_address || null;
