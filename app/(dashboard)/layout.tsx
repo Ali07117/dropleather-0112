@@ -3,6 +3,7 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 import { requireSellerAuth } from "@/lib/seller-auth"
 import { QueryProvider } from "@/providers/query-provider"
 import { SubscriptionProvider } from "@/providers/subscription-provider"
+import { AuthProvider } from "@/components/auth-provider"
 
 export default async function DashboardLayout({
   children,
@@ -19,14 +20,20 @@ export default async function DashboardLayout({
     authError = error instanceof Error ? error.message : String(error);
   }
 
-  // Show error if authentication failed
+  // Show error if authentication failed and redirect to auth subdomain
   if (authError) {
     return (
       <div className="p-8">
-        <h1 className="text-2xl font-bold mb-4">Authentication Error</h1>
-        <div className="bg-red-50 border border-red-200 rounded p-4">
-          <pre className="text-sm text-red-800 whitespace-pre-wrap">{authError}</pre>
+        <h1 className="text-2xl font-bold mb-4">Redirecting to Login</h1>
+        <div className="bg-blue-50 border border-blue-200 rounded p-4">
+          <p className="text-blue-800">Session expired. Redirecting you to login...</p>
         </div>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            console.log('Authentication error, redirecting to auth subdomain');
+            window.location.href = 'https://auth.dropleather.com/login';
+          `
+        }} />
       </div>
     );
   }
@@ -40,23 +47,25 @@ export default async function DashboardLayout({
   }
 
   return (
-    <QueryProvider>
-      <SubscriptionProvider userPlan={userData.subscription_plan}>
-        <SidebarProvider
-          className="font-sans"
-          style={
-            {
-              "--sidebar-width": "calc(var(--spacing) * 72)",
-              "--header-height": "calc(var(--spacing) * 12)",
-            } as React.CSSProperties
-          }
-        >
-          <AppSidebar variant="inset" user={userData} />
-          <SidebarInset>
-            {children}
-          </SidebarInset>
-        </SidebarProvider>
-      </SubscriptionProvider>
-    </QueryProvider>
+    <AuthProvider>
+      <QueryProvider>
+        <SubscriptionProvider userPlan={userData.subscription_plan}>
+          <SidebarProvider
+            className="font-sans"
+            style={
+              {
+                "--sidebar-width": "calc(var(--spacing) * 72)",
+                "--header-height": "calc(var(--spacing) * 12)",
+              } as React.CSSProperties
+            }
+          >
+            <AppSidebar variant="inset" user={userData} />
+            <SidebarInset>
+              {children}
+            </SidebarInset>
+          </SidebarProvider>
+        </SubscriptionProvider>
+      </QueryProvider>
+    </AuthProvider>
   )
 }

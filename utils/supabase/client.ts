@@ -86,7 +86,7 @@ export async function createClientSupabase(): Promise<SupabaseClient<any, 'publi
       }
     );
 
-    // Professional session monitoring
+    // Professional session monitoring with cross-subdomain redirect
     supabaseClient.auth.onAuthStateChange((event, session) => {
       console.log('🔐 [SUPABASE AUTH]', event, {
         hasSession: !!session,
@@ -102,7 +102,11 @@ export async function createClientSupabase(): Promise<SupabaseClient<any, 'publi
           console.log('✅ [SUPABASE AUTH] User signed in successfully');
           break;
         case 'SIGNED_OUT':
-          console.log('👋 [SUPABASE AUTH] User signed out');
+          console.log('👋 [SUPABASE AUTH] User signed out - redirecting to auth subdomain');
+          // Redirect to auth subdomain when signed out
+          if (typeof window !== 'undefined') {
+            window.location.href = 'https://auth.dropleather.com/login';
+          }
           break;
         case 'TOKEN_REFRESHED':
           console.log('🔄 [SUPABASE AUTH] Token refreshed automatically');
@@ -110,6 +114,19 @@ export async function createClientSupabase(): Promise<SupabaseClient<any, 'publi
         case 'USER_UPDATED':
           console.log('📝 [SUPABASE AUTH] User data updated');
           break;
+      }
+
+      // Handle session expiration or invalid sessions
+      if (!session && event !== 'SIGNED_OUT' && typeof window !== 'undefined') {
+        // Check if we have expired/invalid auth cookies
+        const authCookies = document.cookie.split(';').filter(cookie => 
+          cookie.includes('sb-') && cookie.includes('auth-token')
+        );
+        
+        if (authCookies.length > 0) {
+          console.log('⚠️ [SUPABASE AUTH] Session expired with existing cookies - redirecting to auth subdomain');
+          window.location.href = 'https://auth.dropleather.com/login';
+        }
       }
     });
 
@@ -138,9 +155,45 @@ export async function getCurrentSession() {
 }
 
 /**
- * Check if user is authenticated
+ * Check if user is authenticated with error handling
  */
 export async function isAuthenticated(): Promise<boolean> {
-  const session = await getCurrentSession();
-  return !!session?.access_token;
+  try {
+    const session = await getCurrentSession();
+    return !!session?.access_token;
+  } catch (error) {
+    console.error('❌ [SUPABASE AUTH] Authentication check failed:', error);
+    // On authentication error, redirect to auth subdomain
+    if (typeof window !== 'undefined') {
+      window.location.href = 'https://auth.dropleather.com/login';
+    }
+    return false;
+  }
+}
+
+/**
+ * Handle authentication errors globally
+ */
+export function handleAuthError(error: any): void {
+  console.error('❌ [SUPABASE AUTH] Authentication error:', error);
+  
+  // Common authentication error messages that should trigger redirect
+  const authErrors = [
+    'Invalid JWT',
+    'JWT expired',
+    'User not found',
+    'Session not found',
+    'Invalid session',
+    'Authentication required'
+  ];
+  
+  const errorMessage = error?.message || error?.error_description || String(error);
+  const isAuthError = authErrors.some(errMsg => 
+    errorMessage.toLowerCase().includes(errMsg.toLowerCase())
+  );
+  
+  if (isAuthError && typeof window !== 'undefined') {
+    console.log('🔄 [SUPABASE AUTH] Redirecting to auth subdomain due to authentication error');
+    window.location.href = 'https://auth.dropleather.com/login';
+  }
 }

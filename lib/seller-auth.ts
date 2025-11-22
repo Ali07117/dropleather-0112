@@ -56,13 +56,15 @@ export async function requireSellerAuth() {
     const { data: { session }, error } = await supabase.auth.getSession()
 
     if (!session || error) {
-      // DEBUG: Show what went wrong instead of redirecting
-      throw new Error(`Session check failed: ${JSON.stringify({
+      console.error('❌ [SELLER AUTH] Session check failed:', {
         hasSession: !!session,
         sessionError: error?.message,
         sessionUserId: session?.user?.id,
         availableCookies: Array.from(cookieStore.getAll()).map(c => c.name)
-      })}`)
+      });
+      
+      // Redirect to auth subdomain instead of showing error
+      redirect(getAuthUrls().login);
     }
 
     // Check user role from user_profiles
@@ -113,8 +115,17 @@ export async function requireSellerAuth() {
     return { session, profile }
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error)
-    console.error('🔍 [SELLER AUTH DEBUG]', errorMessage)
-    // For now, throw the error to see it on the page instead of redirecting
+    console.error('❌ [SELLER AUTH] Authentication failed:', errorMessage)
+    
+    // Check if it's a session-related error
+    if (errorMessage.includes('Session check failed') || 
+        errorMessage.includes('User profile check failed') ||
+        errorMessage.includes('Access denied')) {
+      // Redirect to auth subdomain for session/auth errors
+      redirect(getAuthUrls().login);
+    }
+    
+    // For other errors, still throw to be handled by the layout
     throw error
   }
 }
