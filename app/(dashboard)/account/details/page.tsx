@@ -9,6 +9,7 @@ import { Loader2 } from 'lucide-react';
 export default function AccountDetailsPage() {
   const formRef = useRef<AccountDetailsFormRef>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [hasChanges, setHasChanges] = useState(false);
 
   const handleSave = async () => {
     if (!formRef.current) return;
@@ -16,6 +17,7 @@ export default function AccountDetailsPage() {
     setIsLoading(true);
     try {
       await formRef.current.save();
+      setHasChanges(false);
     } finally {
       setIsLoading(false);
     }
@@ -41,7 +43,7 @@ export default function AccountDetailsPage() {
               <p className="font-['Sora'] text-sm text-gray-700">Happy with the changes? Just press save.</p>
               <Button 
                 onClick={handleSave}
-                disabled={isLoading || !formRef.current?.hasChanges}
+                disabled={isLoading || !hasChanges}
                 className="bg-transparent hover:bg-gray-50 border border-[#696969] border-opacity-60 text-gray-900 font-['Inter'] text-sm font-medium h-[28px]"
               >
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
@@ -49,7 +51,7 @@ export default function AccountDetailsPage() {
               </Button>
             </div>
             
-            <AccountDetailsForm ref={formRef} />
+            <AccountDetailsForm ref={formRef} hasChanges={hasChanges} setHasChanges={setHasChanges} />
           </div>
         </div>
       </div>

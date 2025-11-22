@@ -10,11 +10,15 @@ import { AccountDetailsUpdateRequest } from '@/types/account';
 
 export interface AccountDetailsFormRef {
   save: () => Promise<void>;
-  hasChanges: boolean;
   isUpdating: boolean;
 }
 
-export const AccountDetailsForm = forwardRef<AccountDetailsFormRef>((props, ref) => {
+interface AccountDetailsFormProps {
+  hasChanges: boolean;
+  setHasChanges: (hasChanges: boolean) => void;
+}
+
+export const AccountDetailsForm = forwardRef<AccountDetailsFormRef, AccountDetailsFormProps>(({ hasChanges, setHasChanges }, ref) => {
   const { accountDetails, isLoading, error, isUpdating, updateAccountDetails } = useAccountDetails();
   const [personalData, setPersonalData] = useState({
     name: '',
@@ -30,7 +34,6 @@ export const AccountDetailsForm = forwardRef<AccountDetailsFormRef>((props, ref)
     zip_code: '',
     country: 'US'
   });
-  const [hasChanges, setHasChanges] = useState(false);
 
   // Update local state when account details are loaded
   React.useEffect(() => {
@@ -120,9 +123,8 @@ export const AccountDetailsForm = forwardRef<AccountDetailsFormRef>((props, ref)
   // Expose save function and state to parent component
   useImperativeHandle(ref, () => ({
     save: handleSave,
-    hasChanges,
     isUpdating
-  }), [handleSave, hasChanges, isUpdating]);
+  }), [handleSave, isUpdating]);
 
   if (isLoading) {
     return (
