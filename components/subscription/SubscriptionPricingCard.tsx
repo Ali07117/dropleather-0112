@@ -241,33 +241,17 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
                   </span>
                 </div>
                 
-                {/* Icon with slide-up animation */}
-                <div className="relative z-10 overflow-hidden h-[35px] w-[35px] sm:h-[45px] sm:w-[45px]">
-                  <div className="relative h-full w-full">
-                    <svg 
-                      viewBox="0 0 256 256" 
-                      focusable="false" 
-                      className="w-full h-full block transform translate-y-0 group-hover:-translate-y-full transition-transform duration-300"
-                      fill="currentColor"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g>
-                        <path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"></path>
-                      </g>
-                    </svg>
-                    <svg 
-                      viewBox="0 0 256 256" 
-                      focusable="false" 
-                      className="w-full h-full block transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 absolute top-0 left-0"
-                      fill="currentColor"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g>
-                        <path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"></path>
-                      </g>
-                    </svg>
-                  </div>
-                </div>
+                <svg 
+                  viewBox="0 0 256 256" 
+                  focusable="false" 
+                  className="w-[35px] h-[35px] sm:w-[45px] sm:h-[45px] relative z-10 transform group-hover:scale-110 transition-transform duration-300"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g>
+                    <path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"></path>
+                  </g>
+                </svg>
               </SubscriptionButton>
               
               <div className="space-y-1 p-4 sm:p-5 lg:p-[25px]">
