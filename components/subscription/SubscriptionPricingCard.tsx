@@ -156,65 +156,68 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
         {PRICING_PLANS.map((plan) => (
           <SubscriptionCard key={plan.id} className="w-full max-w-[451px] lg:w-[451px] relative border-gray-300 shadow-none bg-[#F2F2F2]">
             <SubscriptionCardHeader className="pb-4">
-              <SubscriptionCardTitle className="font-geist font-medium text-[18px] leading-7 tracking-tight text-[rgb(10,10,10)]">
-                {plan.name}
-              </SubscriptionCardTitle>
-              
-              <div className="h-1"></div>
-              
-              <div className="relative">
-                <div className="flex items-center min-h-[32px]">
-                  {plan.id === 'free' ? (
-                    // Free plan - no animation
-                    <>
-                      <span className="font-geist font-medium text-[24px] leading-7">
-                        {currency === 'USD' ? '$' : '€'}{plan.price[billingPeriod]}
-                      </span>
-                      <span className="font-geist font-normal text-[16px] leading-extra pl-1 pt-1 text-[#757575]">
-                        /Lifetime
-                      </span>
-                    </>
-                  ) : (
-                    // Paid plans - with animation
-                    <>
-                      {plan.originalPrice && (
-                        <div className="relative overflow-hidden mr-2 h-[28px] flex items-center">
-                          <span
-                            className="font-sora font-normal text-base lg:text-[18px] leading-5 text-[#2c2c2c] line-through"
-                          >
-                            {currency === 'USD' ? '$' : '€'}{plan.originalPrice[billingPeriod]}
-                          </span>
-                        </div>
-                      )}
-                      <div className="relative overflow-hidden h-[28px] flex items-center">
-                        <span
-                          className="font-geist font-medium text-[24px] leading-7"
-                        >
+              {/* White inner box for plan header content */}
+              <div className="bg-white rounded-[11px] p-6">
+                <SubscriptionCardTitle className="font-geist font-medium text-[18px] leading-7 tracking-tight text-[rgb(10,10,10)]">
+                  {plan.name}
+                </SubscriptionCardTitle>
+                
+                <div className="h-1"></div>
+                
+                <div className="relative">
+                  <div className="flex items-center min-h-[32px]">
+                    {plan.id === 'free' ? (
+                      // Free plan - no animation
+                      <>
+                        <span className="font-geist font-medium text-[24px] leading-7">
                           {currency === 'USD' ? '$' : '€'}{plan.price[billingPeriod]}
                         </span>
-                      </div>
-                      <div className="relative overflow-hidden pl-1 pt-1 h-[28px] flex items-center">
-                        <span
-                          className="font-geist font-normal text-[16px] leading-extra text-[#757575]"
-                        >
-                          /{billingPeriod === 'monthly' ? 'month' : 'year'}
+                        <span className="font-geist font-normal text-[16px] leading-extra pl-1 pt-1 text-[#757575]">
+                          /Lifetime
                         </span>
-                      </div>
-                    </>
+                      </>
+                    ) : (
+                      // Paid plans - with animation
+                      <>
+                        {plan.originalPrice && (
+                          <div className="relative overflow-hidden mr-2 h-[28px] flex items-center">
+                            <span
+                              className="font-sora font-normal text-base lg:text-[18px] leading-5 text-[#2c2c2c] line-through"
+                            >
+                              {currency === 'USD' ? '$' : '€'}{plan.originalPrice[billingPeriod]}
+                            </span>
+                          </div>
+                        )}
+                        <div className="relative overflow-hidden h-[28px] flex items-center">
+                          <span
+                            className="font-geist font-medium text-[24px] leading-7"
+                          >
+                            {currency === 'USD' ? '$' : '€'}{plan.price[billingPeriod]}
+                          </span>
+                        </div>
+                        <div className="relative overflow-hidden pl-1 pt-1 h-[28px] flex items-center">
+                          <span
+                            className="font-geist font-normal text-[16px] leading-extra text-[#757575]"
+                          >
+                            /{billingPeriod === 'monthly' ? 'month' : 'year'}
+                          </span>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                  {plan.originalPrice && (
+                    <div className="absolute top-0 right-0">
+                      <SubscriptionBadge variant="secondary" className="bg-green-100 text-green-800 hover:bg-green-100">
+                        {billingPeriod === 'monthly' ? 'First month 50% off' : '50% off yearly'}
+                      </SubscriptionBadge>
+                    </div>
                   )}
                 </div>
-                {plan.originalPrice && (
-                  <div className="absolute top-0 right-0">
-                    <SubscriptionBadge variant="secondary" className="bg-green-100 text-green-800 hover:bg-green-100">
-                      {billingPeriod === 'monthly' ? 'First month 50% off' : '50% off yearly'}
-                    </SubscriptionBadge>
-                  </div>
-                )}
+                
+                <SubscriptionCardDescription className="font-inter font-normal text-[14px] leading-normal text-gray-600 mt-6">
+                  {plan.description}
+                </SubscriptionCardDescription>
               </div>
-              
-              <SubscriptionCardDescription className="font-inter font-normal text-[14px] leading-normal text-gray-600 mt-6">
-                {plan.description}
-              </SubscriptionCardDescription>
             </SubscriptionCardHeader>
             
             <SubscriptionCardContent className="pb-4">
