@@ -661,13 +661,14 @@ const OnboardingPage: React.FC = () => {
           <div className="flex justify-center">
             <OnboardingButton
               variant="animated"
-              size="lg"
               onClick={async () => {
                 playClickSound();
                 await handleStepNavigation();
               }}
               disabled={isLoading}
-              className="px-6 py-3 text-[16px] min-w-[120px]"
+              className={cn("h-[45px] px-6 text-[16px] min-w-[180px]",
+                formData.theme === 'dark' ? "!bg-white !text-black" : ""
+              )}
             >
               {isLoading ? 'Processing...' : 'Continue'}
             </OnboardingButton>
