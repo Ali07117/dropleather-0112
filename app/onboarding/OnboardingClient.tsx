@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion"; // Removed for subscription-plan style effects
 
 // Client component for onboarding functionality
 import Image from "next/image";
@@ -616,13 +616,13 @@ const OnboardingPage: React.FC = () => {
       )}>
         {/* Step 1: Choose Style */}
         <div className={cn("w-full h-full", currentStep === 0 ? "flex flex-col items-center justify-center px-4 text-center" : "hidden")}>
-          <h1 className={cn("font-sora font-semibold text-2xl sm:text-3xl text-center mb-8 transition-colors duration-300",
+          <h1 className={cn("font-geist font-semibold text-2xl sm:text-3xl text-center mb-8 transition-colors duration-300",
             formData.theme === 'dark' ? 'text-white' : 'text-black'
           )}>
             Choose your style
           </h1>
           
-          <div className="flex flex-row gap-6 sm:gap-8 justify-center mb-8">
+          <div className="flex flex-row gap-3 sm:gap-4 justify-center mb-8">
             <button
               type="button"
               onClick={() => handleThemeSelect('dark')}
@@ -636,7 +636,7 @@ const OnboardingPage: React.FC = () => {
                 style={{ backgroundImage: "url('/images/blackbg.svg')" }}
               />
               <div className="h-2/5 w-full px-3 sm:px-4 border-t py-2 sm:py-2.5">
-                <p className="font-sora text-primary text-xl sm:text-2xl font-medium">Dark</p>
+                <p className="font-geist text-primary text-xl sm:text-2xl font-medium">Dark</p>
               </div>
             </button>
             
@@ -653,82 +653,30 @@ const OnboardingPage: React.FC = () => {
                 style={{ backgroundImage: "url('/images/whitebg.svg')" }}
               />
               <div className="h-2/5 w-full px-3 sm:px-4 border-t py-2 sm:py-2.5">
-                <p className="font-sora text-primary text-xl sm:text-2xl font-medium">Light</p>
+                <p className="font-geist text-primary text-xl sm:text-2xl font-medium">Light</p>
               </div>
             </button>
           </div>
 
-          <motion.div
-            className="flex justify-center"
-          >
+          <div className="flex justify-center">
             <OnboardingButton
+              variant="animated"
+              size="lg"
               onClick={async () => {
                 playClickSound();
                 await handleStepNavigation();
               }}
               disabled={isLoading}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.setProperty('--show-light', '1');
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.setProperty('--show-light', '0');
-              }}
-              onMouseMove={(e) => {
-                const rect = e.currentTarget.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
-                e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
-              }}
-              style={{
-                background: formData.theme === 'dark' 
-                  ? `
-                    radial-gradient(
-                      200px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
-                      rgba(0, 0, 0, calc(0.4 * var(--show-light, 0))),
-                      transparent 40%
-                    ),
-                    white
-                  `
-                  : `
-                    radial-gradient(
-                      200px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
-                      rgba(255, 255, 255, calc(0.4 * var(--show-light, 0))),
-                      transparent 40%
-                    ),
-                    black
-                  `
-              }}
-              className={cn("px-4 py-2 mt-0 gap-2 transition-colors duration-300 relative overflow-hidden font-sora font-medium text-[14px] rounded-lg",
-                formData.theme === 'dark' 
-                  ? "!text-black" 
-                  : "!text-white",
-                isLoading ? "opacity-50 cursor-not-allowed" : ""
-              )}
+              className="px-6 py-3 text-[16px] min-w-[120px]"
             >
-              <motion.span
-                animate={isLoading ? { opacity: [1, 0.5, 1] } : { opacity: 1 }}
-                transition={{ duration: 1, repeat: isLoading ? Infinity : 0 }}
-                className="relative z-10 font-sora"
-              >
-                {isLoading ? 'Processing...' : 'Continue'}
-              </motion.span>
-              <Image 
-                src="/images/continuearrow.svg" 
-                alt="Continue" 
-                width={16} 
-                height={16}
-                className={cn("transition-all duration-300 relative z-10",
-                  formData.theme === 'dark' ? "filter invert" : ""
-                )}
-              />
+              {isLoading ? 'Processing...' : 'Continue'}
             </OnboardingButton>
-          </motion.div>
+          </div>
         </div>
 
         {/* Step 2: Personal Information */}
         <div className={cn("w-full max-w-lg mx-auto px-4", currentStep === 1 ? "block" : "hidden")}>
-          <h1 className={cn("font-sora font-bold text-[30px] text-left sm:text-center leading-full mb-7 transition-colors duration-300",
+          <h1 className={cn("font-geist font-bold text-[30px] text-left sm:text-center leading-full mb-7 transition-colors duration-300",
             formData.theme === 'dark' ? 'text-white' : 'text-primary'
           )}>
             Let&apos;s get to know you better
@@ -751,7 +699,7 @@ const OnboardingPage: React.FC = () => {
 
           <div className="space-y-5">
             <div>
-              <label className={cn("text-sm font-medium block mb-1 transition-colors duration-300 font-sora",
+              <label className={cn("text-sm font-medium block mb-1 transition-colors duration-300 font-geist",
                 formData.theme === 'dark' ? 'text-white' : 'text-primary'
               )}>
                 What&apos;s your name?
@@ -785,7 +733,7 @@ const OnboardingPage: React.FC = () => {
             </div>
 
             <div>
-              <label className={cn("text-sm font-medium block mb-1 transition-colors duration-300 font-sora",
+              <label className={cn("text-sm font-medium block mb-1 transition-colors duration-300 font-geist",
                 formData.theme === 'dark' ? 'text-white' : 'text-primary'
               )}>
                 What&apos;s your date of birth?
@@ -799,7 +747,7 @@ const OnboardingPage: React.FC = () => {
                   onChange={handleDateChange('day')}
                   onBlur={handleDayBlur}
                   className={cn(
-                    "w-20 px-3 border rounded-sm h-10 text-base sm:text-sm outline-none bg-transparent transition-colors duration-300 font-sora",
+                    "w-20 px-3 border rounded-sm h-10 text-base sm:text-sm outline-none bg-transparent transition-colors duration-300 font-geist",
                     formData.theme === 'dark' 
                       ? "border-white text-white focus:border-white placeholder:text-white/60" 
                       : "border-gray-light text-black focus:border-primary placeholder:text-primary/60"
@@ -811,7 +759,7 @@ const OnboardingPage: React.FC = () => {
                     value={formData.dateOfBirth.month}
                     onChange={handleDateChange('month')}
                     className={cn(
-                      "appearance-none w-full px-3 border rounded-sm h-10 text-base sm:text-sm outline-none bg-transparent transition-colors duration-300 font-sora",
+                      "appearance-none w-full px-3 border rounded-sm h-10 text-base sm:text-sm outline-none bg-transparent transition-colors duration-300 font-geist",
                       formData.theme === 'dark' 
                         ? "border-white text-white focus:border-white" 
                         : "border-gray-light text-black focus:border-primary"
@@ -845,7 +793,7 @@ const OnboardingPage: React.FC = () => {
                   value={formData.dateOfBirth.year}
                   onChange={handleDateChange('year')}
                   className={cn(
-                    "w-20 px-3 border rounded-sm h-10 text-base sm:text-sm outline-none bg-transparent transition-colors duration-300 font-sora",
+                    "w-20 px-3 border rounded-sm h-10 text-base sm:text-sm outline-none bg-transparent transition-colors duration-300 font-geist",
                     formData.theme === 'dark' 
                       ? "border-white text-white focus:border-white placeholder:text-white/60" 
                       : "border-gray-light text-black focus:border-primary placeholder:text-primary/60"
@@ -878,10 +826,10 @@ const OnboardingPage: React.FC = () => {
                   : ""
               )}
             >
-              <span className="font-sora">Back</span>
+              <span className="font-geist">Back</span>
             </OnboardingButton>
             
-            <motion.div
+            <div
               className="inline-block"
             >
               <OnboardingButton
@@ -926,15 +874,15 @@ const OnboardingPage: React.FC = () => {
                   isLoading ? "opacity-50 cursor-not-allowed" : ""
                 )}
               >
-                <motion.span
+                <span
                   animate={isLoading ? { opacity: [1, 0.5, 1] } : { opacity: 1 }}
                   transition={{ duration: 1, repeat: isLoading ? Infinity : 0 }}
-                  className="font-sora relative z-10"
+                  className="font-geist relative z-10"
                 >
                   {isLoading ? 'Saving...' : 'Next'}
-                </motion.span>
+                </span>
               </OnboardingButton>
-            </motion.div>
+            </div>
           </div>
 
           <div className="mt-6">
@@ -970,7 +918,7 @@ const OnboardingPage: React.FC = () => {
         <div className={cn("w-full max-w-lg mx-auto px-4", 
           currentStep === 2 && subscriptionStatus?.status !== 'free' ? "block" : "hidden"
         )}>
-          <h1 className={cn("font-sora font-bold text-[30px] text-left sm:text-center leading-full mb-6 transition-colors duration-300",
+          <h1 className={cn("font-geist font-bold text-[30px] text-left sm:text-center leading-full mb-6 transition-colors duration-300",
             formData.theme === 'dark' ? 'text-white' : 'text-primary'
           )}>
             What stage is your brand at?
@@ -1001,7 +949,7 @@ const OnboardingPage: React.FC = () => {
                 )}
               />
               <div className="flex-1 text-left">
-                <p className={cn("font-sora font-bold text-sm leading-5 transition-colors duration-300",
+                <p className={cn("font-geist font-bold text-sm leading-5 transition-colors duration-300",
                   formData.theme === 'dark' ? 'text-white' : 'text-primary'
                 )}>New Brand</p>
                 <p className={cn("font-inter font-normal text-xs leading-4 transition-colors duration-300",
@@ -1049,7 +997,7 @@ const OnboardingPage: React.FC = () => {
                 )}
               />
               <div className="flex-1 text-left">
-                <p className={cn("font-sora font-bold text-sm leading-5 transition-colors duration-300",
+                <p className={cn("font-geist font-bold text-sm leading-5 transition-colors duration-300",
                   formData.theme === 'dark' ? 'text-white' : 'text-primary'
                 )}>Established Brand</p>
                 <p className={cn("font-inter font-normal text-xs leading-4 transition-colors duration-300",
@@ -1087,7 +1035,7 @@ const OnboardingPage: React.FC = () => {
               Back
             </OnboardingButton>
             
-            <motion.div
+            <div
               className="inline-block"
             >
               <OnboardingButton
@@ -1132,15 +1080,15 @@ const OnboardingPage: React.FC = () => {
                   isLoading ? "opacity-50 cursor-not-allowed" : ""
                 )}
               >
-                <motion.span
+                <span
                   animate={isLoading ? { opacity: [1, 0.5, 1] } : { opacity: 1 }}
                   transition={{ duration: 1, repeat: isLoading ? Infinity : 0 }}
                   className="relative z-10"
                 >
                   {isLoading ? 'Saving...' : 'Continue'}
-                </motion.span>
+                </span>
               </OnboardingButton>
-            </motion.div>
+            </div>
           </div>
         </div>
 
@@ -1148,7 +1096,7 @@ const OnboardingPage: React.FC = () => {
         <div className={cn("px-4 sm:px-5", 
           currentStep === 3 && subscriptionStatus?.status !== 'free' ? "block" : "hidden"
         )}>
-          <h1 className={cn("font-sora font-bold text-2xl sm:text-[30px] text-left sm:text-center leading-full mb-6 transition-colors duration-300",
+          <h1 className={cn("font-geist font-bold text-2xl sm:text-[30px] text-left sm:text-center leading-full mb-6 transition-colors duration-300",
             formData.theme === 'dark' ? 'text-white' : 'text-primary'
           )}>
             Which category best describes you?
@@ -1178,10 +1126,10 @@ const OnboardingPage: React.FC = () => {
                   : ""
               )}
             >
-              <span className="font-sora">Back</span>
+              <span className="font-geist">Back</span>
             </OnboardingButton>
             
-            <motion.div
+            <div
               className="inline-block"
             >
               <OnboardingButton
@@ -1226,15 +1174,15 @@ const OnboardingPage: React.FC = () => {
                   (isLoading || formData.hearAbout.length === 0) ? "opacity-50 cursor-not-allowed" : ""
                 )}
               >
-                <motion.span
+                <span
                   animate={isLoading ? { opacity: [1, 0.5, 1] } : { opacity: 1 }}
                   transition={{ duration: 1, repeat: isLoading ? Infinity : 0 }}
-                  className="font-sora relative z-10"
+                  className="font-geist relative z-10"
                 >
                   {isLoading ? 'Completing...' : 'Complete Onboarding'}
-                </motion.span>
+                </span>
               </OnboardingButton>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>

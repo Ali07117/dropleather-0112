@@ -19,6 +19,7 @@ const onboardingButtonVariants = cva(
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
+        animated: "bg-black text-white font-geist font-medium relative overflow-hidden rounded-[16px] group",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
@@ -41,6 +42,7 @@ function OnboardingButton({
   variant,
   size,
   asChild = false,
+  children,
   ...props
 }: React.ComponentProps<"button"> &
   VariantProps<typeof onboardingButtonVariants> & {
@@ -48,12 +50,42 @@ function OnboardingButton({
   }) {
   const Comp = asChild ? Slot : "button"
 
+  // If animated variant, render with subscription-plan style effects
+  if (variant === "animated") {
+    return (
+      <Comp
+        data-slot="button"
+        className={cn(onboardingButtonVariants({ variant, size, className }))}
+        {...props}
+      >
+        {/* Gradient overlay on hover */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        
+        {/* Text with slide-up animation */}
+        <div className="relative z-10 overflow-hidden h-[20px] flex items-center justify-center w-full">
+          {/* First set (visible initially) */}
+          <div className="flex items-center justify-center w-full transform translate-y-0 group-hover:-translate-y-full transition-transform duration-300">
+            <span>{children}</span>
+          </div>
+          
+          {/* Second set (slides in from below) */}
+          <div className="flex items-center justify-center w-full transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 absolute inset-0">
+            <span>{children}</span>
+          </div>
+        </div>
+      </Comp>
+    )
+  }
+
+  // Default behavior for other variants
   return (
     <Comp
       data-slot="button"
       className={cn(onboardingButtonVariants({ variant, size, className }))}
       {...props}
-    />
+    >
+      {children}
+    </Comp>
   )
 }
 
