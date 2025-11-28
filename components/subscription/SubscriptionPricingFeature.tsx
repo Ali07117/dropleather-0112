@@ -35,7 +35,7 @@ const SubscriptionPricingFeature: React.FC<PricingOptionProps> = ({
       
       <p 
         className={cn(
-          'text-[14px] leading-normal flex-1 font-[400] font-inter',
+          'text-[16px] leading-normal flex-1 font-medium font-geist',
           text === '#000000' ? 'text-primary' : 'text-text-muted'
         )}
         style={text && text !== '#000000' ? { color: text } : undefined}

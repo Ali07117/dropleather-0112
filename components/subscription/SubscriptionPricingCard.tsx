@@ -129,7 +129,7 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
 
     return Object.entries(categories).map(([category, categoryFeatures]) => (
       <div key={category}>
-        <h4 className="font-[400] text-[14px] leading-extra mb-3 lg:mb-4 mt-4 lg:mt-5 font-inter">
+        <h4 className="font-medium text-[16px] leading-extra mb-3 lg:mb-4 mt-4 lg:mt-5 font-geist">
           {category}
         </h4>
         {categoryFeatures.map(featureName => {
