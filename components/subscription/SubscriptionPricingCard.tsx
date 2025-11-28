@@ -154,7 +154,7 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
     <div className="w-full flex justify-center">
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-6 justify-center items-center lg:items-stretch">
         {PRICING_PLANS.map((plan) => (
-          <SubscriptionCard key={plan.id} className="w-full max-w-sm lg:w-[340px] relative border-gray-300 shadow-none">
+          <SubscriptionCard key={plan.id} className="w-full max-w-[451px] lg:w-[451px] relative border-gray-300 shadow-none">
             <SubscriptionCardHeader className="pb-4">
               <SubscriptionCardTitle className="font-sora font-medium text-xl lg:text-[26px] leading-7 tracking-tight">
                 {plan.name}
@@ -222,15 +222,15 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
               <SubscriptionButton
                 onClick={() => handleSelectPlan(plan.id)}
                 disabled={submittingPlan === plan.id}
-                className="w-full h-[70px] text-white font-geist font-medium text-[18px] relative overflow-hidden bg-black hover:bg-black border-0 group flex items-center justify-between px-6"
+                className="w-full h-[70px] text-white font-geist font-medium text-[18px] relative overflow-hidden bg-black hover:bg-black border-0 rounded-[16px] group flex items-center justify-between px-6"
                 variant="default"
               >
                 <span className="relative z-10">
-                  {submittingPlan === plan.id ? 'Processing...' : 'Select plan'}
+                  {submittingPlan === plan.id ? 'Processing...' : 'Get started'}
                 </span>
                 <svg 
-                  width="24" 
-                  height="24" 
+                  width="32" 
+                  height="32" 
                   viewBox="0 0 256 256" 
                   focusable="false" 
                   className="relative z-10"

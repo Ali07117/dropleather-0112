@@ -100,11 +100,11 @@ const SubscriptionPlanClient: React.FC = () => {
         <div className="w-full flex justify-center">
           <div className="flex flex-col lg:flex-row gap-6 lg:gap-6 justify-center items-center lg:items-stretch">
             {/* Invisible spacers for desktop alignment */}
-            <div className="hidden lg:block w-full max-w-sm lg:w-[340px]"></div>
-            <div className="hidden lg:block w-full max-w-sm lg:w-[340px]"></div>
+            <div className="hidden lg:block w-full max-w-[451px] lg:w-[451px]"></div>
+            <div className="hidden lg:block w-full max-w-[451px] lg:w-[451px]"></div>
             
             {/* Currency selector aligned with third card */}
-            <div className="w-full max-w-sm lg:w-[340px] flex justify-center lg:justify-end items-center mb-4">
+            <div className="w-full max-w-[451px] lg:w-[451px] flex justify-center lg:justify-end items-center mb-4">
               <SubscriptionSelect value={selectedCurrency} onValueChange={(value: Currency) => handleCurrencySelect(value)}>
                 <SubscriptionSelectTrigger className="w-full lg:w-[120px] h-12 bg-[#EBEBEB] border-[#EBEBEB] text-black p-2 [&>svg]:translate-y-2">
                   <div className="flex flex-col items-start w-full gap-2">
