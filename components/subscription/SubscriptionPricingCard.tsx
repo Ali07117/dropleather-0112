@@ -151,13 +151,13 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
   };
 
   return (
-    <div className="w-full flex justify-center">
-      <div className="flex flex-col lg:flex-row gap-6 lg:gap-6 justify-center items-center lg:items-stretch">
+    <div className="w-full flex justify-center px-4 sm:px-6 lg:px-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 max-w-7xl mx-auto w-full">
         {PRICING_PLANS.map((plan) => (
-          <SubscriptionCard key={plan.id} className="w-full max-w-[451px] lg:w-[451px] relative border-gray-300 shadow-none bg-[#F2F2F2]">
+          <SubscriptionCard key={plan.id} className="w-full relative border-gray-300 shadow-none bg-[#F2F2F2]">
             <SubscriptionCardHeader className="pb-0 px-[5px] pt-[5px]">
               {/* White inner box for plan header content */}
-              <div className="bg-white rounded-[11px] p-[25px]">
+              <div className="bg-white rounded-[11px] p-4 sm:p-5 lg:p-[25px]">
                 <SubscriptionCardTitle className="font-geist font-medium text-[18px] leading-7 tracking-tight text-[rgb(10,10,10)]">
                   {plan.name}
                 </SubscriptionCardTitle>
@@ -225,28 +225,50 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
               <SubscriptionButton
                 onClick={() => handleSelectPlan(plan.id)}
                 disabled={submittingPlan === plan.id}
-                className="w-full h-[70px] text-white font-geist font-medium text-[18px] relative overflow-hidden bg-black hover:bg-black border-0 rounded-[16px] group flex items-center justify-between px-6 mt-4"
+                className="w-full h-[60px] sm:h-[70px] text-white font-geist font-medium text-[16px] sm:text-[18px] relative overflow-hidden bg-black border-0 rounded-[16px] group flex items-center justify-between px-4 sm:px-6 mt-3 sm:mt-4 transition-all duration-300"
                 variant="default"
               >
-                <span className="relative z-10">
-                  {submittingPlan === plan.id ? 'Processing...' : 'Get started'}
-                </span>
-                <svg 
-                  width="32" 
-                  height="32" 
-                  viewBox="0 0 256 256" 
-                  focusable="false" 
-                  className="relative z-10"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g>
-                    <path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"></path>
-                  </g>
-                </svg>
+                {/* Gradient overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                {/* Text with slide-up animation */}
+                <div className="relative z-10 overflow-hidden h-[24px]">
+                  <span className="block transform translate-y-0 group-hover:-translate-y-full transition-transform duration-300">
+                    {submittingPlan === plan.id ? 'Processing...' : 'Get started'}
+                  </span>
+                  <span className="block transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 absolute inset-0">
+                    {submittingPlan === plan.id ? 'Processing...' : 'Get started'}
+                  </span>
+                </div>
+                
+                {/* Icon with slide-up animation */}
+                <div className="relative z-10 overflow-hidden h-[35px] w-[35px] sm:h-[45px] sm:w-[45px]">
+                  <svg 
+                    viewBox="0 0 256 256" 
+                    focusable="false" 
+                    className="w-full h-full block transform translate-y-0 group-hover:-translate-y-full transition-transform duration-300"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g>
+                      <path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"></path>
+                    </g>
+                  </svg>
+                  <svg 
+                    viewBox="0 0 256 256" 
+                    focusable="false" 
+                    className="w-full h-full block transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 absolute inset-0"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g>
+                      <path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"></path>
+                    </g>
+                  </svg>
+                </div>
               </SubscriptionButton>
               
-              <div className="space-y-1 p-[25px]">
+              <div className="space-y-1 p-4 sm:p-5 lg:p-[25px]">
                 {renderFeaturesByCategory(plan.features)}
               </div>
             </SubscriptionCardContent>
