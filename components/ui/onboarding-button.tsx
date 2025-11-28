@@ -19,7 +19,7 @@ const onboardingButtonVariants = cva(
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
-        animated: "bg-black text-white font-geist font-medium relative overflow-hidden rounded-[16px] group",
+        animated: "bg-black text-white dark:bg-white dark:text-black font-geist font-medium relative overflow-hidden rounded-[16px] group transition-all duration-300",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
@@ -59,18 +59,24 @@ function OnboardingButton({
         {...props}
       >
         {/* Gradient overlay on hover */}
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/20 dark:to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         
-        {/* Text with slide-up animation */}
-        <div className="relative z-10 overflow-hidden h-[20px] flex items-center justify-center w-full">
+        {/* Text and Icon with slide-up animation */}
+        <div className="relative z-10 overflow-hidden h-[22px] flex items-center justify-between w-full px-2">
           {/* First set (visible initially) */}
-          <div className="flex items-center justify-center w-full transform translate-y-0 group-hover:-translate-y-full transition-transform duration-300">
+          <div className="flex items-center justify-between w-full transform translate-y-0 group-hover:-translate-y-full transition-transform duration-300">
             <span>{children}</span>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="!w-[22px] !h-[22px]">
+              <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
           </div>
           
           {/* Second set (slides in from below) */}
-          <div className="flex items-center justify-center w-full transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 absolute inset-0">
+          <div className="flex items-center justify-between w-full transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 absolute inset-0 px-2">
             <span>{children}</span>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="!w-[22px] !h-[22px]">
+              <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
           </div>
         </div>
       </Comp>

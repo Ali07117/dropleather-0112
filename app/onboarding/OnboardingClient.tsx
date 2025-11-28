@@ -833,52 +833,14 @@ const OnboardingPage: React.FC = () => {
               className="inline-block"
             >
               <OnboardingButton
+                variant="animated"
                 onClick={handleNextWithSound}
                 disabled={isLoading}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.setProperty('--show-light', '1');
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.setProperty('--show-light', '0');
-                }}
-                onMouseMove={(e) => {
-                  const rect = e.currentTarget.getBoundingClientRect();
-                  const x = e.clientX - rect.left;
-                  const y = e.clientY - rect.top;
-                  e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
-                  e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
-                }}
-                style={{
-                  background: formData.theme === 'dark' 
-                    ? `
-                      radial-gradient(
-                        200px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
-                        rgba(0, 0, 0, calc(0.4 * var(--show-light, 0))),
-                        transparent 40%
-                      ),
-                      white
-                    `
-                    : `
-                      radial-gradient(
-                        200px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
-                        rgba(255, 255, 255, calc(0.4 * var(--show-light, 0))),
-                        transparent 40%
-                      ),
-                      black
-                    `
-                }}
-                className={cn("px-2.5 py-2 h-9 transition-colors duration-300 relative overflow-hidden",
-                  formData.theme === 'dark' 
-                    ? "!text-black" 
-                    : "!text-white",
+                className={cn("w-full h-[40px] transition-all duration-300",
                   isLoading ? "opacity-50 cursor-not-allowed" : ""
                 )}
               >
-                <span
-                  className="font-geist relative z-10"
-                >
-                  {isLoading ? 'Saving...' : 'Next'}
-                </span>
+                {isLoading ? 'Saving...' : 'Next'}
               </OnboardingButton>
             </div>
           </div>
@@ -1037,52 +999,14 @@ const OnboardingPage: React.FC = () => {
               className="inline-block"
             >
               <OnboardingButton
+                variant="animated"
                 onClick={handleNextWithSound}
                 disabled={isLoading}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.setProperty('--show-light', '1');
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.setProperty('--show-light', '0');
-                }}
-                onMouseMove={(e) => {
-                  const rect = e.currentTarget.getBoundingClientRect();
-                  const x = e.clientX - rect.left;
-                  const y = e.clientY - rect.top;
-                  e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
-                  e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
-                }}
-                style={{
-                  background: formData.theme === 'dark' 
-                    ? `
-                      radial-gradient(
-                        200px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
-                        rgba(0, 0, 0, calc(0.4 * var(--show-light, 0))),
-                        transparent 40%
-                      ),
-                      white
-                    `
-                    : `
-                      radial-gradient(
-                        200px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
-                        rgba(255, 255, 255, calc(0.4 * var(--show-light, 0))),
-                        transparent 40%
-                      ),
-                      black
-                    `
-                }}
-                className={cn("px-2.5 py-2 h-9 transition-colors duration-300 relative overflow-hidden",
-                  formData.theme === 'dark' 
-                    ? "!text-black" 
-                    : "!text-white",
+                className={cn("w-full h-[40px] transition-all duration-300",
                   isLoading ? "opacity-50 cursor-not-allowed" : ""
                 )}
               >
-                <span
-                  className="relative z-10"
-                >
-                  {isLoading ? 'Saving...' : 'Continue'}
-                </span>
+                {isLoading ? 'Saving...' : 'Continue'}
               </OnboardingButton>
             </div>
           </div>
