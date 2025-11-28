@@ -875,8 +875,6 @@ const OnboardingPage: React.FC = () => {
                 )}
               >
                 <span
-                  animate={isLoading ? { opacity: [1, 0.5, 1] } : { opacity: 1 }}
-                  transition={{ duration: 1, repeat: isLoading ? Infinity : 0 }}
                   className="font-geist relative z-10"
                 >
                   {isLoading ? 'Saving...' : 'Next'}
@@ -1081,8 +1079,6 @@ const OnboardingPage: React.FC = () => {
                 )}
               >
                 <span
-                  animate={isLoading ? { opacity: [1, 0.5, 1] } : { opacity: 1 }}
-                  transition={{ duration: 1, repeat: isLoading ? Infinity : 0 }}
                   className="relative z-10"
                 >
                   {isLoading ? 'Saving...' : 'Continue'}
@@ -1175,8 +1171,6 @@ const OnboardingPage: React.FC = () => {
                 )}
               >
                 <span
-                  animate={isLoading ? { opacity: [1, 0.5, 1] } : { opacity: 1 }}
-                  transition={{ duration: 1, repeat: isLoading ? Infinity : 0 }}
                   className="font-geist relative z-10"
                 >
                   {isLoading ? 'Completing...' : 'Complete Onboarding'}
