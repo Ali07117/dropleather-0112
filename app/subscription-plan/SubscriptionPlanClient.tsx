@@ -75,7 +75,7 @@ const SubscriptionPlanClient: React.FC = () => {
           <button
             onClick={() => handlePlanToggle('monthly')}
             className={cn(
-              "relative z-10 w-24 h-10 flex items-center justify-center rounded-lg font-sora text-sm font-semibold transition-colors duration-200",
+              "relative z-10 w-24 h-10 flex items-center justify-center rounded-lg font-geist text-sm font-semibold transition-colors duration-200",
               selectedPlan === 'monthly' ? "text-black" : "text-gray-700"
             )}
           >
@@ -86,7 +86,7 @@ const SubscriptionPlanClient: React.FC = () => {
           <button
             onClick={() => handlePlanToggle('yearly')}
             className={cn(
-              "relative z-10 w-24 h-10 flex items-center justify-center rounded-lg font-sora text-sm font-semibold transition-colors duration-200",
+              "relative z-10 w-24 h-10 flex items-center justify-center rounded-lg font-geist text-sm font-semibold transition-colors duration-200",
               selectedPlan === 'yearly' ? "text-black" : "text-gray-700"
             )}
           >
@@ -105,14 +105,14 @@ const SubscriptionPlanClient: React.FC = () => {
                 <SubscriptionSelectTrigger className="w-full lg:w-[120px] h-12 bg-[#EBEBEB] border-[#EBEBEB] text-black p-2 [&>svg]:translate-y-2">
                   <div className="flex flex-col items-start w-full gap-2">
                     <div className="text-black font-inter text-[10px] leading-tight">CURRENCY</div>
-                    <div className="text-black font-sora text-sm leading-tight font-bold">
+                    <div className="text-black font-geist text-sm leading-tight font-bold">
                       {selectedCurrency === 'USD' ? '$ USD' : '€ EUR'}
                     </div>
                   </div>
                 </SubscriptionSelectTrigger>
                 <SubscriptionSelectContent className="bg-white border border-gray-200 shadow-lg">
-                  <SubscriptionSelectItem value="USD" className="font-sora bg-white hover:bg-gray-50">$ USD</SubscriptionSelectItem>
-                  <SubscriptionSelectItem value="EUR" className="font-sora bg-white hover:bg-gray-50">€ EUR</SubscriptionSelectItem>
+                  <SubscriptionSelectItem value="USD" className="font-geist bg-white hover:bg-gray-50">$ USD</SubscriptionSelectItem>
+                  <SubscriptionSelectItem value="EUR" className="font-geist bg-white hover:bg-gray-50">€ EUR</SubscriptionSelectItem>
                 </SubscriptionSelectContent>
               </SubscriptionSelect>
             </div>
@@ -127,15 +127,15 @@ const SubscriptionPlanClient: React.FC = () => {
       </div>
       
       <div className="flex justify-center mt-6 sm:mt-7">
-        <p className="font-light text-[12px] leading-6 w-11/12 sm:w-4/5 text-center text-black font-inter">
+        <p className="font-normal text-[14px] leading-6 w-11/12 sm:w-4/5 text-center text-black font-geist">
           Each subscription covers one brand. If you want to launch additional brands, you&apos;ll need to upgrade your plan or subscribe separately.
         </p>
       </div>
       
       <div className="flex justify-center mt-0 mb-8 sm:mb-10">
-        <p className="font-light text-[12px] leading-6 w-11/12 sm:w-4/5 text-center text-black font-inter">
+        <p className="font-normal text-[14px] leading-6 w-11/12 sm:w-4/5 text-center text-black font-geist">
           Our{' '}
-          <span className="text-[12px] font-bold leading-6 text-black underline">
+          <span className="text-[14px] font-bold leading-6 text-black underline font-geist">
             free plan includes products without branding,
           </span>
           {' '}while paid plans unlock full white-label customization.

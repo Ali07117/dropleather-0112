@@ -17,18 +17,18 @@ const PRICING_PLANS: PricingPlan[] = [
     description: 'Perfect for testing the market and getting started with minimal investment.',
     price: { monthly: 0, yearly: 0 },
     features: [
-      { name: 'Premium Leather Products', included: true, details: 'Access to our curated collection of high-quality leather goods' },
+      { name: 'Premium Leather Products', included: true },
       { name: 'Your Logo on Every Product', included: false, details: 'Professional brand placement on all items' },
       { name: 'Personalized Packaging', included: false, details: 'Branded boxes, tissue paper, and presentation materials' },
       { name: 'Personalized Dust Bag', included: false, details: 'Elegant dust bags with your brand logo' },
       { name: 'Personalized Hang Tags', included: false, details: 'Custom hang tags with your brand information' },
-      { name: 'Create Your Own Products', included: false, details: 'Design unique products exclusive to your brand' },
-      { name: 'Create Your Own Packaging', included: false, details: 'Complete control over packaging design and materials' },
+      { name: 'Create Your Own Products', included: false },
+      { name: 'Create Your Own Packaging', included: false },
       { name: 'Personalized Ribbon', included: false, details: 'Custom ribbon with your brand colors and logo' },
       { name: 'Personalized Wrapping Paper', included: false, details: 'Custom wrapping paper with your brand design' },
       { name: 'AI Fashion Model', included: false, details: 'AI-powered model photos for product listings' },
       { name: '360° Branding Views', included: false, details: 'Interactive 360-degree product photography' },
-      { name: '24/7 Support', included: true, details: 'Round-the-clock customer support' }
+      { name: '24/7 Support', included: true }
     ]
   },
   {
@@ -38,18 +38,18 @@ const PRICING_PLANS: PricingPlan[] = [
     price: { monthly: 24, yearly: 299 },
     originalPrice: { monthly: 49, yearly: 588 },
     features: [
-      { name: 'Premium Leather Products', included: true, details: 'Access to our curated collection of high-quality leather goods' },
+      { name: 'Premium Leather Products', included: true },
       { name: 'Your Logo on Every Product', included: true, details: 'Professional brand placement on all items' },
       { name: 'Personalized Packaging', included: true, details: 'Branded boxes, tissue paper, and presentation materials' },
       { name: 'Personalized Dust Bag', included: true, details: 'Elegant dust bags with your brand logo' },
       { name: 'Personalized Hang Tags', included: true, details: 'Custom hang tags with your brand information' },
-      { name: 'Create Your Own Products', included: false, details: 'Design unique products exclusive to your brand' },
-      { name: 'Create Your Own Packaging', included: false, details: 'Complete control over packaging design and materials' },
+      { name: 'Create Your Own Products', included: false },
+      { name: 'Create Your Own Packaging', included: false },
       { name: 'Personalized Ribbon', included: false, details: 'Custom ribbon with your brand colors and logo' },
       { name: 'Personalized Wrapping Paper', included: false, details: 'Custom wrapping paper with your brand design' },
       { name: 'AI Fashion Model', included: true, details: 'AI-powered model photos for product listings' },
       { name: '360° Branding Views', included: true, details: 'Interactive 360-degree product photography' },
-      { name: '24/7 Support', included: true, details: 'Round-the-clock customer support' }
+      { name: '24/7 Support', included: true }
     ]
   },
   {
@@ -59,18 +59,18 @@ const PRICING_PLANS: PricingPlan[] = [
     price: { monthly: 49, yearly: 599 },
     originalPrice: { monthly: 99, yearly: 1188 },
     features: [
-      { name: 'Premium Leather Products', included: true, details: 'Access to our curated collection of high-quality leather goods' },
+      { name: 'Premium Leather Products', included: true },
       { name: 'Your Logo on Every Product', included: true, details: 'Professional brand placement on all items' },
       { name: 'Personalized Packaging', included: true, details: 'Branded boxes, tissue paper, and presentation materials' },
       { name: 'Personalized Dust Bag', included: true, details: 'Elegant dust bags with your brand logo' },
       { name: 'Personalized Hang Tags', included: true, details: 'Custom hang tags with your brand information' },
-      { name: 'Create Your Own Products', included: true, details: 'Design unique products exclusive to your brand' },
-      { name: 'Create Your Own Packaging', included: true, details: 'Complete control over packaging design and materials' },
+      { name: 'Create Your Own Products', included: true },
+      { name: 'Create Your Own Packaging', included: true },
       { name: 'Personalized Ribbon', included: true, details: 'Custom ribbon with your brand colors and logo' },
       { name: 'Personalized Wrapping Paper', included: true, details: 'Custom wrapping paper with your brand design' },
       { name: 'AI Fashion Model', included: true, details: 'AI-powered model photos for product listings' },
       { name: '360° Branding Views', included: true, details: 'Interactive 360-degree product photography' },
-      { name: '24/7 Support', included: true, details: 'Round-the-clock customer support' }
+      { name: '24/7 Support', included: true }
     ]
   }
 ];
@@ -113,13 +113,12 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
 
   const renderFeaturesByCategory = (features: PricingPlan['features']) => {
     const categories = {
-      'Products': ['Premium Leather Products', 'Create Your Own Products'],
+      'Products': ['Premium Leather Products', 'Create Your Own Products', 'Create Your Own Packaging'],
       'Customization': [
         'Your Logo on Every Product',
         'Personalized Packaging',
         'Personalized Dust Bag',
         'Personalized Hang Tags',
-        'Create Your Own Packaging',
         'Personalized Ribbon',
         'Personalized Wrapping Paper',
       ],
@@ -169,7 +168,7 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
                     {plan.id === 'free' ? (
                       // Free plan - no animation
                       <>
-                        <span className="font-geist font-medium text-[24px] leading-7">
+                        <span className="font-geist font-semibold text-[24px] leading-7">
                           {currency === 'USD' ? '$' : '€'}{plan.price[billingPeriod]}
                         </span>
                         <span className="font-geist font-normal text-[16px] leading-extra pl-1 pt-1 text-[#757575]">
@@ -182,7 +181,7 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
                         {plan.originalPrice && (
                           <div className="relative overflow-hidden mr-2 h-[28px] flex items-center">
                             <span
-                              className="font-geist font-normal text-base lg:text-[18px] leading-5 text-[#2c2c2c] line-through"
+                              className="font-geist font-normal text-base lg:text-[18px] leading-5 text-[#757575] line-through"
                             >
                               {currency === 'USD' ? '$' : '€'}{plan.originalPrice[billingPeriod]}
                             </span>
@@ -190,7 +189,7 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
                         )}
                         <div className="relative overflow-hidden h-[28px] flex items-center">
                           <span
-                            className="font-geist font-medium text-[24px] leading-7"
+                            className="font-geist font-semibold text-[24px] leading-7"
                           >
                             {currency === 'USD' ? '$' : '€'}{plan.price[billingPeriod]}
                           </span>
@@ -207,7 +206,7 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
                   </div>
                   {plan.originalPrice && (
                     <div className="absolute top-0 right-0">
-                      <SubscriptionBadge variant="secondary" className="bg-green-100 text-green-800 hover:bg-green-100">
+                      <SubscriptionBadge variant="secondary" className="bg-green-100 text-green-800 hover:bg-green-100 font-geist">
                         {billingPeriod === 'monthly' ? 'First month 50% off' : '50% off yearly'}
                       </SubscriptionBadge>
                     </div>
@@ -229,46 +228,45 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
                 variant="default"
               >
                 {/* Gradient overlay on hover */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 
-                {/* Text with slide-up animation */}
-                <div className="relative z-10 overflow-hidden h-[24px]">
-                  <span className="block transform translate-y-0 group-hover:-translate-y-full transition-transform duration-300">
-                    {submittingPlan === plan.id ? 'Processing...' : 'Get started'}
-                  </span>
-                  <span className="block transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 absolute inset-0">
-                    {submittingPlan === plan.id ? 'Processing...' : 'Get started'}
-                  </span>
-                </div>
-                
-                {/* Icon with slide-up animation */}
-                <div className="relative z-10 overflow-hidden w-[35px] h-[35px] sm:w-[45px] sm:h-[45px]">
-                  <svg 
-                    width="35"
-                    height="35"
-                    viewBox="0 0 256 256" 
-                    focusable="false" 
-                    className="w-[35px] h-[35px] sm:w-[45px] sm:h-[45px] block transform translate-y-0 group-hover:-translate-y-full transition-transform duration-300"
-                    fill="currentColor"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g>
-                      <path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"></path>
-                    </g>
-                  </svg>
-                  <svg 
-                    width="35"
-                    height="35"
-                    viewBox="0 0 256 256" 
-                    focusable="false" 
-                    className="w-[35px] h-[35px] sm:w-[45px] sm:h-[45px] block transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 absolute top-0 left-0"
-                    fill="currentColor"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g>
-                      <path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"></path>
-                    </g>
-                  </svg>
+                {/* Text and Icon grouped with slide-up animation */}
+                <div className="relative z-10 overflow-hidden h-[24px] flex items-center justify-between w-full">
+                  {/* First set (visible initially) */}
+                  <div className="flex items-center justify-between w-full transform translate-y-0 group-hover:-translate-y-full transition-transform duration-300">
+                    <span>{submittingPlan === plan.id ? 'Processing...' : 'Get started'}</span>
+                    <svg 
+                      width="22"
+                      height="22"
+                      viewBox="0 0 256 256" 
+                      focusable="false" 
+                      className="!w-[22px] !h-[22px]"
+                      fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g>
+                        <path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"></path>
+                      </g>
+                    </svg>
+                  </div>
+                  
+                  {/* Second set (slides in from below) */}
+                  <div className="flex items-center justify-between w-full transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 absolute inset-0">
+                    <span>{submittingPlan === plan.id ? 'Processing...' : 'Get started'}</span>
+                    <svg 
+                      width="22"
+                      height="22"
+                      viewBox="0 0 256 256" 
+                      focusable="false" 
+                      className="!w-[22px] !h-[22px]"
+                      fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g>
+                        <path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"></path>
+                      </g>
+                    </svg>
+                  </div>
                 </div>
               </SubscriptionButton>
               
