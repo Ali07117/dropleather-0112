@@ -225,7 +225,7 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
               <SubscriptionButton
                 onClick={() => handleSelectPlan(plan.id)}
                 disabled={submittingPlan === plan.id}
-                className="w-full h-[70px] text-white font-geist font-medium text-[18px] relative overflow-hidden bg-black hover:bg-black border-0 rounded-[16px] group flex items-center justify-between px-6"
+                className="w-full h-[70px] text-white font-geist font-medium text-[18px] relative overflow-hidden bg-black hover:bg-black border-0 rounded-[16px] group flex items-center justify-between px-6 mt-4"
                 variant="default"
               >
                 <span className="relative z-10">

@@ -53,7 +53,7 @@ const SubscriptionPlanClient: React.FC = () => {
 
       <div className="mt-4 sm:mt-6 lg:mt-8">
         <h1 className="font-geist font-semibold text-center text-[30px] sm:text-[55px] leading-tight tracking-[-0.05em]">
-          <span className="text-black">Plans tailored to every stage.</span>
+          <span className="text-black">Plans tailored to</span> <span className="text-[#757575]">every stage.</span>
         </h1>
         <p className="font-geist font-normal mt-2.5 text-center text-[16px] leading-normal text-gray-600">
           Whether you&apos;re testing the market or building a leather empire, <span className="hidden sm:inline"><br /></span>our flexible plans evolve with your business and branding needs.
