@@ -214,7 +214,7 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
                   )}
                 </div>
                 
-                <SubscriptionCardDescription className="font-geist font-medium text-[16px] leading-normal text-gray-600 mt-6">
+                <SubscriptionCardDescription className="font-geist font-medium text-[16px] leading-normal text-[#757575] mt-6">
                   {plan.description}
                 </SubscriptionCardDescription>
               </div>
@@ -246,7 +246,7 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
                 </svg>
               </SubscriptionButton>
               
-              <div className="space-y-1">
+              <div className="space-y-1 p-[25px]">
                 {renderFeaturesByCategory(plan.features)}
               </div>
             </SubscriptionCardContent>
