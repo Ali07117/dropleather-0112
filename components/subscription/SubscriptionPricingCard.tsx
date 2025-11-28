@@ -157,7 +157,7 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
           <SubscriptionCard key={plan.id} className="w-full max-w-[451px] lg:w-[451px] relative border-gray-300 shadow-none bg-[#F2F2F2]">
             <SubscriptionCardHeader className="pb-0 px-[5px] pt-[5px]">
               {/* White inner box for plan header content */}
-              <div className="bg-white rounded-[11px] p-[5px]">
+              <div className="bg-white rounded-[11px] p-[15px]">
                 <SubscriptionCardTitle className="font-geist font-medium text-[18px] leading-7 tracking-tight text-[rgb(10,10,10)]">
                   {plan.name}
                 </SubscriptionCardTitle>
