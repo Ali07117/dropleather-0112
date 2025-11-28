@@ -154,7 +154,7 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
     <div className="w-full flex justify-center">
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-6 justify-center items-center lg:items-stretch">
         {PRICING_PLANS.map((plan) => (
-          <SubscriptionCard key={plan.id} className="w-full max-w-[451px] lg:w-[451px] relative border-gray-300 shadow-none">
+          <SubscriptionCard key={plan.id} className="w-full max-w-[451px] lg:w-[451px] relative border-gray-300 shadow-none bg-[#F2F2F2]">
             <SubscriptionCardHeader className="pb-4">
               <SubscriptionCardTitle className="font-geist font-medium text-[18px] leading-7 tracking-tight text-[rgb(10,10,10)]">
                 {plan.name}
@@ -167,7 +167,7 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
                   {plan.id === 'free' ? (
                     // Free plan - no animation
                     <>
-                      <span className="font-medium text-[24px] leading-7">
+                      <span className="font-geist font-medium text-[24px] leading-7">
                         {currency === 'USD' ? '$' : '€'}{plan.price[billingPeriod]}
                       </span>
                       <span className="font-geist font-normal text-[16px] leading-extra pl-1 pt-1 text-[#757575]">
@@ -188,7 +188,7 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
                       )}
                       <div className="relative overflow-hidden h-[28px] flex items-center">
                         <span
-                          className="font-medium text-[24px] leading-7"
+                          className="font-geist font-medium text-[24px] leading-7"
                         >
                           {currency === 'USD' ? '$' : '€'}{plan.price[billingPeriod]}
                         </span>
