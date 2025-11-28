@@ -154,10 +154,10 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
     <div className="w-full flex justify-center px-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 max-w-7xl mx-auto w-full">
         {PRICING_PLANS.map((plan) => (
-          <SubscriptionCard key={plan.id} className="w-full relative border-gray-300 shadow-none bg-[#F2F2F2]">
+          <SubscriptionCard key={plan.id} className="w-full relative border-gray-300 shadow-none bg-[#F2F2F2] flex flex-col h-full">
             <SubscriptionCardHeader className="pb-0 px-[5px] pt-[5px]">
               {/* White inner box for plan header content */}
-              <div className="bg-white rounded-[11px] p-4 sm:p-5 lg:p-[25px]">
+              <div className="bg-white rounded-[11px] p-4 sm:p-5 lg:p-[25px] min-h-[280px] sm:min-h-[320px] lg:min-h-[350px] flex flex-col">
                 <SubscriptionCardTitle className="font-geist font-medium text-[18px] leading-7 tracking-tight text-[rgb(10,10,10)]">
                   {plan.name}
                 </SubscriptionCardTitle>
@@ -214,13 +214,13 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
                   )}
                 </div>
                 
-                <SubscriptionCardDescription className="font-geist font-medium text-[16px] leading-normal text-[#757575] mt-6">
+                <SubscriptionCardDescription className="font-geist font-medium text-[16px] leading-normal text-[#757575] mt-6 flex-grow">
                   {plan.description}
                 </SubscriptionCardDescription>
               </div>
             </SubscriptionCardHeader>
             
-            <SubscriptionCardContent className="pb-[5px] px-[5px]">
+            <SubscriptionCardContent className="pb-[5px] px-[5px] mt-auto">
               {/* 🔐 SECURE BUTTON: Uses server action, no token exposure */}
               <SubscriptionButton
                 onClick={() => handleSelectPlan(plan.id)}
