@@ -155,9 +155,9 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-6 justify-center items-center lg:items-stretch">
         {PRICING_PLANS.map((plan) => (
           <SubscriptionCard key={plan.id} className="w-full max-w-[451px] lg:w-[451px] relative border-gray-300 shadow-none bg-[#F2F2F2]">
-            <SubscriptionCardHeader className="pb-4">
+            <SubscriptionCardHeader className="pb-0 px-[5px] pt-[5px]">
               {/* White inner box for plan header content */}
-              <div className="bg-white rounded-[11px] p-6">
+              <div className="bg-white rounded-[11px] p-[5px]">
                 <SubscriptionCardTitle className="font-geist font-medium text-[18px] leading-7 tracking-tight text-[rgb(10,10,10)]">
                   {plan.name}
                 </SubscriptionCardTitle>
@@ -220,7 +220,7 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
               </div>
             </SubscriptionCardHeader>
             
-            <SubscriptionCardContent className="pb-4">
+            <SubscriptionCardContent className="pb-[5px] px-[5px]">
               {/* 🔐 SECURE BUTTON: Uses server action, no token exposure */}
               <SubscriptionButton
                 onClick={() => handleSelectPlan(plan.id)}
