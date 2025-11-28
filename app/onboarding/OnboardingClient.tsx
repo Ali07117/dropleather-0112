@@ -615,14 +615,14 @@ const OnboardingPage: React.FC = () => {
           : "flex items-center justify-center"
       )}>
         {/* Step 1: Choose Style */}
-        <div className={cn("w-full h-full", currentStep === 0 ? "flex flex-col items-start justify-center px-4" : "hidden")}>
-          <h1 className={cn("font-geist font-semibold text-[56px] leading-none mb-8 transition-colors duration-300",
-            formData.theme === 'dark' ? 'text-white' : 'text-black'
-          )} style={{ letterSpacing: '-0.05em' }}>
-            Choose <span className="text-[#757575]">your style</span>
-          </h1>
-          
-          <div className="flex flex-col w-full">
+        <div className={cn("w-full h-full", currentStep === 0 ? "flex flex-col items-center justify-center px-4" : "hidden")}>
+          <div className="flex flex-col items-start">
+            <h1 className={cn("font-geist font-semibold text-[56px] leading-none mb-8 transition-colors duration-300",
+              formData.theme === 'dark' ? 'text-white' : 'text-black'
+            )} style={{ letterSpacing: '-0.05em' }}>
+              Choose <span className="text-[#757575]">your style</span>
+            </h1>
+            
             <div className="flex flex-row gap-3 sm:gap-4 mb-8">
               <button
                 type="button"
@@ -659,21 +659,19 @@ const OnboardingPage: React.FC = () => {
               </button>
             </div>
 
-            <div className="flex justify-start">
-              <OnboardingButton
-                variant="animated"
-                onClick={async () => {
-                  playClickSound();
-                  await handleStepNavigation();
-                }}
-                disabled={isLoading}
-                className={cn("h-[40px] px-[5px] text-[14px] w-auto",
-                  formData.theme === 'dark' ? "!bg-white !text-black" : ""
-                )}
-              >
-                {isLoading ? 'Processing...' : 'Continue'}
-              </OnboardingButton>
-            </div>
+            <OnboardingButton
+              variant="animated"
+              onClick={async () => {
+                playClickSound();
+                await handleStepNavigation();
+              }}
+              disabled={isLoading}
+              className={cn("h-[40px] px-[5px] text-[14px] w-auto",
+                formData.theme === 'dark' ? "!bg-white !text-black" : ""
+              )}
+            >
+              {isLoading ? 'Processing...' : 'Continue'}
+            </OnboardingButton>
           </div>
         </div>
 
