@@ -615,63 +615,65 @@ const OnboardingPage: React.FC = () => {
           : "flex items-center justify-center"
       )}>
         {/* Step 1: Choose Style */}
-        <div className={cn("w-full h-full", currentStep === 0 ? "flex flex-col items-center justify-center px-4 text-center" : "hidden")}>
-          <h1 className={cn("font-geist font-semibold text-2xl sm:text-3xl text-center mb-8 transition-colors duration-300",
+        <div className={cn("w-full h-full", currentStep === 0 ? "flex flex-col items-start justify-center px-4" : "hidden")}>
+          <h1 className={cn("font-geist font-semibold text-[56px] leading-none mb-8 transition-colors duration-300",
             formData.theme === 'dark' ? 'text-white' : 'text-black'
-          )}>
-            Choose your style
+          )} style={{ letterSpacing: '-0.05em' }}>
+            Choose <span className="text-[#757575]">your style</span>
           </h1>
           
-          <div className="flex flex-row gap-3 sm:gap-4 justify-center mb-8">
-            <button
-              type="button"
-              onClick={() => handleThemeSelect('dark')}
-              className={cn(
-                "w-[145px] sm:w-64 h-[111px] sm:h-41 rounded-2xl cursor-pointer overflow-hidden border-2 transition-all duration-300 bg-white",
-                formData.theme === 'dark' ? "border-primary" : "border-gray-border hover:border-primary"
-              )}
-            >
-              <div
-                className="h-3/5 w-full bg-cover"
-                style={{ backgroundImage: "url('/images/blackbg.svg')" }}
-              />
-              <div className="h-2/5 w-full px-3 sm:px-4 border-t py-2 sm:py-2.5">
-                <p className="font-geist text-primary text-xl sm:text-2xl font-medium">Dark</p>
-              </div>
-            </button>
-            
-            <button
-              type="button"
-              onClick={() => handleThemeSelect('light')}
-              className={cn(
-                "w-[145px] sm:w-64 h-[111px] sm:h-41 rounded-2xl cursor-pointer overflow-hidden border-2 transition-all duration-300 bg-white",
-                formData.theme === 'light' ? "border-primary" : "border-gray-border hover:border-primary"
-              )}
-            >
-              <div
-                className="h-3/5 w-full bg-cover"
-                style={{ backgroundImage: "url('/images/whitebg.svg')" }}
-              />
-              <div className="h-2/5 w-full px-3 sm:px-4 border-t py-2 sm:py-2.5">
-                <p className="font-geist text-primary text-xl sm:text-2xl font-medium">Light</p>
-              </div>
-            </button>
-          </div>
+          <div className="flex flex-col w-full">
+            <div className="flex flex-row gap-3 sm:gap-4 mb-8">
+              <button
+                type="button"
+                onClick={() => handleThemeSelect('dark')}
+                className={cn(
+                  "w-[145px] sm:w-64 h-[111px] sm:h-41 rounded-2xl cursor-pointer overflow-hidden border-2 transition-all duration-300 bg-white",
+                  formData.theme === 'dark' ? "border-primary" : "border-gray-border hover:border-primary"
+                )}
+              >
+                <div
+                  className="h-3/5 w-full bg-cover"
+                  style={{ backgroundImage: "url('/images/blackbg.svg')" }}
+                />
+                <div className="h-2/5 w-full px-3 sm:px-4 border-t py-2 sm:py-2.5">
+                  <p className="font-geist text-primary text-xl sm:text-2xl font-medium">Dark</p>
+                </div>
+              </button>
+              
+              <button
+                type="button"
+                onClick={() => handleThemeSelect('light')}
+                className={cn(
+                  "w-[145px] sm:w-64 h-[111px] sm:h-41 rounded-2xl cursor-pointer overflow-hidden border-2 transition-all duration-300 bg-white",
+                  formData.theme === 'light' ? "border-primary" : "border-gray-border hover:border-primary"
+                )}
+              >
+                <div
+                  className="h-3/5 w-full bg-cover"
+                  style={{ backgroundImage: "url('/images/whitebg.svg')" }}
+                />
+                <div className="h-2/5 w-full px-3 sm:px-4 border-t py-2 sm:py-2.5">
+                  <p className="font-geist text-primary text-xl sm:text-2xl font-medium">Light</p>
+                </div>
+              </button>
+            </div>
 
-          <div className="flex justify-center">
-            <OnboardingButton
-              variant="animated"
-              onClick={async () => {
-                playClickSound();
-                await handleStepNavigation();
-              }}
-              disabled={isLoading}
-              className={cn("h-[36px] px-[5px] text-[14px] w-auto",
-                formData.theme === 'dark' ? "!bg-white !text-black" : ""
-              )}
-            >
-              {isLoading ? 'Processing...' : 'Continue'}
-            </OnboardingButton>
+            <div className="flex justify-start">
+              <OnboardingButton
+                variant="animated"
+                onClick={async () => {
+                  playClickSound();
+                  await handleStepNavigation();
+                }}
+                disabled={isLoading}
+                className={cn("h-[40px] px-[5px] text-[14px] w-auto",
+                  formData.theme === 'dark' ? "!bg-white !text-black" : ""
+                )}
+              >
+                {isLoading ? 'Processing...' : 'Continue'}
+              </OnboardingButton>
+            </div>
           </div>
         </div>
 
