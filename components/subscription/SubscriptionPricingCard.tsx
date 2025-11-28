@@ -9,7 +9,6 @@ import { SubscriptionButton } from '@/components/ui/subscription-button';
 import { SubscriptionCard, SubscriptionCardContent, SubscriptionCardDescription, SubscriptionCardHeader, SubscriptionCardTitle, SubscriptionCardFooter } from '@/components/ui/subscription-card';
 import { SubscriptionBadge } from '@/components/ui/subscription-badge';
 import { PricingPlan } from '@/types';
-import { motion, AnimatePresence } from 'framer-motion';
 
 const PRICING_PLANS: PricingPlan[] = [
   {
@@ -86,21 +85,6 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
   // 🔐 SECURITY UPGRADE: All authentication moved to server actions
   // Zero token exposure, maximum security
   const [submittingPlan, setSubmittingPlan] = useState<string | null>(null);
-  // Animation variants for price changes
-  const priceVariants = {
-    enter: {
-      y: billingPeriod === 'yearly' ? 30 : -30,
-      opacity: 0
-    },
-    center: {
-      y: 0,
-      opacity: 1
-    },
-    exit: {
-      y: billingPeriod === 'yearly' ? -30 : 30,
-      opacity: 0
-    }
-  };
 
   // Handle plan selection
   const handleSelectPlan = async (planId: string) => {
@@ -195,50 +179,26 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
                     <>
                       {plan.originalPrice && (
                         <div className="relative overflow-hidden mr-2 h-[28px] flex items-center">
-                          <AnimatePresence mode="wait">
-                            <motion.span
-                              key={`${plan.id}-original-${billingPeriod}`}
-                              variants={priceVariants}
-                              initial="enter"
-                              animate="center"
-                              exit="exit"
-                              transition={{ duration: 0.3, ease: "easeInOut" }}
-                              className="font-sora font-normal text-base lg:text-[18px] leading-5 text-[#2c2c2c] line-through"
-                            >
-                              {currency === 'USD' ? '$' : '€'}{plan.originalPrice[billingPeriod]}
-                            </motion.span>
-                          </AnimatePresence>
+                          <span
+                            className="font-sora font-normal text-base lg:text-[18px] leading-5 text-[#2c2c2c] line-through"
+                          >
+                            {currency === 'USD' ? '$' : '€'}{plan.originalPrice[billingPeriod]}
+                          </span>
                         </div>
                       )}
                       <div className="relative overflow-hidden h-[28px] flex items-center">
-                        <AnimatePresence mode="wait">
-                          <motion.span
-                            key={`${plan.id}-price-${billingPeriod}`}
-                            variants={priceVariants}
-                            initial="enter"
-                            animate="center"
-                            exit="exit"
-                            transition={{ duration: 0.3, ease: "easeInOut" }}
-                            className="font-sora font-semibold text-2xl lg:text-[28px] leading-7"
-                          >
-                            {currency === 'USD' ? '$' : '€'}{plan.price[billingPeriod]}
-                          </motion.span>
-                        </AnimatePresence>
+                        <span
+                          className="font-sora font-semibold text-2xl lg:text-[28px] leading-7"
+                        >
+                          {currency === 'USD' ? '$' : '€'}{plan.price[billingPeriod]}
+                        </span>
                       </div>
                       <div className="relative overflow-hidden pl-1 pt-1 h-[28px] flex items-center">
-                        <AnimatePresence mode="wait">
-                          <motion.span
-                            key={`${plan.id}-period-${billingPeriod}`}
-                            variants={priceVariants}
-                            initial="enter"
-                            animate="center"
-                            exit="exit"
-                            transition={{ duration: 0.3, ease: "easeInOut" }}
-                            className="font-sora font-semibold text-lg lg:text-[20px] leading-extra"
-                          >
-                            /{billingPeriod === 'monthly' ? 'mo' : 'yr'}
-                          </motion.span>
-                        </AnimatePresence>
+                        <span
+                          className="font-sora font-semibold text-lg lg:text-[20px] leading-extra"
+                        >
+                          /{billingPeriod === 'monthly' ? 'mo' : 'yr'}
+                        </span>
                       </div>
                     </>
                   )}
@@ -262,39 +222,25 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
               <SubscriptionButton
                 onClick={() => handleSelectPlan(plan.id)}
                 disabled={submittingPlan === plan.id}
-                className="w-full text-white font-sora text-[16px] relative overflow-hidden bg-black hover:bg-black border-0 group"
+                className="w-full h-[70px] text-white font-geist font-medium text-[18px] relative overflow-hidden bg-black hover:bg-black border-0 group flex items-center justify-between px-6"
                 variant="default"
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.setProperty('--show-light', '1');
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.setProperty('--show-light', '0');
-                }}
-                onMouseMove={(e) => {
-                  const rect = e.currentTarget.getBoundingClientRect();
-                  const x = e.clientX - rect.left;
-                  const y = e.clientY - rect.top;
-                  e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
-                  e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
-                }}
-                style={{
-                  background: `
-                    radial-gradient(
-                      200px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
-                      rgba(255, 255, 255, calc(0.4 * var(--show-light, 0))),
-                      transparent 40%
-                    ),
-                    black
-                  `
-                }}
               >
-                <motion.span
-                  animate={submittingPlan === plan.id ? { opacity: [1, 0.5, 1] } : { opacity: 1 }}
-                  transition={{ duration: 1, repeat: submittingPlan === plan.id ? Infinity : 0 }}
-                  className="relative z-10"
-                >
+                <span className="relative z-10">
                   {submittingPlan === plan.id ? 'Processing...' : 'Select plan'}
-                </motion.span>
+                </span>
+                <svg 
+                  width="24" 
+                  height="24" 
+                  viewBox="0 0 256 256" 
+                  focusable="false" 
+                  className="relative z-10"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g weight="bold">
+                    <path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"></path>
+                  </g>
+                </svg>
               </SubscriptionButton>
               
               <div className="space-y-1">
