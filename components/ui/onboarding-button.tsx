@@ -64,17 +64,17 @@ function OnboardingButton({
         {/* Text and Icon with slide-up animation */}
         <div className="relative z-10 overflow-hidden h-full flex items-center w-full">
           {/* First set (visible initially) */}
-          <div className="flex items-center justify-between w-full transform translate-y-0 group-hover:-translate-y-full transition-transform duration-300 px-4">
+          <div className="flex items-center justify-between w-full transform translate-y-0 group-hover:-translate-y-full transition-transform duration-300 px-3">
             <span className="text-left">{children}</span>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="!w-[22px] !h-[22px] flex-shrink-0 ml-2">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="!w-[22px] !h-[22px] flex-shrink-0 ml-3">
               <path d="M5 12h14m-7-7l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </div>
           
           {/* Second set (slides in from below) */}
-          <div className="flex items-center justify-between w-full transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 absolute inset-0 px-4">
+          <div className="flex items-center justify-between w-full transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 absolute inset-0 px-3">
             <span className="text-left">{children}</span>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="!w-[22px] !h-[22px] flex-shrink-0 ml-2">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="!w-[22px] !h-[22px] flex-shrink-0 ml-3">
               <path d="M5 12h14m-7-7l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </div>
