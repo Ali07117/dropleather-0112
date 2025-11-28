@@ -170,7 +170,7 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
                       <span className="font-sora font-semibold text-2xl lg:text-[28px] leading-7">
                         {currency === 'USD' ? '$' : '€'}{plan.price[billingPeriod]}
                       </span>
-                      <span className="font-sora font-semibold text-lg lg:text-[20px] leading-extra pl-1 pt-1 text-[#757575]">
+                      <span className="font-geist font-normal text-[16px] leading-extra pl-1 pt-1 text-[#757575]">
                         /Lifetime
                       </span>
                     </>
@@ -195,7 +195,7 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
                       </div>
                       <div className="relative overflow-hidden pl-1 pt-1 h-[28px] flex items-center">
                         <span
-                          className="font-sora font-semibold text-lg lg:text-[20px] leading-extra text-[#757575]"
+                          className="font-geist font-normal text-[16px] leading-extra text-[#757575]"
                         >
                           /{billingPeriod === 'monthly' ? 'month' : 'year'}
                         </span>
