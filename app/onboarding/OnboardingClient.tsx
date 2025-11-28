@@ -830,7 +830,7 @@ const OnboardingPage: React.FC = () => {
             </OnboardingButton>
             
             <div
-              className="inline-block"
+              className="flex-1"
             >
               <OnboardingButton
                 variant="animated"
@@ -996,7 +996,7 @@ const OnboardingPage: React.FC = () => {
             </OnboardingButton>
             
             <div
-              className="inline-block"
+              className="flex-1"
             >
               <OnboardingButton
                 variant="animated"
