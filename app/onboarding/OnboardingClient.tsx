@@ -666,7 +666,7 @@ const OnboardingPage: React.FC = () => {
                 await handleStepNavigation();
               }}
               disabled={isLoading}
-              className={cn("h-[36px] px-[5px] text-[16px] w-auto",
+              className={cn("h-[36px] px-[5px] text-[14px] w-auto",
                 formData.theme === 'dark' ? "!bg-white !text-black" : ""
               )}
             >

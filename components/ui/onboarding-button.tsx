@@ -19,7 +19,7 @@ const onboardingButtonVariants = cva(
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
-        animated: "bg-black text-white dark:bg-white dark:text-black font-geist font-medium relative overflow-hidden rounded-[16px] group transition-all duration-300",
+        animated: "bg-black text-white dark:bg-white dark:text-black font-geist font-medium relative overflow-hidden rounded-[10px] group transition-all duration-300",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
