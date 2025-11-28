@@ -182,7 +182,7 @@ const SubscriptionPricingCard: React.FC<SubscriptionPricingCardProps> = ({ billi
                         {plan.originalPrice && (
                           <div className="relative overflow-hidden mr-2 h-[28px] flex items-center">
                             <span
-                              className="font-sora font-normal text-base lg:text-[18px] leading-5 text-[#2c2c2c] line-through"
+                              className="font-geist font-normal text-base lg:text-[18px] leading-5 text-[#2c2c2c] line-through"
                             >
                               {currency === 'USD' ? '$' : '€'}{plan.originalPrice[billingPeriod]}
                             </span>
