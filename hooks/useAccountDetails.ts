@@ -31,7 +31,7 @@ export const useAccountDetails = () => {
       const { data: userProfile, error: userError } = await supabase
         .schema('api')
         .from('user_profiles')
-        .select('email, full_name, phone')
+        .select('email, phone')
         .eq('id', session.user.id)
         .single();
 
@@ -43,7 +43,7 @@ export const useAccountDetails = () => {
       const { data: sellerProfile, error: sellerError } = await supabase
         .schema('api')
         .from('seller_profiles')
-        .select('company_name, business_address, country, state_province, city, zip_code, phone_number')
+        .select('name, company_name, business_address, country, state_province, city, zip_code, phone_number')
         .eq('id', session.user.id)
         .single();
 
@@ -54,7 +54,7 @@ export const useAccountDetails = () => {
       // Transform data to match AccountDetails interface
       const accountData: AccountDetails = {
         personal: {
-          name: userProfile.full_name || '',
+          name: sellerProfile.name || '',
           email: userProfile.email || '',
           phone: userProfile.phone || ''
         },
@@ -103,51 +103,55 @@ export const useAccountDetails = () => {
 
       console.log('👤 [ACCOUNT DETAILS UPDATE] Updating in Supabase');
 
-      // Update user profile if personal info changed
-      if (updateData.personal) {
-        const userUpdates: any = {};
-        if (updateData.personal.name !== undefined) userUpdates.full_name = updateData.personal.name;
-        if (updateData.personal.phone !== undefined) userUpdates.phone = updateData.personal.phone;
+      // Update user profile if personal info changed (phone only)
+      if (updateData.personal?.phone !== undefined) {
+        const userUpdates: any = {
+          phone: updateData.personal.phone,
+          updated_at: new Date().toISOString()
+        };
         
-        if (Object.keys(userUpdates).length > 0) {
-          userUpdates.updated_at = new Date().toISOString();
-          
-          const { error: userError } = await supabase
-            .schema('api')
-            .from('user_profiles')
-            .update(userUpdates)
-            .eq('id', session.user.id);
+        const { error: userError } = await supabase
+          .schema('api')
+          .from('user_profiles')
+          .update(userUpdates)
+          .eq('id', session.user.id);
 
-          if (userError) {
-            throw new Error(`Failed to update user profile: ${userError.message}`);
-          }
+        if (userError) {
+          throw new Error(`Failed to update user profile: ${userError.message}`);
         }
       }
 
-      // Update seller profile if business info changed
+      // Update seller profile if personal name or business info changed
+      const sellerUpdates: any = {};
+      
+      // Handle name from personal data
+      if (updateData.personal?.name !== undefined) {
+        sellerUpdates.name = updateData.personal.name;
+      }
+      
+      // Handle business data
       if (updateData.business) {
-        const businessUpdates: any = {};
-        if (updateData.business.company_name !== undefined) businessUpdates.company_name = updateData.business.company_name;
+        if (updateData.business.company_name !== undefined) sellerUpdates.company_name = updateData.business.company_name;
         if (updateData.business.business_address !== undefined) {
-          businessUpdates.business_address = { street: updateData.business.business_address };
+          sellerUpdates.business_address = { street: updateData.business.business_address };
         }
-        if (updateData.business.state_province !== undefined) businessUpdates.state_province = updateData.business.state_province;
-        if (updateData.business.city !== undefined) businessUpdates.city = updateData.business.city;
-        if (updateData.business.zip_code !== undefined) businessUpdates.zip_code = updateData.business.zip_code;
-        if (updateData.business.country !== undefined) businessUpdates.country = updateData.business.country;
+        if (updateData.business.state_province !== undefined) sellerUpdates.state_province = updateData.business.state_province;
+        if (updateData.business.city !== undefined) sellerUpdates.city = updateData.business.city;
+        if (updateData.business.zip_code !== undefined) sellerUpdates.zip_code = updateData.business.zip_code;
+        if (updateData.business.country !== undefined) sellerUpdates.country = updateData.business.country;
+      }
+      
+      if (Object.keys(sellerUpdates).length > 0) {
+        sellerUpdates.updated_at = new Date().toISOString();
         
-        if (Object.keys(businessUpdates).length > 0) {
-          businessUpdates.updated_at = new Date().toISOString();
-          
-          const { error: sellerError } = await supabase
-            .schema('api')
-            .from('seller_profiles')
-            .update(businessUpdates)
-            .eq('id', session.user.id);
+        const { error: sellerError } = await supabase
+          .schema('api')
+          .from('seller_profiles')
+          .update(sellerUpdates)
+          .eq('id', session.user.id);
 
-          if (sellerError) {
-            throw new Error(`Failed to update seller profile: ${sellerError.message}`);
-          }
+        if (sellerError) {
+          throw new Error(`Failed to update seller profile: ${sellerError.message}`);
         }
       }
 

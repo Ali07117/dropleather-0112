@@ -17,19 +17,18 @@ export async function createClientSupabase(): Promise<SupabaseClient<any, 'publi
   }
 
   try {
-    // Get Supabase config from backend
-    const configResponse = await fetch('https://api.dropleather.com/v1/config/supabase');
+    // Get Supabase config from environment variables
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-    if (!configResponse.ok) {
-      throw new Error('Failed to fetch Supabase config');
+    if (!supabaseUrl || !supabaseAnonKey) {
+      throw new Error('Missing Supabase environment variables');
     }
-
-    const { config } = await configResponse.json();
 
     // Create browser client with professional session handling
     supabaseClient = createBrowserClient(
-      config.url,
-      config.anonKey,
+      supabaseUrl,
+      supabaseAnonKey,
       {
         auth: {
           // CRITICAL: Enable automatic token refresh
