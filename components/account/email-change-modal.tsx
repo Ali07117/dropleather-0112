@@ -44,8 +44,8 @@ export function EmailChangeModal({ isOpen, onClose, currentEmail, onChangeEmail 
       await onChangeEmail(newEmail);
       onClose();
       setNewEmail('');
-    } catch (err: any) {
-      setError(err.message || 'Failed to change email');
+    } catch (err) {
+      setError((err as Error).message || 'Failed to change email');
     } finally {
       setIsLoading(false);
     }
@@ -73,7 +73,7 @@ export function EmailChangeModal({ isOpen, onClose, currentEmail, onChangeEmail 
             </Button>
           </div>
           <DialogDescription className="font-geist text-sm text-gray-500 mt-2">
-            Enter your new email address. We'll send a confirmation link to verify the change.
+            Enter your new email address. We&apos;ll send a confirmation link to verify the change.
           </DialogDescription>
         </DialogHeader>
 

@@ -50,8 +50,8 @@ export function PasswordChangeModal({ isOpen, onClose, onChangePassword }: Passw
       await onChangePassword(currentPassword, newPassword);
       onClose();
       resetForm();
-    } catch (err: any) {
-      setError(err.message || 'Failed to change password');
+    } catch (err) {
+      setError((err as Error).message || 'Failed to change password');
     } finally {
       setIsLoading(false);
     }
