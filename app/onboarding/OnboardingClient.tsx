@@ -998,15 +998,17 @@ const OnboardingPage: React.FC = () => {
             </OnboardingButton>
             
             <OnboardingButton
-              variant="animated"
               onClick={handleNextWithSound}
               disabled={isLoading}
-              className={cn("h-[40px] px-[5px] text-[14px] w-auto transition-all duration-300",
+              className={cn("h-[36px] text-[14px] transition-all duration-300 relative overflow-hidden group",
+                "bg-black text-white dark:bg-white dark:text-black font-geist font-medium rounded-[10px]",
                 isLoading ? "opacity-50 cursor-not-allowed" : "",
                 formData.theme === 'dark' ? "!bg-white !text-black" : ""
               )}
             >
-              {isLoading ? 'Saving...' : 'Continue'}
+              {/* Simple overlay on hover */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/20 dark:to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <span className="relative z-10">{isLoading ? 'Saving...' : 'Continue'}</span>
             </OnboardingButton>
           </div>
         </div>
