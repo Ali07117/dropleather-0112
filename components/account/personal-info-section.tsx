@@ -43,9 +43,6 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
               className="bg-gray-50 font-geist"
               placeholder="Your email address"
             />
-            <p className="text-xs text-muted-foreground font-geist">
-              Email cannot be changed here. Contact support to update your email.
-            </p>
           </div>
         </div>
 
@@ -71,9 +68,6 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
               placeholder="••••••••"
               className="bg-gray-50 font-geist"
             />
-            <p className="text-xs text-muted-foreground font-geist">
-              To change your password, please use the forgot password option on the login page.
-            </p>
           </div>
         </div>
       </div>
