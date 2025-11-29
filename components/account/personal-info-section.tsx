@@ -1,7 +1,11 @@
 'use client'
 
+import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { EmailChangeModal } from './email-change-modal';
+import { PasswordChangeModal } from './password-change-modal';
 
 interface PersonalInfoSectionProps {
   data: {
@@ -13,6 +17,20 @@ interface PersonalInfoSectionProps {
 }
 
 export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps) {
+  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
+
+  // These will be passed down from parent component
+  const handleEmailChange = async (newEmail: string) => {
+    // TODO: Implement email change logic
+    console.log('Changing email to:', newEmail);
+  };
+
+  const handlePasswordChange = async (currentPassword: string, newPassword: string) => {
+    // TODO: Implement password change logic
+    console.log('Changing password');
+  };
+
   return (
     <div className="space-y-6">
       <div>
@@ -35,14 +53,24 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
           
           <div className="space-y-[5px]">
             <Label htmlFor="email" className="font-geist text-[12px] font-medium" style={{ color: '#0000008c' }}>Primary Email Address</Label>
-            <Input
-              id="email"
-              type="email"
-              value={data.email}
-              disabled
-              className="bg-gray-50 font-geist"
-              placeholder="Your email address"
-            />
+            <div className="relative">
+              <Input
+                id="email"
+                type="email"
+                value={data.email}
+                onChange={(e) => onChange('email', e.target.value)}
+                className="font-geist pr-16"
+                placeholder="Your email address"
+              />
+              <Button
+                variant="ghost"
+                size="sm"
+                className="absolute right-2 top-1/2 -translate-y-1/2 h-6 px-2 text-xs font-geist text-gray-500 hover:text-gray-700"
+                onClick={() => setIsEmailModalOpen(true)}
+              >
+                Edit
+              </Button>
+            </div>
           </div>
         </div>
 
@@ -61,16 +89,42 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
           
           <div className="space-y-[5px]">
             <Label htmlFor="current-password" className="font-geist text-[12px] font-medium" style={{ color: '#0000008c' }}>Current Password</Label>
-            <Input
-              id="current-password"
-              type="password"
-              disabled
-              placeholder="••••••••"
-              className="bg-gray-50 font-geist"
-            />
+            <div className="relative">
+              <Input
+                id="current-password"
+                type="password"
+                value="••••••••"
+                readOnly
+                placeholder="••••••••"
+                className="font-geist pr-16"
+              />
+              <Button
+                variant="ghost"
+                size="sm"
+                className="absolute right-2 top-1/2 -translate-y-1/2 h-6 px-2 text-xs font-geist text-gray-500 hover:text-gray-700"
+                onClick={() => setIsPasswordModalOpen(true)}
+              >
+                Edit
+              </Button>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* Email Change Modal */}
+      <EmailChangeModal
+        isOpen={isEmailModalOpen}
+        onClose={() => setIsEmailModalOpen(false)}
+        currentEmail={data.email}
+        onChangeEmail={handleEmailChange}
+      />
+
+      {/* Password Change Modal */}
+      <PasswordChangeModal
+        isOpen={isPasswordModalOpen}
+        onClose={() => setIsPasswordModalOpen(false)}
+        onChangePassword={handlePasswordChange}
+      />
     </div>
   );
 }
