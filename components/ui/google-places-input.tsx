@@ -3,7 +3,6 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react';
-import { Loader } from '@googlemaps/js-api-loader';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 
@@ -44,35 +43,45 @@ export function GooglePlacesInput({
           return;
         }
 
-        const loader = new Loader({
-          apiKey,
-          version: 'weekly',
-          libraries: ['places']
-        });
-
-        await loader.load();
-
-        if (inputRef.current && !autocompleteRef.current && (window as any).google) {
-          const google = (window as any).google;
+        // Load Google Maps script if not already loaded
+        if (!(window as any).google) {
+          const script = document.createElement('script');
+          script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
+          script.async = true;
+          script.defer = true;
           
-          autocompleteRef.current = new google.maps.places.Autocomplete(inputRef.current, {
-            types: ['address'],
-            fields: ['address_components', 'formatted_address']
-          });
+          script.onload = () => {
+            initAutocomplete();
+          };
+          
+          document.head.appendChild(script);
+        } else {
+          initAutocomplete();
+        }
 
-          autocompleteRef.current.addListener('place_changed', () => {
-            const place = autocompleteRef.current?.getPlace();
-            if (place?.address_components) {
-              const addressData = extractAddressComponents(place.address_components);
-              onChange(place.formatted_address || value);
-              
-              if (onPlaceSelect) {
-                onPlaceSelect(addressData);
+        function initAutocomplete() {
+          if (inputRef.current && !autocompleteRef.current && (window as any).google) {
+            const google = (window as any).google;
+            
+            autocompleteRef.current = new google.maps.places.Autocomplete(inputRef.current, {
+              types: ['address'],
+              fields: ['address_components', 'formatted_address']
+            });
+
+            autocompleteRef.current.addListener('place_changed', () => {
+              const place = autocompleteRef.current?.getPlace();
+              if (place?.address_components) {
+                const addressData = extractAddressComponents(place.address_components);
+                onChange(place.formatted_address || value);
+                
+                if (onPlaceSelect) {
+                  onPlaceSelect(addressData);
+                }
               }
-            }
-          });
+            });
 
-          setIsLoaded(true);
+            setIsLoaded(true);
+          }
         }
       } catch (error) {
         console.error('Error loading Google Maps:', error);
