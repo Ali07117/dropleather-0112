@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import { Camera } from 'lucide-react';
 import { EmailChangeModal } from './email-change-modal';
 import { PasswordChangeModal } from './password-change-modal';
 
@@ -33,10 +34,23 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-xl font-bold font-geist mb-2">Personal Information</h2>
-        <hr className="border-t border-gray-200 mb-6" />
+      {/* Profile Picture Section */}
+      <div className="flex items-center gap-4">
+        <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
+          <span className="text-gray-400 text-xl">👤</span>
+        </div>
+        <div className="flex flex-col gap-2">
+          <div>
+            <h3 className="font-geist text-sm font-medium text-black">Profile Picture</h3>
+            <p className="font-geist text-xs text-gray-500">We only support PNGs, JPEGs and GIFs under 10MB</p>
+          </div>
+          <Button className="w-fit h-8 px-3 bg-black text-white hover:bg-gray-800 font-geist text-xs flex items-center gap-2">
+            <Camera className="w-3 h-3" />
+            Upload image
+          </Button>
+        </div>
       </div>
+      
       <div className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-[5px]">
@@ -59,7 +73,7 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
                 type="email"
                 value={data.email}
                 onChange={(e) => onChange('email', e.target.value)}
-                className="font-geist pr-16"
+                className="font-geist pr-16 bg-[#FBFBFB]"
                 placeholder="Your email address"
               />
               <Button
@@ -96,7 +110,7 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
                 value="••••••••"
                 readOnly
                 placeholder="••••••••"
-                className="font-geist pr-16"
+                className="font-geist pr-16 bg-[#FBFBFB]"
               />
               <Button
                 variant="ghost"
