@@ -39,7 +39,7 @@ export default function AccountDetailsPage() {
             </div>
             
             {/* Save Button Section */}
-            <div className="bg-[#F9F9F9] border border-[#EAEAEA] rounded-lg px-4 h-[43px] flex flex-row items-center justify-between gap-4 mb-8">
+            <div className="bg-[#F9F9F9] border border-[#EAEAEA] rounded-lg px-4 h-[43px] flex flex-row items-center justify-between gap-4 mb-8 max-w-3xl">
               <p className="font-geist text-sm text-gray-700">Happy with the changes? Just press save.</p>
               <Button 
                 onClick={handleSave}
@@ -51,7 +51,9 @@ export default function AccountDetailsPage() {
               </Button>
             </div>
             
-            <AccountDetailsForm ref={formRef} hasChanges={hasChanges} setHasChanges={setHasChanges} />
+            <div className="max-w-3xl">
+              <AccountDetailsForm ref={formRef} hasChanges={hasChanges} setHasChanges={setHasChanges} />
+            </div>
           </div>
         </div>
       </div>
