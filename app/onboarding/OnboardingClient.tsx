@@ -661,17 +661,20 @@ const OnboardingPage: React.FC = () => {
 
             <div className="w-full flex justify-center">
               <OnboardingButton
-                variant="animated"
                 onClick={async () => {
                   playClickSound();
                   await handleStepNavigation();
                 }}
                 disabled={isLoading}
-                className={cn("h-[40px] px-[5px] text-[14px] w-auto",
+                className={cn("h-[36px] text-[14px] transition-all duration-300 relative overflow-hidden group",
+                  "bg-black text-white dark:bg-white dark:text-black font-geist font-medium rounded-[10px]",
+                  isLoading ? "opacity-50 cursor-not-allowed" : "",
                   formData.theme === 'dark' ? "!bg-white !text-black" : ""
                 )}
               >
-                {isLoading ? 'Processing...' : 'Continue'}
+                {/* Simple overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/20 dark:to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <span className="relative z-10">{isLoading ? 'Processing...' : 'Continue'}</span>
               </OnboardingButton>
             </div>
           </div>
@@ -994,7 +997,7 @@ const OnboardingPage: React.FC = () => {
                   : ""
               )}
             >
-              Back
+              <span className="font-geist">Back</span>
             </OnboardingButton>
             
             <OnboardingButton

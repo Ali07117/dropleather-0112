@@ -37,7 +37,7 @@ const OnboardingHearAboutCard: React.FC<HearAboutProps> = ({
         src={`/images/${image}.svg`} 
         alt={`${name} icon`}
       />
-      <p className={cn("font-sora font-medium text-xs sm:text-[14px] leading-tight sm:leading-normal text-left not-italic transition-colors duration-300",
+      <p className={cn("font-geist font-medium text-xs sm:text-[14px] leading-tight sm:leading-normal text-left not-italic transition-colors duration-300",
         theme === 'dark' ? 'text-white' : 'text-black'
       )} style={{ fontStyle: 'normal' }}>
         {name}
