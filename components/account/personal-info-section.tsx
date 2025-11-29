@@ -17,9 +17,7 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
     <div className="space-y-6">
       <div>
         <h2 className="text-xl font-bold font-['Sora'] mb-2">Personal Information</h2>
-        <p className="text-muted-foreground font-['Inter'] text-sm mb-6">
-          Your personal details and contact information
-        </p>
+        <hr className="border-t border-gray-200 mb-6" />
       </div>
       <div className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -63,20 +61,20 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
               className="font-['Inter']"
             />
           </div>
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="current-password" className="font-['Sora'] text-sm font-medium">Current Password</Label>
-          <Input
-            id="current-password"
-            type="password"
-            disabled
-            placeholder="••••••••"
-            className="md:w-1/2 bg-gray-50 font-['Inter']"
-          />
-          <p className="text-xs text-muted-foreground font-['Inter']">
-            To change your password, please use the forgot password option on the login page.
-          </p>
+          
+          <div className="space-y-2">
+            <Label htmlFor="current-password" className="font-['Sora'] text-sm font-medium">Current Password</Label>
+            <Input
+              id="current-password"
+              type="password"
+              disabled
+              placeholder="••••••••"
+              className="bg-gray-50 font-['Inter']"
+            />
+            <p className="text-xs text-muted-foreground font-['Inter']">
+              To change your password, please use the forgot password option on the login page.
+            </p>
+          </div>
         </div>
       </div>
     </div>
