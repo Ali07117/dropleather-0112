@@ -78,55 +78,52 @@ export function PasswordChangeModal({ isOpen, onClose, onChangePassword }: Passw
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-6 mt-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="current-password" className="font-geist text-sm font-medium text-gray-700">
-                Current Password
-              </Label>
-              <Input
-                id="current-password"
-                type="password"
-                value={currentPassword}
-                onChange={(e) => setCurrentPassword(e.target.value)}
-                placeholder="Enter current password"
-                className="font-geist"
-                autoFocus
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="new-password" className="font-geist text-sm font-medium text-gray-700">
-                New Password
-              </Label>
-              <Input
-                id="new-password"
-                type="password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                placeholder="Enter new password"
-                className="font-geist"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="confirm-password" className="font-geist text-sm font-medium text-gray-700">
-                Confirm New Password
-              </Label>
-              <Input
-                id="confirm-password"
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Confirm new password"
-                className="font-geist"
-              />
-            </div>
+        <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+          <div className="space-y-2">
+            <Label htmlFor="current-password" className="font-geist text-sm font-medium text-gray-700">
+              Current Password
+            </Label>
+            <Input
+              id="current-password"
+              type="password"
+              value={currentPassword}
+              onChange={(e) => setCurrentPassword(e.target.value)}
+              placeholder="Enter current password"
+              className="font-geist"
+              autoFocus
+            />
           </div>
-          
-          {error && (
-            <p className="text-sm text-red-500 font-geist text-center">{error}</p>
-          )}
+
+          <div className="space-y-2">
+            <Label htmlFor="new-password" className="font-geist text-sm font-medium text-gray-700">
+              New Password
+            </Label>
+            <Input
+              id="new-password"
+              type="password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              placeholder="Enter new password"
+              className="font-geist"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="confirm-password" className="font-geist text-sm font-medium text-gray-700">
+              Confirm New Password
+            </Label>
+            <Input
+              id="confirm-password"
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Confirm new password"
+              className="font-geist"
+            />
+            {error && (
+              <p className="text-sm text-red-500 font-geist">{error}</p>
+            )}
+          </div>
 
           <div className="flex gap-3 justify-end mt-6">
             <Button
