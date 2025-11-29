@@ -2,9 +2,9 @@
 
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { GooglePlacesInput } from '@/components/ui/google-places-input';
+import { CountryCombobox } from '@/components/ui/country-combobox';
 import Image from 'next/image';
 
 interface BusinessInfoSectionProps {
@@ -20,18 +20,6 @@ interface BusinessInfoSectionProps {
   onChange: (field: string, value: string) => void;
 }
 
-const countries = [
-  { code: 'US', name: 'United States' },
-  { code: 'CA', name: 'Canada' },
-  { code: 'GB', name: 'United Kingdom' },
-  { code: 'DE', name: 'Germany' },
-  { code: 'FR', name: 'France' },
-  { code: 'AU', name: 'Australia' },
-  { code: 'JP', name: 'Japan' },
-  { code: 'IN', name: 'India' },
-  { code: 'BR', name: 'Brazil' },
-  { code: 'MX', name: 'Mexico' },
-];
 
 export function BusinessInfoSection({ data, onChange }: BusinessInfoSectionProps) {
   return (
@@ -121,18 +109,14 @@ export function BusinessInfoSection({ data, onChange }: BusinessInfoSectionProps
 
         <div className="space-y-[5px]">
           <Label htmlFor="country" className="font-geist text-[12px] font-medium" style={{ color: '#0000008c' }}>Country</Label>
-          <Select value={data.country} onValueChange={(value) => onChange('country', value)}>
-            <SelectTrigger className="md:w-1/2 font-geist">
-              <SelectValue placeholder="Select a country" />
-            </SelectTrigger>
-            <SelectContent>
-              {countries.map((country) => (
-                <SelectItem key={country.code} value={country.code}>
-                  {country.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <div className="md:w-1/2">
+            <CountryCombobox
+              value={data.country}
+              onValueChange={(value) => onChange('country', value)}
+              placeholder="Select a country"
+              className="w-full"
+            />
+          </div>
         </div>
 
         {/* Delete Workspace Section */}
