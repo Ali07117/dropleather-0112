@@ -32,10 +32,9 @@ export function EmailChangeModal({ isOpen, onClose, currentEmail, onChangeEmail 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         handleClose();
-      } else if (e.key === 'Enter' && !isLoading && newEmail) {
+      } else if (e.key === 'Enter' && !isLoading) {
         e.preventDefault();
-        const form = document.getElementById('email-change-form') as HTMLFormElement;
-        if (form) form.requestSubmit();
+        handleButtonClick();
       }
     };
 
@@ -70,6 +69,15 @@ export function EmailChangeModal({ isOpen, onClose, currentEmail, onChangeEmail 
     }
   };
 
+  const handleButtonClick = () => {
+    if (!newEmail || !newEmail.includes('@')) {
+      setError('Please enter a valid email.');
+      return;
+    }
+    const form = document.getElementById('email-change-form') as HTMLFormElement;
+    if (form) form.requestSubmit();
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-md" showCloseButton={false}>
@@ -89,7 +97,7 @@ export function EmailChangeModal({ isOpen, onClose, currentEmail, onChangeEmail 
 
         <form id="email-change-form" onSubmit={handleSubmit} className="space-y-4 mt-4">
           <div className="space-y-2">
-            <Label htmlFor="new-email" className="font-geist text-sm font-medium text-gray-700">
+            <Label htmlFor="new-email" className="font-geist text-[12px] font-medium" style={{ color: '#0000008c', fontWeight: 500 }}>
               New Email Address
             </Label>
             <Input
@@ -118,8 +126,9 @@ export function EmailChangeModal({ isOpen, onClose, currentEmail, onChangeEmail 
               Cancel
             </Button>
             <Button
-              type="submit"
-              disabled={isLoading || !newEmail}
+              type="button"
+              onClick={handleButtonClick}
+              disabled={isLoading}
               className="font-geist bg-black text-white hover:bg-gray-800 flex items-center gap-2"
             >
               {isLoading ? 'Changing...' : (
