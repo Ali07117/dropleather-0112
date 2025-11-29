@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Camera } from 'lucide-react';
 import { EmailChangeModal } from './email-change-modal';
 import { PasswordChangeModal } from './password-change-modal';
+import { createClientSupabase } from '@/utils/supabase/client';
 
 interface PersonalInfoSectionProps {
   data: {
@@ -28,8 +29,51 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
   };
 
   const handlePasswordChange = async (currentPassword: string, newPassword: string) => {
-    // TODO: Implement password change logic
-    console.log('Changing password');
+    try {
+      console.log('🔐 [PASSWORD CHANGE] Starting password change process');
+      
+      const supabase = await createClientSupabase();
+      
+      // Get current user
+      const { data: { user }, error: authError } = await supabase.auth.getUser();
+      
+      if (authError || !user?.email) {
+        throw new Error('Authentication required');
+      }
+
+      console.log('🔐 [PASSWORD CHANGE] Verifying current password');
+      
+      // Verify current password by attempting to sign in
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email: user.email,
+        password: currentPassword
+      });
+
+      if (signInError) {
+        throw new Error('Current password is incorrect');
+      }
+
+      console.log('🔐 [PASSWORD CHANGE] Current password verified, updating to new password');
+
+      // Update password using Supabase Auth
+      const { error: updateError } = await supabase.auth.updateUser({
+        password: newPassword
+      });
+
+      if (updateError) {
+        console.error('❌ [PASSWORD CHANGE] Error:', updateError);
+        throw new Error(updateError.message);
+      }
+
+      console.log('✅ [PASSWORD CHANGE] Password changed successfully');
+      
+      // Show success message
+      alert('Password changed successfully!');
+      
+    } catch (err) {
+      console.error('❌ [PASSWORD CHANGE] Failed:', err);
+      throw err; // Re-throw to show error in modal
+    }
   };
 
   return (
