@@ -36,86 +36,84 @@ export function BusinessInfoSection({ data, onChange }: BusinessInfoSectionProps
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-bold font-['Sora'] mb-2">Business Information</h2>
-        <p className="text-muted-foreground font-['Inter'] text-sm mb-6">
-          Your business details and address information
-        </p>
+        <h2 className="text-xl font-bold font-geist mb-2">Business Information</h2>
+        <hr className="border-t border-gray-200 mb-6" />
       </div>
       <div className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="company-name" className="font-['Sora'] text-sm font-medium">Business Name</Label>
+            <Label htmlFor="company-name" className="font-geist text-sm font-medium">Business Name</Label>
             <Input
               id="company-name"
               value={data.company_name}
               onChange={(e) => onChange('company_name', e.target.value)}
               placeholder="Enter your business or company name"
-              className="font-['Inter']"
+              className="font-geist"
             />
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="registration-number" className="font-['Sora'] text-sm font-medium">Registration Number</Label>
+            <Label htmlFor="registration-number" className="font-geist text-sm font-medium">Registration Number</Label>
             <Input
               id="registration-number"
               value={data.registration_number || ''}
               onChange={(e) => onChange('registration_number', e.target.value)}
               placeholder="Enter your business registration number"
-              className="font-['Inter']"
+              className="font-geist"
             />
           </div>
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="business-address" className="font-['Sora'] text-sm font-medium">Business Address</Label>
+          <Label htmlFor="business-address" className="font-geist text-sm font-medium">Business Address</Label>
           <Input
             id="business-address"
             value={data.business_address}
             onChange={(e) => onChange('business_address', e.target.value)}
             placeholder="Enter your full business address"
-            className="font-['Inter']"
+            className="font-geist"
           />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="state-province" className="font-['Sora'] text-sm font-medium">State/Province</Label>
+            <Label htmlFor="state-province" className="font-geist text-sm font-medium">State/Province</Label>
             <Input
               id="state-province"
               value={data.state_province}
               onChange={(e) => onChange('state_province', e.target.value)}
               placeholder="State or Province"
-              className="font-['Inter']"
+              className="font-geist"
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="city" className="font-['Sora'] text-sm font-medium">City</Label>
+            <Label htmlFor="city" className="font-geist text-sm font-medium">City</Label>
             <Input
               id="city"
               value={data.city}
               onChange={(e) => onChange('city', e.target.value)}
               placeholder="City"
-              className="font-['Inter']"
+              className="font-geist"
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="zip-code" className="font-['Sora'] text-sm font-medium">Zip Code</Label>
+            <Label htmlFor="zip-code" className="font-geist text-sm font-medium">Zip Code</Label>
             <Input
               id="zip-code"
               value={data.zip_code}
               onChange={(e) => onChange('zip_code', e.target.value)}
               placeholder="Zip/Postal Code"
-              className="font-['Inter']"
+              className="font-geist"
             />
           </div>
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="country" className="font-['Sora'] text-sm font-medium">Country</Label>
+          <Label htmlFor="country" className="font-geist text-sm font-medium">Country</Label>
           <Select value={data.country} onValueChange={(value) => onChange('country', value)}>
-            <SelectTrigger className="md:w-1/2 font-['Inter']">
+            <SelectTrigger className="md:w-1/2 font-geist">
               <SelectValue placeholder="Select a country" />
             </SelectTrigger>
             <SelectContent>
@@ -131,13 +129,13 @@ export function BusinessInfoSection({ data, onChange }: BusinessInfoSectionProps
         {/* Delete Workspace Section */}
         <div className="mt-8 border border-[#F65351] bg-transparent rounded-[7px] p-4 flex flex-row items-center justify-between gap-4">
           <div>
-            <h3 className="font-['Sora'] text-sm font-medium text-black">Delete Workspace</h3>
-            <p className="font-['Inter'] text-xs text-black mt-1">
+            <h3 className="font-geist text-sm font-medium text-black">Delete Workspace</h3>
+            <p className="font-geist text-xs text-black mt-1">
               Once deleted, your workspace cannot be recovered
             </p>
           </div>
           <Button 
-            className="bg-[#F65351] hover:bg-red-600 border border-[#C03634] text-white font-['Inter'] text-sm font-medium h-[32px] w-auto rounded-[9.85px] flex items-center gap-2"
+            className="bg-[#F65351] hover:bg-red-600 border border-[#C03634] text-white font-geist text-sm font-medium h-[32px] w-auto rounded-[9.85px] flex items-center gap-2"
           >
             <Image 
               src="/images/trash.svg" 

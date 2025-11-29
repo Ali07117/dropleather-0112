@@ -32,19 +32,19 @@ export default function AccountDetailsPage() {
           <div className="max-w-4xl mx-auto w-full px-20">
             {/* Page Title and Description */}
             <div className="space-y-2 mb-8">
-              <h1 className="text-2xl font-bold font-['Sora']">Account Details</h1>
-              <p className="text-muted-foreground font-['Inter'] text-sm">
+              <h1 className="text-2xl font-bold font-geist">Account Details</h1>
+              <p className="text-muted-foreground font-geist text-sm">
                 Manage your personal and business information
               </p>
             </div>
             
             {/* Save Button Section */}
             <div className="bg-[#F9F9F9] border border-[#EAEAEA] rounded-lg px-4 h-[43px] flex flex-row items-center justify-between gap-4 mb-8">
-              <p className="font-['Sora'] text-sm text-gray-700">Happy with the changes? Just press save.</p>
+              <p className="font-geist text-sm text-gray-700">Happy with the changes? Just press save.</p>
               <Button 
                 onClick={handleSave}
                 disabled={isLoading || !hasChanges}
-                className="bg-transparent hover:bg-gray-50 border border-[#696969] border-opacity-60 text-gray-900 font-['Inter'] text-sm font-medium h-[28px]"
+                className="bg-transparent hover:bg-gray-50 border border-[#696969] border-opacity-60 text-gray-900 font-geist text-sm font-medium h-[28px]"
               >
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Save
