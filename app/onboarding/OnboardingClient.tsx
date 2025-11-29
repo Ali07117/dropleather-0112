@@ -1053,58 +1053,19 @@ const OnboardingPage: React.FC = () => {
               <span className="font-geist">Back</span>
             </OnboardingButton>
             
-            <div
-              className="inline-block"
+            <OnboardingButton
+              onClick={handleNextWithSound}
+              disabled={isLoading || formData.hearAbout.length === 0}
+              className={cn("h-[36px] text-[14px] transition-all duration-300 relative overflow-hidden group",
+                "bg-black text-white dark:bg-white dark:text-black font-geist font-medium rounded-[10px]",
+                (isLoading || formData.hearAbout.length === 0) ? "opacity-50 cursor-not-allowed" : "",
+                formData.theme === 'dark' ? "!bg-white !text-black" : ""
+              )}
             >
-              <OnboardingButton
-                onClick={handleNextWithSound}
-                disabled={isLoading || formData.hearAbout.length === 0}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.setProperty('--show-light', '1');
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.setProperty('--show-light', '0');
-                }}
-                onMouseMove={(e) => {
-                  const rect = e.currentTarget.getBoundingClientRect();
-                  const x = e.clientX - rect.left;
-                  const y = e.clientY - rect.top;
-                  e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
-                  e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
-                }}
-                style={{
-                  background: formData.theme === 'dark' 
-                    ? `
-                      radial-gradient(
-                        200px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
-                        rgba(0, 0, 0, calc(0.4 * var(--show-light, 0))),
-                        transparent 40%
-                      ),
-                      white
-                    `
-                    : `
-                      radial-gradient(
-                        200px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
-                        rgba(255, 255, 255, calc(0.4 * var(--show-light, 0))),
-                        transparent 40%
-                      ),
-                      black
-                    `
-                }}
-                className={cn("px-2.5 py-2 h-9 transition-colors duration-300 relative overflow-hidden",
-                  formData.theme === 'dark' 
-                    ? "!text-black" 
-                    : "!text-white",
-                  (isLoading || formData.hearAbout.length === 0) ? "opacity-50 cursor-not-allowed" : ""
-                )}
-              >
-                <span
-                  className="font-geist relative z-10"
-                >
-                  {isLoading ? 'Completing...' : 'Complete Onboarding'}
-                </span>
-              </OnboardingButton>
-            </div>
+              {/* Simple overlay on hover */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/20 dark:to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <span className="relative z-10">{isLoading ? 'Completing...' : 'Complete Onboarding'}</span>
+            </OnboardingButton>
           </div>
         </div>
       </div>
