@@ -21,7 +21,7 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
       </div>
       <div className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="space-y-2">
+          <div className="space-y-[5px]">
             <Label htmlFor="name" className="font-geist text-[12px] font-medium" style={{ color: '#0000008c' }}>Full Name</Label>
             <Input
               id="name"
@@ -33,7 +33,7 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
             />
           </div>
           
-          <div className="space-y-2">
+          <div className="space-y-[5px]">
             <Label htmlFor="email" className="font-geist text-[12px] font-medium" style={{ color: '#0000008c' }}>Primary Email Address</Label>
             <Input
               id="email"
@@ -50,7 +50,7 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="space-y-2">
+          <div className="space-y-[5px]">
             <Label htmlFor="phone" className="font-geist text-[12px] font-medium" style={{ color: '#0000008c' }}>Phone Number</Label>
             <Input
               id="phone"
@@ -62,7 +62,7 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
             />
           </div>
           
-          <div className="space-y-2">
+          <div className="space-y-[5px]">
             <Label htmlFor="current-password" className="font-geist text-[12px] font-medium" style={{ color: '#0000008c' }}>Current Password</Label>
             <Input
               id="current-password"
