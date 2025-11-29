@@ -27,11 +27,11 @@ export const useAccountDetails = () => {
 
       console.log('👤 [ACCOUNT DETAILS] Fetching from Supabase');
       
-      // Fetch user profile
+      // Fetch user profile (email only - phone is in seller_profiles)
       const { data: userProfile, error: userError } = await supabase
         .schema('api')
         .from('user_profiles')
-        .select('email, phone')
+        .select('email')
         .eq('id', session.user.id)
         .single();
 
@@ -56,7 +56,7 @@ export const useAccountDetails = () => {
         personal: {
           name: sellerProfile.name || '',
           email: userProfile.email || '',
-          phone: userProfile.phone || ''
+          phone: sellerProfile.phone_number || ''
         },
         business: {
           company_name: sellerProfile.company_name || '',
@@ -103,30 +103,18 @@ export const useAccountDetails = () => {
 
       console.log('👤 [ACCOUNT DETAILS UPDATE] Updating in Supabase');
 
-      // Update user profile if personal info changed (phone only)
-      if (updateData.personal?.phone !== undefined) {
-        const userUpdates: any = {
-          phone: updateData.personal.phone,
-          updated_at: new Date().toISOString()
-        };
-        
-        const { error: userError } = await supabase
-          .schema('api')
-          .from('user_profiles')
-          .update(userUpdates)
-          .eq('id', session.user.id);
-
-        if (userError) {
-          throw new Error(`Failed to update user profile: ${userError.message}`);
-        }
-      }
+      // All personal info (name and phone) goes to seller_profiles
+      // No need to update user_profiles table
 
       // Update seller profile if personal name or business info changed
       const sellerUpdates: any = {};
       
-      // Handle name from personal data
+      // Handle personal data (name and phone)
       if (updateData.personal?.name !== undefined) {
         sellerUpdates.name = updateData.personal.name;
+      }
+      if (updateData.personal?.phone !== undefined) {
+        sellerUpdates.phone_number = updateData.personal.phone;
       }
       
       // Handle business data
