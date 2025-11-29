@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { Camera } from 'lucide-react';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Camera, CheckCircle } from 'lucide-react';
 import { EmailChangeModal } from './email-change-modal';
 import { PasswordChangeModal } from './password-change-modal';
 import { createClientSupabase } from '@/utils/supabase/client';
@@ -21,6 +22,7 @@ interface PersonalInfoSectionProps {
 export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps) {
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
+  const [showPasswordSuccess, setShowPasswordSuccess] = useState(false);
 
   // These will be passed down from parent component
   const handleEmailChange = async (newEmail: string) => {
@@ -68,7 +70,8 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
       console.log('✅ [PASSWORD CHANGE] Password changed successfully');
       
       // Show success message
-      alert('Password changed successfully!');
+      setShowPasswordSuccess(true);
+      setTimeout(() => setShowPasswordSuccess(false), 5000);
       
     } catch (err) {
       console.error('❌ [PASSWORD CHANGE] Failed:', err);
@@ -78,6 +81,17 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
 
   return (
     <div className="space-y-6">
+      {/* Success Alert */}
+      {showPasswordSuccess && (
+        <Alert className="border-green-200 bg-green-50">
+          <CheckCircle className="h-4 w-4 text-green-600" />
+          <AlertTitle className="text-green-800">Password changed successfully!</AlertTitle>
+          <AlertDescription className="text-green-700">
+            Your password has been updated successfully.
+          </AlertDescription>
+        </Alert>
+      )}
+
       {/* Profile Picture Section */}
       <div className="flex items-center gap-4">
         <div className="w-[72px] h-[72px] rounded-full bg-gray-200 flex items-center justify-center">
