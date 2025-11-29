@@ -823,7 +823,7 @@ const OnboardingPage: React.FC = () => {
             <OnboardingButton
               onClick={handleBackWithSound}
               variant="outline"
-              className={cn("px-2.5 py-2 h-9 transition-colors duration-300",
+              className={cn("px-[5px] h-[40px] transition-colors duration-300",
                 formData.theme === 'dark' 
                   ? "!bg-transparent !text-white !border-white hover:!bg-white hover:!text-black" 
                   : ""
@@ -832,20 +832,17 @@ const OnboardingPage: React.FC = () => {
               <span className="font-geist">Back</span>
             </OnboardingButton>
             
-            <div
-              className="flex-1"
+            <OnboardingButton
+              variant="animated"
+              onClick={handleNextWithSound}
+              disabled={isLoading}
+              className={cn("h-[40px] px-[5px] text-[14px] w-auto transition-all duration-300",
+                isLoading ? "opacity-50 cursor-not-allowed" : "",
+                formData.theme === 'dark' ? "!bg-white !text-black" : ""
+              )}
             >
-              <OnboardingButton
-                variant="animated"
-                onClick={handleNextWithSound}
-                disabled={isLoading}
-                className={cn("w-full h-[40px] transition-all duration-300",
-                  isLoading ? "opacity-50 cursor-not-allowed" : ""
-                )}
-              >
-                {isLoading ? 'Saving...' : 'Next'}
-              </OnboardingButton>
-            </div>
+              {isLoading ? 'Saving...' : 'Next'}
+            </OnboardingButton>
           </div>
 
           <div className="mt-6">
@@ -998,20 +995,17 @@ const OnboardingPage: React.FC = () => {
               Back
             </OnboardingButton>
             
-            <div
-              className="flex-1"
+            <OnboardingButton
+              variant="animated"
+              onClick={handleNextWithSound}
+              disabled={isLoading}
+              className={cn("h-[40px] px-[5px] text-[14px] w-auto transition-all duration-300",
+                isLoading ? "opacity-50 cursor-not-allowed" : "",
+                formData.theme === 'dark' ? "!bg-white !text-black" : ""
+              )}
             >
-              <OnboardingButton
-                variant="animated"
-                onClick={handleNextWithSound}
-                disabled={isLoading}
-                className={cn("w-full h-[40px] transition-all duration-300",
-                  isLoading ? "opacity-50 cursor-not-allowed" : ""
-                )}
-              >
-                {isLoading ? 'Saving...' : 'Continue'}
-              </OnboardingButton>
-            </div>
+              {isLoading ? 'Saving...' : 'Continue'}
+            </OnboardingButton>
           </div>
         </div>
 
