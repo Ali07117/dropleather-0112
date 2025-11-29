@@ -29,7 +29,7 @@ export default function AccountDetailsPage() {
       <div className="flex flex-1 flex-col">
         <div className="flex flex-col gap-4 p-4 md:gap-8 md:p-6">
           {/* Centered Content Container */}
-          <div className="max-w-4xl mx-auto w-full px-20">
+          <div className="max-w-3xl mx-auto w-full px-20">
             {/* Page Title and Description */}
             <div className="space-y-2 mt-12 mb-8">
               <h1 className="text-2xl font-bold font-geist">Account Details</h1>
@@ -39,7 +39,7 @@ export default function AccountDetailsPage() {
             </div>
             
             {/* Save Button Section */}
-            <div className="bg-[#F9F9F9] border border-[#EAEAEA] rounded-lg px-4 h-[43px] flex flex-row items-center justify-between gap-4 mb-8 max-w-3xl">
+            <div className="bg-[#F9F9F9] border border-[#EAEAEA] rounded-lg px-4 h-[43px] flex flex-row items-center justify-between gap-4 mb-8">
               <p className="font-geist text-sm text-gray-700">Happy with the changes? Just press save.</p>
               <Button 
                 onClick={handleSave}
@@ -51,9 +51,7 @@ export default function AccountDetailsPage() {
               </Button>
             </div>
             
-            <div className="max-w-3xl">
-              <AccountDetailsForm ref={formRef} hasChanges={hasChanges} setHasChanges={setHasChanges} />
-            </div>
+            <AccountDetailsForm ref={formRef} hasChanges={hasChanges} setHasChanges={setHasChanges} />
           </div>
         </div>
       </div>
