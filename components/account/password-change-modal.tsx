@@ -5,7 +5,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { X } from 'lucide-react';
 
 interface PasswordChangeModalProps {
   isOpen: boolean;
@@ -71,19 +70,9 @@ export function PasswordChangeModal({ isOpen, onClose, onChangePassword }: Passw
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="max-w-4xl w-full">
         <DialogHeader>
-          <div className="flex items-center justify-between">
-            <DialogTitle className="font-geist text-xl font-semibold">Change password</DialogTitle>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-6 w-6 rounded-md hover:bg-gray-100"
-              onClick={handleClose}
-            >
-              <X className="h-4 w-4" />
-            </Button>
-          </div>
+          <DialogTitle className="font-geist text-xl font-semibold">Change password</DialogTitle>
           <DialogDescription className="font-geist text-sm text-gray-500 mt-2">
             Enter your current password and choose a new password.
           </DialogDescription>
