@@ -19,6 +19,12 @@ export function EmailChangeModal({ isOpen, onClose, currentEmail, onChangeEmail 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
+  const handleClose = () => {
+    setNewEmail('');
+    setError('');
+    onClose();
+  };
+
   // Handle keyboard shortcuts
   useEffect(() => {
     if (!isOpen) return;
@@ -28,13 +34,14 @@ export function EmailChangeModal({ isOpen, onClose, currentEmail, onChangeEmail 
         handleClose();
       } else if (e.key === 'Enter' && !isLoading && newEmail) {
         e.preventDefault();
-        handleSubmit(e as any);
+        const form = document.getElementById('email-change-form') as HTMLFormElement;
+        if (form) form.requestSubmit();
       }
     };
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, isLoading, newEmail]);
+  }, [isOpen, isLoading, newEmail, handleClose]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,12 +70,6 @@ export function EmailChangeModal({ isOpen, onClose, currentEmail, onChangeEmail 
     }
   };
 
-  const handleClose = () => {
-    setNewEmail('');
-    setError('');
-    onClose();
-  };
-
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-md" showCloseButton={false}>
@@ -86,7 +87,7 @@ export function EmailChangeModal({ isOpen, onClose, currentEmail, onChangeEmail 
           </div>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+        <form id="email-change-form" onSubmit={handleSubmit} className="space-y-4 mt-4">
           <div className="space-y-2">
             <Label htmlFor="new-email" className="font-geist text-sm font-medium text-gray-700">
               New Email Address
