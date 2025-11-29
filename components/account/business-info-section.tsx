@@ -36,13 +36,12 @@ export function BusinessInfoSection({ data, onChange }: BusinessInfoSectionProps
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-bold font-geist mb-2">Business Information</h2>
-        <hr className="border-t border-gray-200 mb-6" />
+        <h2 className="text-xl font-bold font-geist mb-6">Business Information</h2>
       </div>
       <div className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="company-name" className="font-geist text-sm font-medium">Business Name</Label>
+            <Label htmlFor="company-name" className="font-geist text-[12px] font-medium" style={{ color: '#0000008c' }}>Business Name</Label>
             <Input
               id="company-name"
               value={data.company_name}
@@ -53,7 +52,7 @@ export function BusinessInfoSection({ data, onChange }: BusinessInfoSectionProps
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="registration-number" className="font-geist text-sm font-medium">Registration Number</Label>
+            <Label htmlFor="registration-number" className="font-geist text-[12px] font-medium" style={{ color: '#0000008c' }}>Registration Number</Label>
             <Input
               id="registration-number"
               value={data.registration_number || ''}
@@ -65,7 +64,7 @@ export function BusinessInfoSection({ data, onChange }: BusinessInfoSectionProps
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="business-address" className="font-geist text-sm font-medium">Business Address</Label>
+          <Label htmlFor="business-address" className="font-geist text-[12px] font-medium" style={{ color: '#0000008c' }}>Business Address</Label>
           <Input
             id="business-address"
             value={data.business_address}
@@ -77,7 +76,7 @@ export function BusinessInfoSection({ data, onChange }: BusinessInfoSectionProps
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="state-province" className="font-geist text-sm font-medium">State/Province</Label>
+            <Label htmlFor="state-province" className="font-geist text-[12px] font-medium" style={{ color: '#0000008c' }}>State/Province</Label>
             <Input
               id="state-province"
               value={data.state_province}
@@ -88,7 +87,7 @@ export function BusinessInfoSection({ data, onChange }: BusinessInfoSectionProps
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="city" className="font-geist text-sm font-medium">City</Label>
+            <Label htmlFor="city" className="font-geist text-[12px] font-medium" style={{ color: '#0000008c' }}>City</Label>
             <Input
               id="city"
               value={data.city}
@@ -99,7 +98,7 @@ export function BusinessInfoSection({ data, onChange }: BusinessInfoSectionProps
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="zip-code" className="font-geist text-sm font-medium">Zip Code</Label>
+            <Label htmlFor="zip-code" className="font-geist text-[12px] font-medium" style={{ color: '#0000008c' }}>Zip Code</Label>
             <Input
               id="zip-code"
               value={data.zip_code}
@@ -111,7 +110,7 @@ export function BusinessInfoSection({ data, onChange }: BusinessInfoSectionProps
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="country" className="font-geist text-sm font-medium">Country</Label>
+          <Label htmlFor="country" className="font-geist text-[12px] font-medium" style={{ color: '#0000008c' }}>Country</Label>
           <Select value={data.country} onValueChange={(value) => onChange('country', value)}>
             <SelectTrigger className="md:w-1/2 font-geist">
               <SelectValue placeholder="Select a country" />

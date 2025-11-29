@@ -22,7 +22,7 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
       <div className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="name" className="font-geist text-sm font-medium">Full Name *</Label>
+            <Label htmlFor="name" className="font-geist text-[12px] font-medium" style={{ color: '#0000008c' }}>Full Name</Label>
             <Input
               id="name"
               value={data.name}
@@ -34,7 +34,7 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="email" className="font-geist text-sm font-medium">Primary Email Address</Label>
+            <Label htmlFor="email" className="font-geist text-[12px] font-medium" style={{ color: '#0000008c' }}>Primary Email Address</Label>
             <Input
               id="email"
               type="email"
@@ -51,7 +51,7 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="phone" className="font-geist text-sm font-medium">Phone Number</Label>
+            <Label htmlFor="phone" className="font-geist text-[12px] font-medium" style={{ color: '#0000008c' }}>Phone Number</Label>
             <Input
               id="phone"
               type="tel"
@@ -63,7 +63,7 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="current-password" className="font-geist text-sm font-medium">Current Password</Label>
+            <Label htmlFor="current-password" className="font-geist text-[12px] font-medium" style={{ color: '#0000008c' }}>Current Password</Label>
             <Input
               id="current-password"
               type="password"
