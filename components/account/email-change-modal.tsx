@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { useState, useEffect } from 'react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -19,18 +19,30 @@ export function EmailChangeModal({ isOpen, onClose, currentEmail, onChangeEmail 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // Handle keyboard shortcuts
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        handleClose();
+      } else if (e.key === 'Enter' && !isLoading && newEmail) {
+        e.preventDefault();
+        handleSubmit(e as any);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, isLoading, newEmail]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
     // Validate email
-    if (!newEmail) {
-      setError('Please enter a new email address');
-      return;
-    }
-
-    if (!newEmail.includes('@')) {
-      setError('Please enter a valid email address');
+    if (!newEmail || !newEmail.includes('@')) {
+      setError('Please enter a valid email.');
       return;
     }
 
@@ -59,22 +71,19 @@ export function EmailChangeModal({ isOpen, onClose, currentEmail, onChangeEmail 
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md" showCloseButton={false}>
         <DialogHeader>
           <div className="flex items-center justify-between">
             <DialogTitle className="font-geist text-xl font-semibold">Change email address</DialogTitle>
             <Button
               variant="ghost"
               size="icon"
-              className="h-6 w-6 rounded-md hover:bg-gray-100"
+              className="h-6 w-6 rounded-md hover:bg-gray-100 -mt-2 -mr-2"
               onClick={handleClose}
             >
               <X className="h-4 w-4" />
             </Button>
           </div>
-          <DialogDescription className="font-geist text-sm text-gray-500 mt-2">
-            Enter your new email address. We&apos;ll send a confirmation link to verify the change.
-          </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
@@ -102,16 +111,22 @@ export function EmailChangeModal({ isOpen, onClose, currentEmail, onChangeEmail 
               variant="outline"
               onClick={handleClose}
               disabled={isLoading}
-              className="font-geist"
+              className="font-geist flex items-center gap-2"
             >
+              <span className="text-xs px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 font-mono">ESC</span>
               Cancel
             </Button>
             <Button
               type="submit"
               disabled={isLoading || !newEmail}
-              className="font-geist bg-black text-white hover:bg-gray-800"
+              className="font-geist bg-black text-white hover:bg-gray-800 flex items-center gap-2"
             >
-              {isLoading ? 'Changing...' : 'Change email address'}
+              {isLoading ? 'Changing...' : (
+                <>
+                  Change email address
+                  <span className="text-xs px-1.5 py-0.5 rounded bg-white/20 font-mono">↵</span>
+                </>
+              )}
             </Button>
           </div>
         </form>
