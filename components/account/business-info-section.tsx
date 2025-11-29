@@ -35,8 +35,9 @@ const countries = [
 export function BusinessInfoSection({ data, onChange }: BusinessInfoSectionProps) {
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-xl font-bold font-geist mb-6">Business Information</h2>
+      <div className="space-y-2">
+        <h2 className="text-xl font-bold font-geist">Business Information</h2>
+        <p className="text-muted-foreground font-geist text-sm">Manage the information related to your business.</p>
       </div>
       <div className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

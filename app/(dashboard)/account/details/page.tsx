@@ -31,7 +31,7 @@ export default function AccountDetailsPage() {
           {/* Centered Content Container */}
           <div className="max-w-4xl mx-auto w-full px-20">
             {/* Page Title and Description */}
-            <div className="space-y-12 mb-8">
+            <div className="space-y-2 mb-12">
               <h1 className="text-2xl font-bold font-geist">Account Details</h1>
               <p className="text-muted-foreground font-geist text-sm">
                 Manage your personal and business information

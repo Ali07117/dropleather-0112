@@ -36,7 +36,7 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
     <div className="space-y-6">
       {/* Profile Picture Section */}
       <div className="flex items-center gap-4">
-        <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
+        <div className="w-[72px] h-[72px] rounded-full bg-gray-200 flex items-center justify-center">
           <span className="text-gray-400 text-xl">👤</span>
         </div>
         <div className="flex flex-col gap-2">
@@ -44,7 +44,7 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
             <h3 className="font-geist text-sm font-medium text-black">Profile Picture</h3>
             <p className="font-geist text-xs text-gray-500">We only support PNGs, JPEGs and GIFs under 10MB</p>
           </div>
-          <Button className="w-fit h-8 px-3 bg-black text-white hover:bg-gray-800 font-geist text-xs flex items-center gap-2">
+          <Button className="w-fit h-8 px-3 text-white hover:bg-[#1a5dc7] font-geist text-xs flex items-center gap-2 border" style={{ backgroundColor: '#266DF0', borderColor: '#00266B' }}>
             <Camera className="w-3 h-3" />
             Upload image
           </Button>
