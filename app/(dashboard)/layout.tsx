@@ -23,18 +23,12 @@ export default async function DashboardLayout({
   // Show error if authentication failed and redirect to auth subdomain
   if (authError) {
     return (
-      <div className="p-8">
-        <h1 className="text-2xl font-bold mb-4">Redirecting to Login</h1>
-        <div className="bg-blue-50 border border-blue-200 rounded p-4">
-          <p className="text-blue-800">Session expired. Redirecting you to login...</p>
-        </div>
-        <script dangerouslySetInnerHTML={{
-          __html: `
-            console.log('Authentication error, redirecting to auth subdomain');
-            window.location.href = 'https://auth.dropleather.com/login';
-          `
-        }} />
-      </div>
+      <script dangerouslySetInnerHTML={{
+        __html: `
+          console.log('Authentication error, redirecting to auth subdomain');
+          window.location.href = 'https://auth.dropleather.com/login';
+        `
+      }} />
     );
   }
 
