@@ -823,13 +823,13 @@ const OnboardingPage: React.FC = () => {
             <OnboardingButton
               onClick={handleBackWithSound}
               variant="outline"
-              className={cn("px-[5px] h-[40px] transition-colors duration-300",
+              className={cn("h-[40px] transition-colors duration-300",
                 formData.theme === 'dark' 
                   ? "!bg-transparent !text-white !border-white hover:!bg-white hover:!text-black" 
                   : ""
               )}
             >
-              <span className="font-geist">Back</span>
+              <span className="font-geist px-[5px]">Back</span>
             </OnboardingButton>
             
             <OnboardingButton
