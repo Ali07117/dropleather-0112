@@ -29,7 +29,7 @@ export default function AccountDetailsPage() {
       <div className="flex flex-1 flex-col">
         <div className="flex flex-col gap-4 p-4 md:gap-8 md:p-6">
           {/* Centered Content Container */}
-          <div className="max-w-3xl mx-auto w-full px-20">
+          <div className="max-w-5xl mx-auto w-full px-20">
             {/* Page Title and Description */}
             <div className="space-y-2 mt-12 mb-8">
               <h1 className="text-2xl font-bold font-geist">Account Details</h1>
