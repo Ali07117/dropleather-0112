@@ -829,13 +829,13 @@ const OnboardingPage: React.FC = () => {
                   : ""
               )}
             >
-              <span className="font-geist px-[5px]">Back</span>
+              <span className="font-geist">Back</span>
             </OnboardingButton>
             
             <OnboardingButton
               onClick={handleNextWithSound}
               disabled={isLoading}
-              className={cn("h-[36px] px-[5px] text-[14px] w-auto transition-all duration-300 relative overflow-hidden group",
+              className={cn("h-[36px] text-[14px] transition-all duration-300 relative overflow-hidden group",
                 "bg-black text-white dark:bg-white dark:text-black font-geist font-medium rounded-[10px]",
                 isLoading ? "opacity-50 cursor-not-allowed" : "",
                 formData.theme === 'dark' ? "!bg-white !text-black" : ""
