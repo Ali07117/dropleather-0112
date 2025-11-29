@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
+import { GooglePlacesInput } from '@/components/ui/google-places-input';
 import Image from 'next/image';
 
 interface BusinessInfoSectionProps {
@@ -66,10 +67,18 @@ export function BusinessInfoSection({ data, onChange }: BusinessInfoSectionProps
 
         <div className="space-y-[5px]">
           <Label htmlFor="business-address" className="font-geist text-[12px] font-medium" style={{ color: '#0000008c' }}>Business Address</Label>
-          <Input
+          <GooglePlacesInput
             id="business-address"
             value={data.business_address}
-            onChange={(e) => onChange('business_address', e.target.value)}
+            onChange={(value) => onChange('business_address', value)}
+            onPlaceSelect={(place) => {
+              // Auto-fill other fields when address is selected
+              onChange('business_address', place.address);
+              onChange('city', place.city);
+              onChange('state_province', place.state);
+              onChange('zip_code', place.zipCode);
+              onChange('country', place.country);
+            }}
             placeholder="Enter your full business address"
             className="font-geist"
           />
