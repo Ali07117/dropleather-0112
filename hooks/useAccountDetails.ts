@@ -43,7 +43,7 @@ export const useAccountDetails = () => {
       const { data: sellerProfile, error: sellerError } = await supabase
         .schema('api')
         .from('seller_profiles')
-        .select('name, company_name, business_address, country, state_province, city, zip_code, phone_number')
+        .select('name, company_name, business_address, business_registration_number, business_country, country, state_province, city, zip_code, phone_number')
         .eq('id', session.user.id)
         .single();
 
@@ -60,14 +60,14 @@ export const useAccountDetails = () => {
         },
         business: {
           company_name: sellerProfile.company_name || '',
-          registration_number: '', // Not in current schema
+          registration_number: sellerProfile.business_registration_number || '',
           business_address: (typeof sellerProfile.business_address === 'object' && sellerProfile.business_address?.street) 
             ? sellerProfile.business_address.street 
             : '',
           state_province: sellerProfile.state_province || '',
           city: sellerProfile.city || '',
           zip_code: sellerProfile.zip_code || '',
-          country: sellerProfile.country || 'US'
+          country: sellerProfile.business_country || sellerProfile.country || 'US'
         },
         updated_at: new Date().toISOString()
       };
@@ -132,13 +132,17 @@ export const useAccountDetails = () => {
       // Handle business data
       if (updateData.business) {
         if (updateData.business.company_name !== undefined) sellerUpdates.company_name = updateData.business.company_name;
+        if (updateData.business.registration_number !== undefined) sellerUpdates.business_registration_number = updateData.business.registration_number;
         if (updateData.business.business_address !== undefined) {
           sellerUpdates.business_address = { street: updateData.business.business_address };
         }
         if (updateData.business.state_province !== undefined) sellerUpdates.state_province = updateData.business.state_province;
         if (updateData.business.city !== undefined) sellerUpdates.city = updateData.business.city;
         if (updateData.business.zip_code !== undefined) sellerUpdates.zip_code = updateData.business.zip_code;
-        if (updateData.business.country !== undefined) sellerUpdates.country = updateData.business.country;
+        if (updateData.business.country !== undefined) {
+          sellerUpdates.business_country = updateData.business.country;
+          sellerUpdates.country = updateData.business.country; // Keep both for compatibility
+        }
       }
       
       if (Object.keys(sellerUpdates).length > 0) {
