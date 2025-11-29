@@ -659,7 +659,7 @@ const OnboardingPage: React.FC = () => {
               </button>
             </div>
 
-            <div className="w-full flex justify-start">
+            <div className="w-full flex justify-center">
               <OnboardingButton
                 variant="animated"
                 onClick={async () => {
