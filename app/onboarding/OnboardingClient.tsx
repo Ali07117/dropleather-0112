@@ -823,7 +823,7 @@ const OnboardingPage: React.FC = () => {
             <OnboardingButton
               onClick={handleBackWithSound}
               variant="outline"
-              className={cn("h-[40px] transition-colors duration-300",
+              className={cn("h-[36px] transition-colors duration-300",
                 formData.theme === 'dark' 
                   ? "!bg-transparent !text-white !border-white hover:!bg-white hover:!text-black" 
                   : ""
@@ -836,7 +836,7 @@ const OnboardingPage: React.FC = () => {
               variant="animated"
               onClick={handleNextWithSound}
               disabled={isLoading}
-              className={cn("h-[40px] px-[5px] text-[14px] w-auto transition-all duration-300",
+              className={cn("h-[36px] px-[5px] text-[14px] w-auto transition-all duration-300",
                 isLoading ? "opacity-50 cursor-not-allowed" : "",
                 formData.theme === 'dark' ? "!bg-white !text-black" : ""
               )}
