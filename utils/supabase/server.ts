@@ -9,12 +9,39 @@ export async function createServerSupabase() {
     
     const { config } = await configResponse.json()
     
-    // Create server client
+    // Create server client with proper cookie handling
     const cookieStore = await cookies()
     const supabase = createServerClient(config.url, config.anonKey, {
       cookies: {
         get(name: string) {
           return cookieStore.get(name)?.value
+        },
+        set(name: string, value: string, options: any) {
+          try {
+            cookieStore.set(name, value, {
+              ...options,
+              domain: '.dropleather.com',
+              secure: true,
+              sameSite: 'lax'
+            })
+          } catch (error) {
+            // Handle cookie set errors in server components
+            console.warn('Failed to set cookie:', name, error)
+          }
+        },
+        remove(name: string, options: any) {
+          try {
+            cookieStore.set(name, '', {
+              ...options,
+              maxAge: 0,
+              domain: '.dropleather.com',
+              secure: true,
+              sameSite: 'lax'
+            })
+          } catch (error) {
+            // Handle cookie remove errors in server components
+            console.warn('Failed to remove cookie:', name, error)
+          }
         },
       },
     })

@@ -16,7 +16,7 @@ import { useProductsRealtime } from "@/hooks/useProductsRealtime"
 import { ProductsLoading } from "./ProductsLoading"
 import { ProductsError } from "./ProductsError"
 import { ProductsEmpty } from "./ProductsEmpty"
-import { createClientSupabase, getCurrentSession } from "@/utils/supabase/client"
+import { createClientSupabase, getCurrentUser } from "@/utils/supabase/client"
 
 interface Product {
   id: string
@@ -45,8 +45,19 @@ interface Product {
 // Professional API function with Supabase automatic session handling
 async function fetchActiveProducts(): Promise<Product[]> {
   try {
-    // Get current session (Supabase auto-refreshes if needed)
-    const session = await getCurrentSession()
+    // Get current user claims (Supabase auto-refreshes if needed)
+    const user = await getCurrentUser()
+
+    if (!user) {
+      console.warn('🔄 [FETCH PRODUCTS] No valid user, redirecting to auth')
+      window.location.href = 'https://auth.dropleather.com/login?redirect_to=' +
+                             encodeURIComponent(window.location.href)
+      throw new Error('Authentication required')
+    }
+
+    // Get session for access token
+    const supabase = await createClientSupabase()
+    const { data: { session } } = await supabase.auth.getSession()
 
     if (!session?.access_token) {
       console.warn('🔄 [FETCH PRODUCTS] No valid session, redirecting to auth')

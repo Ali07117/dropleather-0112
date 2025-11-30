@@ -53,13 +53,13 @@ export async function requireSellerAuth() {
       },
     })
 
-    const { data: { session }, error } = await supabase.auth.getSession()
+    const { data: { user }, error } = await supabase.auth.getUser()
 
-    if (!session || error) {
+    if (!user || error) {
       console.error('❌ [SELLER AUTH] Session check failed:', {
-        hasSession: !!session,
+        hasUser: !!user,
         sessionError: error?.message,
-        sessionUserId: session?.user?.id,
+        userId: user?.id,
         availableCookies: Array.from(cookieStore.getAll()).map(c => c.name)
       });
       
@@ -72,15 +72,15 @@ export async function requireSellerAuth() {
       .schema('api')
       .from('user_profiles')
       .select('role, is_active')
-      .eq('id', session.user.id)
+      .eq('id', user.id)
       .single()
 
     if (userError || !userProfile) {
       throw new Error(`User profile check failed: ${JSON.stringify({
         userError: userError?.message,
         hasUserProfile: !!userProfile,
-        userId: session.user.id,
-        userEmail: session.user.email
+        userId: user.id,
+        userEmail: user.email
       })}`)
     }
 
@@ -88,8 +88,8 @@ export async function requireSellerAuth() {
       throw new Error(`Access denied: ${JSON.stringify({
         role: userProfile.role,
         isActive: userProfile.is_active,
-        userId: session.user.id,
-        userEmail: session.user.email,
+        userId: user.id,
+        userEmail: user.email,
         requiredRole: 'seller',
         requiredActive: true
       })}`)
@@ -100,19 +100,19 @@ export async function requireSellerAuth() {
       .schema('api')
       .from('seller_profiles')
       .select('name, email, subscription_plan')
-      .eq('id', session.user.id)
+      .eq('id', user.id)
       .single()
 
     if (profileError || !profile) {
       throw new Error(`Seller profile check failed: ${JSON.stringify({
         profileError: profileError?.message,
         hasProfile: !!profile,
-        userId: session.user.id,
-        userEmail: session.user.email
+        userId: user.id,
+        userEmail: user.email
       })}`)
     }
 
-    return { session, profile }
+    return { user, profile }
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error)
     console.error('❌ [SELLER AUTH] Authentication failed:', errorMessage)

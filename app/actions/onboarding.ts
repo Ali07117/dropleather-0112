@@ -20,15 +20,25 @@ export async function submitOnboarding(formData: FormData) {
   try {
     // 🔐 SECURITY: All authentication happens server-side - no tokens exposed to client
     const supabase = await createServerSupabase();
-    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+    
+    // For server actions, we need the access token, so use getUser() 
+    // which is safe in server components according to Supabase docs
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
 
-
-    if (!session?.user || !session?.access_token) {
+    if (!user || userError) {
       console.error('❌ SERVER ACTION: No valid session found for onboarding');
       redirect('/login?error=session_expired');
     }
 
-    console.log('✅ SERVER ACTION: Valid session found for user:', session.user.email);
+    // Get session for access token
+    const { data: { session } } = await supabase.auth.getSession();
+    
+    if (!session?.access_token) {
+      console.error('❌ SERVER ACTION: No access token found');
+      redirect('/login?error=session_expired');
+    }
+
+    console.log('✅ SERVER ACTION: Valid session found for user:', user.email);
 
     // Extract form data
     const name = formData.get('name') as string;
@@ -172,8 +182,14 @@ export async function submitOnboarding(formData: FormData) {
 export async function getOnboardingStatus() {
   try {
     const supabase = await createServerSupabase();
-    const { data: { session } } = await supabase.auth.getSession();
+    const { data: { user } } = await supabase.auth.getUser();
     
+    if (!user) {
+      return { isAuthenticated: false, status: null };
+    }
+    
+    // Get session for access token  
+    const { data: { session } } = await supabase.auth.getSession();
     if (!session?.access_token) {
       return { isAuthenticated: false, status: null };
     }
@@ -208,14 +224,22 @@ export async function saveStep1(formData: FormData) {
   try {
     // 🔐 SECURITY: All authentication happens server-side - no tokens exposed to client
     const supabase = await createServerSupabase();
-    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
 
-    if (!session?.user || !session?.access_token) {
+    if (!user || userError) {
       console.error('❌ SERVER ACTION: No valid session found for step 1');
       redirect('/login?error=session_expired');
     }
 
-    console.log('✅ SERVER ACTION: Valid session found for user:', session.user.email);
+    // Get session for access token
+    const { data: { session } } = await supabase.auth.getSession();
+    
+    if (!session?.access_token) {
+      console.error('❌ SERVER ACTION: No access token found for step 1');
+      redirect('/login?error=session_expired');
+    }
+
+    console.log('✅ SERVER ACTION: Valid session found for user:', user.email);
 
     // Extract form data
     const full_name = formData.get('full_name') as string;
@@ -305,10 +329,17 @@ export async function saveStep2(formData: FormData) {
   
   try {
     const supabase = await createServerSupabase();
-    const { data: { session } } = await supabase.auth.getSession();
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
 
-    if (!session?.user || !session?.access_token) {
+    if (!user || userError) {
       throw new Error('Authentication required');
+    }
+
+    // Get session for access token
+    const { data: { session } } = await supabase.auth.getSession();
+    
+    if (!session?.access_token) {
+      throw new Error('No access token found');
     }
 
     const brand_status = formData.get('brand_status') as string;
@@ -389,10 +420,17 @@ export async function saveStep3(formData: FormData) {
   
   try {
     const supabase = await createServerSupabase();
-    const { data: { session } } = await supabase.auth.getSession();
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
 
-    if (!session?.user || !session?.access_token) {
+    if (!user || userError) {
       throw new Error('Authentication required');
+    }
+
+    // Get session for access token
+    const { data: { session } } = await supabase.auth.getSession();
+    
+    if (!session?.access_token) {
+      throw new Error('No access token found');
     }
 
     const seller_category = formData.get('seller_category') as string;

@@ -177,10 +177,10 @@ const OnboardingPage: React.FC = () => {
       try {
         // Use SSR-compatible client that can read chunked cookies
         const supabase = await createClientSupabase();
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: user } = await supabase.auth.getClaims();
         
         // Authentication is required - middleware should handle redirects
-        if (!session?.user) {
+        if (!user) {
           // Server-side requireAuth() already handles redirects, no need for client-side redirect
           console.log('No session found, but server-side auth should handle this');
           return;

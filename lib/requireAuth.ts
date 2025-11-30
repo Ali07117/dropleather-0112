@@ -20,15 +20,15 @@ export async function requireAuth() {
       },
     })
 
-    const { data: { session }, error } = await supabase.auth.getSession()
+    const { data: user, error } = await supabase.auth.getClaims()
 
-    if (!session || error) {
+    if (!user || error) {
       // Redirect to auth service, same as middleware
       const authServiceUrl = process.env.NEXT_PUBLIC_AUTH_URL || 'https://auth.dropleather.com'
       redirect(`${authServiceUrl}/login`)
     }
 
-    return session
+    return user
   } catch (error) {
     // On any error, redirect to auth service
     const authServiceUrl = process.env.NEXT_PUBLIC_AUTH_URL || 'https://auth.dropleather.com'

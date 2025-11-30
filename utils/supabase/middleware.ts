@@ -40,14 +40,15 @@ export async function updateSession(request: NextRequest) {
   );
 
     // IMPORTANT: This will refresh expired tokens and create new session cookies
-    // This is critical for handling chunked cookies properly
+    // Using getClaims() instead of getUser() as per Supabase official docs
+    // getClaims() automatically refreshes expired tokens and validates JWT signature
     const {
-      data: { user },
-    } = await supabase.auth.getUser();
+      data: user,
+    } = await supabase.auth.getClaims();
 
     // Log session status for debugging
     if (user) {
-      console.log('🔄 Middleware - Session refreshed for user:', user.email);
+      console.log('🔄 Middleware - Session refreshed for user:', user.claims?.email || user.claims?.sub);
     }
 
     return response;

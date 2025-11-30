@@ -16,9 +16,9 @@ export const useAccountDetails = () => {
       setError(null);
 
       const supabase = await createClientSupabase();
-      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
 
-      if (sessionError || !session) {
+      if (userError || !user) {
         console.warn('🔄 [ACCOUNT DETAILS] No valid session, redirecting to auth');
         window.location.href = 'https://auth.dropleather.com/login?redirect_to=' +
                                encodeURIComponent(window.location.href);
@@ -28,15 +28,15 @@ export const useAccountDetails = () => {
       console.log('👤 [ACCOUNT DETAILS] Fetching from Supabase');
       
       // Fetch user profile (email only - phone is in seller_profiles)
-      const { data: userProfile, error: userError } = await supabase
+      const { data: userProfile, error: profileError } = await supabase
         .schema('api')
         .from('user_profiles')
         .select('email')
-        .eq('id', session.user.id)
+        .eq('id', user.id)
         .single();
 
-      if (userError) {
-        throw new Error(`Failed to fetch user profile: ${userError.message}`);
+      if (profileError) {
+        throw new Error(`Failed to fetch user profile: ${profileError.message}`);
       }
 
       // Fetch seller profile
@@ -44,7 +44,7 @@ export const useAccountDetails = () => {
         .schema('api')
         .from('seller_profiles')
         .select('name, company_name, business_address, business_registration_number, business_country, country, state_province, city, zip_code, phone_number')
-        .eq('id', session.user.id)
+        .eq('id', user.id)
         .single();
 
       if (sellerError) {
@@ -92,9 +92,9 @@ export const useAccountDetails = () => {
       setError(null);
 
       const supabase = await createClientSupabase();
-      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
 
-      if (sessionError || !session) {
+      if (userError || !user) {
         console.warn('🔄 [ACCOUNT DETAILS UPDATE] No valid session, redirecting to auth');
         window.location.href = 'https://auth.dropleather.com/login?redirect_to=' +
                                encodeURIComponent(window.location.href);
@@ -140,7 +140,7 @@ export const useAccountDetails = () => {
           .schema('api')
           .from('seller_profiles')
           .update(sellerUpdates)
-          .eq('id', session.user.id);
+          .eq('id', user.id);
 
         if (sellerError) {
           throw new Error(`Failed to update seller profile: ${sellerError.message}`);

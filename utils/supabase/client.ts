@@ -140,18 +140,18 @@ export async function createClientSupabase(): Promise<SupabaseClient<any, 'publi
 }
 
 /**
- * Get the current session with automatic refresh
+ * Get the current user claims with automatic refresh
  */
-export async function getCurrentSession() {
+export async function getCurrentUser() {
   const client = await createClientSupabase();
-  const { data: { session }, error } = await client.auth.getSession();
+  const { data: user, error } = await client.auth.getClaims();
 
   if (error) {
-    console.error('❌ [SUPABASE SESSION] Failed to get session:', error);
+    console.error('❌ [SUPABASE USER] Failed to get user:', error);
     return null;
   }
 
-  return session;
+  return user;
 }
 
 /**
@@ -159,7 +159,8 @@ export async function getCurrentSession() {
  */
 export async function isAuthenticated(): Promise<boolean> {
   try {
-    const session = await getCurrentSession();
+    const supabase = await createClientSupabase();
+    const { data: { session } } = await supabase.auth.getSession();
     return !!session?.access_token;
   } catch (error) {
     console.error('❌ [SUPABASE AUTH] Authentication check failed:', error);

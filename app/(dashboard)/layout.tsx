@@ -10,11 +10,11 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode
 }) {
-  let session, profile, authError = null;
+  let user, profile, authError = null;
 
   try {
     const result = await requireSellerAuth();
-    session = result.session;
+    user = result.user;
     profile = result.profile;
   } catch (error) {
     authError = error instanceof Error ? error.message : String(error);
@@ -34,8 +34,8 @@ export default async function DashboardLayout({
 
   // Prepare user data with fallbacks
   const userData = {
-    name: profile?.name || session?.user?.email?.split('@')[0] || 'Seller',
-    email: profile?.email || session?.user?.email || 'seller@dropleather.com',
+    name: profile?.name || user?.email?.split('@')[0] || 'Seller',
+    email: profile?.email || user?.email || 'seller@dropleather.com',
     avatar: "/avatars/shadcn.jpg",
     subscription_plan: profile?.subscription_plan || 'free',
   }

@@ -20,16 +20,24 @@ export async function selectPlan(formData: FormData) {
     
     const supabase = await createServerSupabase();
     
-    
-    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-    
+    // For server actions, we need the access token, so use getUser() 
+    // which is safe in server components according to Supabase docs
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
 
-    if (!session?.user || !session?.access_token) {
+    if (!user || userError) {
       console.error('❌ SERVER ACTION: No valid session found');
       redirect('/login?error=session_expired');
     }
 
-    console.log('✅ SERVER ACTION: Valid session found for user:', session.user.email);
+    // Get session for access token
+    const { data: { session } } = await supabase.auth.getSession();
+    
+    if (!session?.access_token) {
+      console.error('❌ SERVER ACTION: No access token found');
+      redirect('/login?error=session_expired');
+    }
+
+    console.log('✅ SERVER ACTION: Valid session found for user:', user.email);
     
 
     if (planId === 'free') {
@@ -180,13 +188,13 @@ export async function selectPlan(formData: FormData) {
 export async function getCurrentUser() {
   try {
     const supabase = await createServerSupabase();
-    const { data: { session } } = await supabase.auth.getSession();
+    const { data: { user } } = await supabase.auth.getUser();
     
     return {
-      isAuthenticated: !!session?.user,
-      user: session?.user ? {
-        id: session.user.id,
-        email: session.user.email
+      isAuthenticated: !!user,
+      user: user ? {
+        id: user.id,
+        email: user.email
       } : null
     };
   } catch (error) {
