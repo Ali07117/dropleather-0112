@@ -234,49 +234,22 @@ export function ProductsShowcaseClient() {
 
                   {/* Product Details */}
                   <div className="p-6 space-y-4">
-                    {/* Category */}
-                    <div className="text-sm text-muted-foreground font-medium">
-                      {product.category || 'Uncategorized'}
-                    </div>
-
                     {/* Title */}
                     <h3 className="font-semibold text-base leading-tight line-clamp-2">
                       {product.title}
                     </h3>
 
-                    {/* Colors */}
-                    <div className="flex items-center gap-2">
-                      {productColors.slice(0, 4).map((color, index) => (
-                        <button
-                          key={index}
-                          onClick={() => selectProductColor(product.id, index)}
-                          className={cn(
-                            "w-6 h-6 rounded-full border-2 transition-all",
-                            selectedProductColors[product.id] === index
-                              ? "border-gray-800 scale-110"
-                              : "border-gray-200 hover:border-gray-400"
-                          )}
-                          style={{ backgroundColor: color.value }}
-                          title={color.name}
-                        />
-                      ))}
+                    {/* Category */}
+                    <div className="text-sm text-muted-foreground font-medium">
+                      {product.category || 'Uncategorized'}
                     </div>
 
+
                     {/* Prices */}
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2">
-                        <span className="font-bold text-lg">
-                          ${product.price.toFixed(2)}
-                        </span>
-                        {product.comparePrice && product.comparePrice > product.price && (
-                          <span className="text-sm text-muted-foreground line-through">
-                            ${product.comparePrice.toFixed(2)}
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-xs text-muted-foreground">
-                        VAT included
-                      </p>
+                    <div className="">
+                      <span className="font-bold text-lg">
+                        From USD {product.price.toFixed(0)}
+                      </span>
                     </div>
 
                     {/* Action Button */}
