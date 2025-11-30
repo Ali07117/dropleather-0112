@@ -195,8 +195,8 @@ export function ProductsShowcaseClient() {
   if (!products.length) return <ProductsEmpty />
 
   return (
-    <div className="@container/main flex flex-1 flex-col gap-2">
-      <div className="py-16 md:py-24 px-16 lg:px-24">
+    <div className="@container/main flex flex-1 flex-col">
+      <div className="max-w-7xl mx-auto w-full py-12 px-12">
         {/* Product Grid */}
         <div className="w-full">
           <div className="mb-6">
