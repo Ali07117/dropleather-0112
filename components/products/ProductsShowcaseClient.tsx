@@ -230,7 +230,7 @@ export function ProductsShowcaseClient() {
             {products.map((product) => (
               <div key={product.id} className="group">
                 {/* Product Image */}
-                <div className="relative aspect-[3/4] overflow-hidden rounded-lg">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
                     <img
                       src={
                         product.images.find(img => img.isPrimary)?.image_path 
