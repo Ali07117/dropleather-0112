@@ -187,7 +187,7 @@ export function ProductsShowcaseClient() {
 
   return (
     <div className="@container/main flex flex-1 flex-col gap-2">
-      <div className="py-4 md:py-6 px-4 lg:px-6">
+      <div className="py-4 md:py-6 px-20 lg:px-32">
         {/* Product Grid */}
         <div className="w-full">
           <div className="mb-6">
