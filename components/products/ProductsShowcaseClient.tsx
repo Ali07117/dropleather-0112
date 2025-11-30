@@ -4,7 +4,6 @@ import * as React from "react"
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Heart } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -229,10 +228,9 @@ export function ProductsShowcaseClient() {
           {/* Product Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-6">
             {products.map((product) => (
-              <Card key={product.id} className="overflow-hidden group shadow-none border border-[#E3E3E3] p-0">
-                <CardContent className="p-0">
-                  {/* Product Image */}
-                  <div className="relative aspect-square overflow-hidden">
+              <div key={product.id} className="group">
+                {/* Product Image */}
+                <div className="relative aspect-[3/4] overflow-hidden rounded-lg">
                     <img
                       src={
                         product.images.find(img => img.isPrimary)?.image_path 
@@ -261,8 +259,8 @@ export function ProductsShowcaseClient() {
                     </Button>
                   </div>
 
-                  {/* Product Details */}
-                  <div className="p-6 space-y-1">
+                {/* Product Details */}
+                <div className="mt-4 space-y-1">
                     {/* Title */}
                     <h3 className="font-semibold text-base leading-tight line-clamp-2">
                       {product.title}
@@ -287,9 +285,8 @@ export function ProductsShowcaseClient() {
                     <Button className="w-full h-10" variant="outline">
                       View Details
                     </Button>
-                  </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             ))}
           </div>
 
