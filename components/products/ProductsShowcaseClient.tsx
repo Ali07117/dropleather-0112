@@ -240,10 +240,9 @@ export function ProductsShowcaseClient() {
                     </h3>
 
                     {/* Category */}
-                    <div className="text-sm text-muted-foreground font-medium">
+                    <div className="text-sm text-muted-foreground font-medium mb-2">
                       {product.category || 'Uncategorized'}
                     </div>
-
 
                     {/* Prices */}
                     <div className="space-y-1">
