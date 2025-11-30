@@ -200,7 +200,7 @@ export function ProductsShowcaseClient() {
           {/* Product Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-6">
             {products.map((product) => (
-              <Card key={product.id} className="overflow-hidden group shadow-none border border-[#E3E3E3]">
+              <Card key={product.id} className="overflow-hidden group shadow-none border border-[#E3E3E3] p-0">
                 <CardContent className="p-0">
                   {/* Product Image */}
                   <div className="relative aspect-square overflow-hidden">
