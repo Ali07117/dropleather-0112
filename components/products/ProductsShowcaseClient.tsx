@@ -5,6 +5,15 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Heart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { useProductsRealtime } from "@/hooks/useProductsRealtime"
 import { ProductsLoading } from "./ProductsLoading"
@@ -191,9 +200,29 @@ export function ProductsShowcaseClient() {
         {/* Product Grid */}
         <div className="w-full">
           <div className="mb-6">
+            <Breadcrumb className="mb-4">
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href="/dashboard">Dashboard</Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href="/products">Products</Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>Products Showcase</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+            
             <h1 className="text-2xl font-bold font-sora mb-2">Products Showcase</h1>
             <p className="text-muted-foreground font-sans">
-              Discover our premium leather collection with {products.length} products
+              Explore all the newest additions to our premium leather goods collection. Dive in and discover your next bestseller crafted with exceptional quality.
             </p>
           </div>
 
