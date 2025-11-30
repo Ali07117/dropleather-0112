@@ -233,7 +233,7 @@ export function ProductsShowcaseClient() {
                   </div>
 
                   {/* Product Details */}
-                  <div className="p-6 space-y-4">
+                  <div className="p-6 space-y-1">
                     {/* Title */}
                     <h3 className="font-semibold text-base leading-tight line-clamp-2">
                       {product.title}
@@ -246,10 +246,13 @@ export function ProductsShowcaseClient() {
 
 
                     {/* Prices */}
-                    <div className="">
+                    <div className="space-y-1">
                       <span className="font-bold text-lg">
-                        From USD {product.price.toFixed(0)}
+                        From USD {product.price.toFixed(2)}
                       </span>
+                      <p className="text-gray-500" style={{fontSize: '14px'}}>
+                        From USD {product.price.toFixed(0)} with Dropleather Pro or Enterprise
+                      </p>
                     </div>
 
                     {/* Action Button */}
