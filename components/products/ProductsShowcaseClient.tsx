@@ -233,25 +233,25 @@ export function ProductsShowcaseClient() {
                   </div>
 
                   {/* Product Details */}
-                  <div className="p-3 space-y-2">
+                  <div className="p-6 space-y-4">
                     {/* Category */}
-                    <div className="text-xs text-muted-foreground font-medium">
+                    <div className="text-sm text-muted-foreground font-medium">
                       {product.category || 'Uncategorized'}
                     </div>
 
                     {/* Title */}
-                    <h3 className="font-semibold text-sm leading-tight line-clamp-1">
+                    <h3 className="font-semibold text-base leading-tight line-clamp-2">
                       {product.title}
                     </h3>
 
                     {/* Colors */}
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-2">
                       {productColors.slice(0, 4).map((color, index) => (
                         <button
                           key={index}
                           onClick={() => selectProductColor(product.id, index)}
                           className={cn(
-                            "w-4 h-4 rounded-full border transition-all",
+                            "w-6 h-6 rounded-full border-2 transition-all",
                             selectedProductColors[product.id] === index
                               ? "border-gray-800 scale-110"
                               : "border-gray-200 hover:border-gray-400"
@@ -263,21 +263,24 @@ export function ProductsShowcaseClient() {
                     </div>
 
                     {/* Prices */}
-                    <div className="">
-                      <div className="flex items-center gap-1">
-                        <span className="font-bold text-sm">
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-lg">
                           ${product.price.toFixed(2)}
                         </span>
                         {product.comparePrice && product.comparePrice > product.price && (
-                          <span className="text-xs text-muted-foreground line-through">
+                          <span className="text-sm text-muted-foreground line-through">
                             ${product.comparePrice.toFixed(2)}
                           </span>
                         )}
                       </div>
+                      <p className="text-xs text-muted-foreground">
+                        VAT included
+                      </p>
                     </div>
 
                     {/* Action Button */}
-                    <Button className="w-full h-8 text-xs" variant="outline">
+                    <Button className="w-full h-10" variant="outline">
                       View Details
                     </Button>
                   </div>
