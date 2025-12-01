@@ -181,7 +181,7 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
                 type="email"
                 value={pendingEmail || data.email}
                 onChange={(e) => onChange('email', e.target.value)}
-                className={`font-geist pr-16 bg-[#FBFBFB] ${pendingEmail ? 'border-orange-300' : ''}`}
+                className={`font-geist pr-16 bg-[#FBFBFB] ${pendingEmail ? 'border-orange-300 pl-10' : ''}`}
                 placeholder="Your email address"
                 readOnly
               />
