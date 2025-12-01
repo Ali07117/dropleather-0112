@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 
@@ -80,7 +80,7 @@ export function GooglePlacesInput({
               }
             });
 
-            setIsLoaded(true);
+            // setIsLoaded(true);
           }
         }
       } catch (error) {

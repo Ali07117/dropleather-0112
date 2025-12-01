@@ -58,7 +58,7 @@ export async function selectPlan(formData: FormData) {
 
       if (!csrfResponse.ok) {
         console.error('❌ SERVER ACTION: Failed to get CSRF token');
-        const errorText = await csrfResponse.text().catch(() => 'No error text');
+        // const errorText = await csrfResponse.text().catch(() => 'No error text');
         throw new Error('Security token unavailable');
       }
 

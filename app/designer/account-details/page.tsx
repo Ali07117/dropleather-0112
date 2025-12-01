@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 // Simple header for designer pages (no sidebar dependency)
 const DesignerSiteHeader = ({ title = "Dashboard" }: { title?: string }) => (
   <header className="flex h-16 shrink-0 items-center gap-2 border-b">
@@ -19,10 +19,10 @@ import { CountryCombobox } from '@/components/ui/country-combobox';
 import Image from 'next/image';
 
 // EXACT COPY of PersonalInfoSection with mock data
-const MockPersonalInfoSection = ({ data, onChange }: any) => {
-  const [showPasswordSuccess, setShowPasswordSuccess] = useState(false);
-  const [showEmailSuccess, setShowEmailSuccess] = useState(false);
-  const [pendingEmail, setPendingEmail] = useState<string | null>(null);
+const MockPersonalInfoSection = ({ data, onChange }: { data: Record<string, string>; onChange: (field: string, value: string) => void }) => {
+  const [showPasswordSuccess] = useState(false);
+  const [showEmailSuccess] = useState(false);
+  const [pendingEmail] = useState<string | null>(null);
 
   return (
     <div className="space-y-6">
@@ -156,7 +156,7 @@ const MockPersonalInfoSection = ({ data, onChange }: any) => {
 };
 
 // EXACT COPY of BusinessInfoSection with mock data
-const MockBusinessInfoSection = ({ data, onChange }: any) => {
+const MockBusinessInfoSection = ({ data, onChange }: { data: Record<string, string>; onChange: (field: string, value: string) => void }) => {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
@@ -280,7 +280,7 @@ const MockBusinessInfoSection = ({ data, onChange }: any) => {
 };
 
 // EXACT COPY of AccountDetailsForm with mock data
-const MockAccountDetailsForm = ({ hasChanges, setHasChanges }: any) => {
+const MockAccountDetailsForm = ({ setHasChanges }: { setHasChanges: (value: boolean) => void }) => {
   const [personalData, setPersonalData] = useState({
     name: 'John Smith',
     email: 'john.smith@example.com',
@@ -326,7 +326,7 @@ const MockAccountDetailsForm = ({ hasChanges, setHasChanges }: any) => {
 
 // EXACT COPY of your original page structure
 export default function DesignerAccountDetailsPage() {
-  const formRef = useRef<any>(null);
+  // const formRef = useRef<HTMLFormElement>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
 
@@ -372,7 +372,7 @@ export default function DesignerAccountDetailsPage() {
               </Button>
             </div>
             
-            <MockAccountDetailsForm hasChanges={hasChanges} setHasChanges={setHasChanges} />
+            <MockAccountDetailsForm setHasChanges={setHasChanges} />
           </div>
         </div>
       </div>

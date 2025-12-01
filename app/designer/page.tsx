@@ -85,7 +85,7 @@ export default function DesignerIndexPage() {
             </div>
             <div className="grid md:grid-cols-2 gap-6 text-sm">
               <div>
-                <h4 className="font-medium text-gray-900 mb-2">✅ What's Available:</h4>
+                <h4 className="font-medium text-gray-900 mb-2">✅ What&apos;s Available:</h4>
                 <ul className="space-y-1 text-gray-600">
                   <li>• All forms and inputs are visible</li>
                   <li>• Mock data pre-filled for design reference</li>
