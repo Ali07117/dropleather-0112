@@ -29,7 +29,7 @@ export async function requireAuth() {
     }
 
     return user
-  } catch (error) {
+  } catch {
     // On any error, redirect to auth service
     const authServiceUrl = process.env.NEXT_PUBLIC_AUTH_URL || 'https://auth.dropleather.com'
     redirect(`${authServiceUrl}/login`)

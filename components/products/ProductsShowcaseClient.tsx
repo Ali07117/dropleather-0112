@@ -101,18 +101,18 @@ async function fetchActiveProducts(): Promise<Product[]> {
   }
 }
 
-const productColors = [
-  { name: "Brown", value: "#4C2B11" },
-  { name: "Red", value: "#DC2626" },
-  { name: "Black", value: "#000000" },
-  { name: "Green", value: "#2C5100" },
-  { name: "Blue", value: "#191970" }
-]
+// const productColors = [
+//   { name: "Brown", value: "#4C2B11" },
+//   { name: "Red", value: "#DC2626" },
+//   { name: "Black", value: "#000000" },
+//   { name: "Green", value: "#2C5100" },
+//   { name: "Blue", value: "#191970" }
+// ]
 
 export function ProductsShowcaseClient() {
   const queryClient = useQueryClient()
   const [favorites, setFavorites] = React.useState<string[]>([])
-  const [selectedProductColors, setSelectedProductColors] = React.useState<Record<string, number>>({})
+  // const [selectedProductColors, setSelectedProductColors] = React.useState<Record<string, number>>({})
 
   // 🆕 React Query for data fetching
   const {
@@ -176,12 +176,12 @@ export function ProductsShowcaseClient() {
     )
   }
 
-  const selectProductColor = (productId: string, colorIndex: number) => {
-    setSelectedProductColors(prev => ({
-      ...prev,
-      [productId]: colorIndex
-    }))
-  }
+  // const selectProductColor = (productId: string, colorIndex: number) => {
+  //   setSelectedProductColors(prev => ({
+  //     ...prev,
+  //     [productId]: colorIndex
+  //   }))
+  // }
 
 
   // Handle loading state
