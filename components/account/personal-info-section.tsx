@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Camera, CheckCircle } from 'lucide-react';
+import { Camera, CheckCircle, AlertTriangle } from 'lucide-react';
 import { EmailChangeModal } from './email-change-modal';
 import { PasswordChangeModal } from './password-change-modal';
 import { createClientSupabase } from '@/utils/supabase/client';
@@ -23,11 +23,46 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
   const [showPasswordSuccess, setShowPasswordSuccess] = useState(false);
+  const [showEmailSuccess, setShowEmailSuccess] = useState(false);
+  const [pendingEmail, setPendingEmail] = useState<string | null>(null);
 
-  // These will be passed down from parent component
+  // Email change implementation
   const handleEmailChange = async (newEmail: string) => {
-    // TODO: Implement email change logic
-    console.log('Changing email to:', newEmail);
+    try {
+      console.log('📧 [EMAIL CHANGE] Starting email change process');
+      
+      const supabase = await createClientSupabase();
+      
+      // Get current user
+      const { data: { user }, error: authError } = await supabase.auth.getUser();
+      
+      if (authError || !user?.email) {
+        throw new Error('Authentication required');
+      }
+
+      console.log('📧 [EMAIL CHANGE] Updating email with Supabase');
+      
+      // Update email using Supabase Auth (sends confirmation email)
+      const { error: updateError } = await supabase.auth.updateUser({
+        email: newEmail
+      });
+
+      if (updateError) {
+        console.error('❌ [EMAIL CHANGE] Error:', updateError);
+        throw new Error(updateError.message);
+      }
+
+      console.log('✅ [EMAIL CHANGE] Confirmation email sent successfully');
+      
+      // Set pending email and show success message
+      setPendingEmail(newEmail);
+      setShowEmailSuccess(true);
+      setTimeout(() => setShowEmailSuccess(false), 10000); // Show for 10 seconds
+      
+    } catch (err) {
+      console.error('❌ [EMAIL CHANGE] Failed:', err);
+      throw err; // Re-throw to show error in modal
+    }
   };
 
   const handlePasswordChange = async (currentPassword: string, newPassword: string) => {
@@ -81,13 +116,23 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
 
   return (
     <div className="space-y-6">
-      {/* Success Alert */}
+      {/* Success Alerts */}
       {showPasswordSuccess && (
         <Alert className="border-green-200 bg-green-50">
           <CheckCircle className="h-4 w-4 text-green-600" />
           <AlertTitle className="text-green-800">Password changed successfully!</AlertTitle>
           <AlertDescription className="text-green-700">
             Your password has been updated successfully.
+          </AlertDescription>
+        </Alert>
+      )}
+      
+      {showEmailSuccess && (
+        <Alert className="border-blue-200 bg-blue-50">
+          <CheckCircle className="h-4 w-4 text-blue-600" />
+          <AlertTitle className="text-blue-800">Email change initiated!</AlertTitle>
+          <AlertDescription className="text-blue-700">
+            We&apos;ve sent a confirmation email to {pendingEmail}. Please check your email and click the confirmation link to complete the email change.
           </AlertDescription>
         </Alert>
       )}
@@ -124,16 +169,25 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
           </div>
           
           <div className="space-y-[5px]">
-            <Label htmlFor="email" className="font-geist text-[12px] font-medium" style={{ color: '#0000008c' }}>Primary Email Address</Label>
+            <Label htmlFor="email" className="font-geist text-[12px] font-medium" style={{ color: '#0000008c' }}>
+              Primary Email Address
+              {pendingEmail && (
+                <span className="ml-2 text-orange-600 text-xs font-normal">(Unconfirmed)</span>
+              )}
+            </Label>
             <div className="relative">
               <Input
                 id="email"
                 type="email"
-                value={data.email}
+                value={pendingEmail || data.email}
                 onChange={(e) => onChange('email', e.target.value)}
-                className="font-geist pr-16 bg-[#FBFBFB]"
+                className={`font-geist pr-16 bg-[#FBFBFB] ${pendingEmail ? 'border-orange-300' : ''}`}
                 placeholder="Your email address"
+                readOnly
               />
+              {pendingEmail && (
+                <AlertTriangle className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-orange-500" />
+              )}
               <Button
                 variant="ghost"
                 size="sm"
@@ -143,6 +197,11 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
                 Edit
               </Button>
             </div>
+            {pendingEmail && (
+              <p className="text-xs text-orange-600 font-geist">
+                Check your email and click the confirmation link to activate {pendingEmail}
+              </p>
+            )}
           </div>
         </div>
 
