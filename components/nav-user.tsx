@@ -133,13 +133,17 @@ export function NavUser({
                   Account
                 </a>
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconCreditCard />
-                Billing
+              <DropdownMenuItem asChild>
+                <a href="/account/billing" className="flex items-center">
+                  <IconCreditCard />
+                  Billing
+                </a>
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconNotification />
-                Notifications
+              <DropdownMenuItem asChild>
+                <a href="/account/notifications" className="flex items-center">
+                  <IconNotification />
+                  Notifications
+                </a>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
