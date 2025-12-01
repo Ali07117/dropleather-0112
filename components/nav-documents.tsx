@@ -139,12 +139,6 @@ export function NavDocuments({
             </Collapsible>
           )
         })}
-        <SidebarMenuItem>
-          <SidebarMenuButton className="text-sidebar-foreground/70">
-            <IconDots className="text-sidebar-foreground/70 !size-5" />
-            <span className="text-sm font-sans font-normal">More</span>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
       </SidebarMenu>
     </SidebarGroup>
   )
