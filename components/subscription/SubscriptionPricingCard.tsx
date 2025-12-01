@@ -1,12 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { selectPlan } from '@/app/actions/subscription';
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
 import SubscriptionPricingFeature from './SubscriptionPricingFeature';
 import { SubscriptionButton } from '@/components/ui/subscription-button';
-import { SubscriptionCard, SubscriptionCardContent, SubscriptionCardDescription, SubscriptionCardHeader, SubscriptionCardTitle, SubscriptionCardFooter } from '@/components/ui/subscription-card';
+import { SubscriptionCard, SubscriptionCardContent, SubscriptionCardDescription, SubscriptionCardHeader, SubscriptionCardTitle } from '@/components/ui/subscription-card';
 import { SubscriptionBadge } from '@/components/ui/subscription-badge';
 import { PricingPlan } from '@/types';
 

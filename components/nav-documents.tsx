@@ -1,20 +1,9 @@
 "use client"
 
 import {
-  IconDots,
-  IconFolder,
-  IconShare3,
-  IconTrash,
   type Icon,
 } from "@tabler/icons-react"
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import {
   Collapsible,
   CollapsibleContent,
@@ -24,17 +13,15 @@ import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
-  SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-  useSidebar,
 } from "@/components/ui/sidebar"
 import { useSubscription } from "@/hooks/useSubscription"
 import { DisabledTooltip } from "@/components/ui/disabled-tooltip"
-import { ChevronRight, Lock } from "lucide-react"
+import { Lock } from "lucide-react"
 
 export function NavDocuments({
   items,
@@ -51,7 +38,6 @@ export function NavDocuments({
     }[]
   }[]
 }) {
-  const { isMobile } = useSidebar()
   const { hasFeature } = useSubscription()
 
   const handleRestrictedClick = (e: React.MouseEvent, feature: string) => {
