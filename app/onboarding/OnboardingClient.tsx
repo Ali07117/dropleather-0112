@@ -147,6 +147,9 @@ const OnboardingPage: React.FC = () => {
       submitFormData.append('theme', formData.theme);
       
       
+      // Add email subscription preference
+      submitFormData.append('emailSubscription', formData.agreeToMarketing ? 'YES' : 'NO');
+      
       // Call secure server action - all authentication happens server-side
       try {
         await submitOnboarding(submitFormData);
@@ -462,6 +465,7 @@ const OnboardingPage: React.FC = () => {
             const step1FormData = new FormData();
             step1FormData.append('full_name', formData.name);
             step1FormData.append('date_of_birth', dateString);
+            step1FormData.append('email_subscription', formData.agreeToMarketing ? 'YES' : 'NO');
             
             
             // Use secure server action instead of client API call

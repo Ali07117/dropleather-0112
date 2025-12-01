@@ -48,13 +48,15 @@ export async function submitOnboarding(formData: FormData) {
     const category = formData.get('category') as string;
     const hearAbout = formData.get('hearAbout') as string;
     const theme = formData.get('theme') as string;
+    const emailSubscription = formData.get('emailSubscription') as string;
 
     console.log('📝 SERVER ACTION: Processing onboarding data for:', {
       name,
       category,
       hearAbout,
       theme,
-      dateOfBirth: `${year}-${month}-${day}`
+      dateOfBirth: `${year}-${month}-${day}`,
+      emailSubscription
     });
 
 
@@ -128,7 +130,8 @@ export async function submitOnboarding(formData: FormData) {
         dateOfBirth: `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`,
         category,
         hearAbout,
-        theme
+        theme,
+        emailSubscription
       })
     });
 
@@ -244,10 +247,12 @@ export async function saveStep1(formData: FormData) {
     // Extract form data
     const full_name = formData.get('full_name') as string;
     const date_of_birth = formData.get('date_of_birth') as string;
+    const email_subscription = formData.get('email_subscription') as string;
 
     console.log('📝 SERVER ACTION: Processing step 1 data for:', {
       full_name,
-      date_of_birth
+      date_of_birth,
+      email_subscription
     });
 
     // Get CSRF token server-side (hidden from client) with cookies
@@ -303,7 +308,8 @@ export async function saveStep1(formData: FormData) {
       credentials: 'include', // Include cookies
       body: JSON.stringify({
         full_name,
-        date_of_birth
+        date_of_birth,
+        email_subscription
       })
     });
 
