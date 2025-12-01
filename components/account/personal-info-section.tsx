@@ -132,7 +132,7 @@ export function PersonalInfoSection({ data, onChange }: PersonalInfoSectionProps
           <CheckCircle className="h-4 w-4 text-blue-600" />
           <AlertTitle className="text-blue-800">Email change initiated!</AlertTitle>
           <AlertDescription className="text-blue-700">
-            We&apos;ve sent a confirmation email to {pendingEmail}. Please check your email and click the confirmation link to complete the email change.
+            We&apos;ve sent confirmation emails to both your current email and {pendingEmail}. Please check both emails and click the confirmation links to complete the email change.
           </AlertDescription>
         </Alert>
       )}
