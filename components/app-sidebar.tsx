@@ -132,21 +132,6 @@ const data = {
       showCount: true,
       requiresFeature: "integration",
     },
-    {
-      name: "Subscription",
-      url: "#",
-      icon: () => <Image src="/images/billing.svg" alt="Subscription" width={20} height={20} />,
-      items: [
-        {
-          title: "Subscription Plans",
-          url: "/subscription-plan",
-        },
-        {
-          title: "Billing History",
-          url: "#",
-        },
-      ],
-    },
   ],
 }
 
