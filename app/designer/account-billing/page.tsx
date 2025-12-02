@@ -45,7 +45,7 @@ export default function DesignerBillingPage() {
             <CreditCard className="h-4 w-4 text-muted-foreground" />
             <p className='text-[#505154] text-[14px] font-[Inter] font-[500]'>There are 13 days left on your trial</p>
               </div>
-              <button className='bg-[#266DF0] border border-[#2262d8] hover:bg-[#215BC4] gap-[6px] rounded-[8px] cursor-pointer px-[8px] py-[4px] text-[#FFFFFF] font-[Inter] text-[14px] font-[500] max-h-[28px] leading-[20px] tracking-[-0.02em] flex items-center'>Add billing details</button>
+              <button className='bg-[#266DF0] border border-[#2262d8] hover:bg-[#215BC4] gap-[6px] rounded-[8px] cursor-pointer px-[8px] py-[4px] text-[#FFFFFF] font-[Inter] text-[14px] font-[500] max-h-[28px] leading-[20px] outline-none tracking-[-0.02em] flex items-center'>Add billing details</button>
             </div>
             <p className='text-[#242529] text-[16px] font-[Inter] leading-[20px] font-[600]'>Current plan</p>
             <p className='text-[#0000008C] text-[14px] font-[Inter] font-[500]'>Starts December 16th, 2025</p>
@@ -142,7 +142,7 @@ export default function DesignerBillingPage() {
             <p className='text-[#242529] text-[16px] font-[Inter] mt-[40px] leading-[20px] font-[600]'>History</p>
             <p className='text-[#0000008C] text-[14px] font-[Inter] font-[500]'>View and track your past invoices and payment history</p>
             {/* ====== */}
-            <div className="w-full border border-[#eeeff1] rounded-[12px] overflow-hidden">
+            <div className="w-full border border-[#eeeff1] mt-[16px] rounded-[12px] overflow-hidden">
   <div className="grid grid-cols-5 px-[14px] py-[12px] text-[12px] font-[Inter] font-[500] text-[#0000008C]">
     <div>Reference</div>
     <div>Total incl. tax</div>
@@ -186,21 +186,21 @@ export default function DesignerBillingPage() {
     </div>
   </div>
 </div>
-<button className='bg-[#FFFFFF] mt-[40px] hover:bg-[#F8F9FA] btn-shadow gap-[6px] rounded-[8px] cursor-pointer px-[10px] py-[6px] text-[#242529] font-[Inter] text-[14px] mt-[] font-[500] max-h-[28px] leading-[20px] tracking-[-0.02em] flex items-center'>Cancel subscription</button>
+<button className='bg-[#FFFFFF] mb-[80px] mt-[40px] hover:bg-[#F8F9FA] btn-shadow gap-[6px] rounded-[8px] cursor-pointer px-[10px] py-[6px] text-[#242529] font-[Inter] text-[14px] mt-[] font-[500] max-h-[28px] leading-[20px] tracking-[-0.02em] flex items-center'>Cancel subscription</button>
             {/* ========================= */}
             {/* Current Plan Section */}
-            <Card className="mb-6">
+            {/* <Card className="mb-6">
               <CardContent className="pt-6">
                 <p className="text-sm text-muted-foreground mb-2">Starts December 13th, 2025</p>
                 <h2 className="text-4xl font-bold mb-2">Pro</h2>
                 <p className="text-base text-muted-foreground">86,00 €/mo per seat, billed monthly</p>
               </CardContent>
-            </Card>
+            </Card> */}
 
             {/* Usage Section */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8"> */}
               {/* Seats Box */}
-              <Card>
+              {/* <Card>
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -225,10 +225,10 @@ export default function DesignerBillingPage() {
                     <Progress value={100} className="h-2 [&>div]:bg-orange-500" />
                   </div>
                 </CardContent>
-              </Card>
+              </Card> */}
 
               {/* AI Model Credits Box */}
-              <Card>
+              {/* <Card>
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -250,21 +250,21 @@ export default function DesignerBillingPage() {
                     <span className="text-2xl font-bold">0 / 100</span>
                   </div>
                 </CardContent>
-              </Card>
-            </div>
+              </Card> */}
+            {/* </div> */}
 
             {/* Billing Details Section */}
-            <div className="space-y-4 mb-8">
+            {/* <div className="space-y-4 mb-8">
               <div>
                 <h2 className="text-lg font-semibold font-geist">Billing details</h2>
                 <p className="text-sm text-muted-foreground font-geist">
                   Manage your payment methods and billing information.
                 </p>
-              </div>
+              </div> */}
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4"> */}
                 {/* Billing Address Box */}
-                <Card>
+                {/* <Card>
                   <CardHeader>
                     <CardTitle className="text-base">Billing Address</CardTitle>
                   </CardHeader>
@@ -286,10 +286,10 @@ export default function DesignerBillingPage() {
                       <Input id="vat" placeholder="VAT number" defaultValue="DE123456789" />
                     </div>
                   </CardContent>
-                </Card>
+                </Card> */}
 
                 {/* Payment Method Box */}
-                <Card>
+                {/* <Card>
                   <CardHeader>
                     <CardTitle className="text-base">Payment Method</CardTitle>
                   </CardHeader>
@@ -318,12 +318,12 @@ export default function DesignerBillingPage() {
                       Add payment method
                     </Button>
                   </CardContent>
-                </Card>
-              </div>
-            </div>
+                </Card> */}
+              {/* </div> */}
+            {/* </div> */}
 
             {/* History Section */}
-            <Card>
+            {/* <Card>
               <CardHeader>
                 <CardTitle className="text-lg">History</CardTitle>
                 <CardDescription className="text-sm">
@@ -354,7 +354,7 @@ export default function DesignerBillingPage() {
                   </TableBody>
                 </Table>
               </CardContent>
-            </Card>
+            </Card> */}
           </div>
         </div>
       </div>
