@@ -124,3 +124,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+.btn-shadow {
+  box-shadow:
+    inset 0px 0px 0px 1px rgba(255, 255, 255, 0),
+    0px 0px 2px 0px rgba(28, 40, 64, 0.18),
+    0px 1px 3px 0px rgba(24, 41, 75, 0.04);
+}
+

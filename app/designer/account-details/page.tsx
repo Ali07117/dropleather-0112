@@ -23,6 +23,9 @@ const MockPersonalInfoSection = ({ data, onChange }: { data: Record<string, stri
   const [showPasswordSuccess] = useState(false);
   const [showEmailSuccess] = useState(false);
   const [pendingEmail] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
+
 
   return (
     <div className="space-y-6">
@@ -49,16 +52,17 @@ const MockPersonalInfoSection = ({ data, onChange }: { data: Record<string, stri
 
       {/* Profile Picture Section */}
       <div className="flex items-center gap-4">
-        <div className="w-[72px] h-[72px] rounded-full bg-gray-200 flex items-center justify-center">
-          <span className="text-gray-400 text-xl">👤</span>
+        <div className="w-[72px] h-[72px] rounded-full bg-[#f5a300] flex items-center justify-center">
+          <span className="text-[#fff3cc] font-[500] text-[35px] font-[Inter]">A</span>
+          {/* <span className="text-[#fff3cc] font-[600] text-[35px] font-[Inter]">👤</span> */}
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-[8px]">
           <div>
-            <h3 className="font-geist text-sm font-medium text-black">Profile Picture</h3>
-            <p className="font-geist text-xs text-gray-500">We only support PNGs, JPEGs and GIFs under 10MB</p>
+            <h3 className="font-[Inter] text-[14px] font-[600] text-[#242529]">Profile Picture</h3>
+            <p className="font-[Inter] font-[500] text-[12px] text-[#505154]">We only support PNGs, JPEGs and GIFs under 10MB</p>
           </div>
-          <Button className="w-fit h-8 px-3 text-white hover:bg-[#1a5dc7] font-geist text-xs flex items-center gap-2 border" style={{ backgroundColor: '#266DF0', borderColor: '#00266B' }}>
-            <Camera className="w-3 h-3" />
+          <Button className=" bg-[#266DF0] hover:bg-[#215BC4] gap-[6px] rounded-[8px] cursor-pointer px-[8px] py-[4px] text-[#FFFFFF] font-[Inter] text-[14px] font-[500] max-h-[28px] leading-[20px] tracking-[-0.02em] flex items-center w-[123px]">
+            <Camera className="p-[0px] m-[0px]" />
             Upload image
           </Button>
         </div>
@@ -101,12 +105,51 @@ const MockPersonalInfoSection = ({ data, onChange }: { data: Record<string, stri
               <Button
                 variant="ghost"
                 size="sm"
-                className="absolute right-2 top-1/2 -translate-y-1/2 h-6 px-2 text-xs font-geist text-gray-500 hover:text-gray-700"
-                onClick={() => alert('🎨 DESIGN MODE: Edit Email clicked!')}
+                className="absolute right-2 top-1/2 cursor-pointer -translate-y-1/2 h-6 px-2 text-xs font-geist text-gray-500 hover:text-gray-700"
+                onClick={() => setOpen(true)}
+                // onClick={() => alert('🎨 DESIGN MODE: Edit Email clicked!')}
               >
                 Edit
               </Button>
             </div>
+            {open && (
+        <div
+          className="fixed inset-0 bg-black/20 flex justify-center  z-50"
+          onClick={() => setOpen(false)} // click outside to close
+        >
+          {/* Popup Box */}
+          <div className='bg-[#e5e5e5] h-[195px] p-[3px] rounded-[16px] mt-[100px]' style={{ boxShadow: "rgba(255, 255, 255, 0) 0px 0px 0px 1px inset, rgba(28, 40, 64, 0.12) 0px 8px 28px -6px, rgba(28, 40, 64, 0.16) 0px 18px 88px -4px",}}>
+          <div
+            className="bg-[#fefefe] rounded-[14px] border border-[#d5d5d5]"
+            style={{ width: "800px", height: "189px" }}
+            onClick={(e) => e.stopPropagation()} // prevent close when clicking inside
+          >
+            <div className="p-[8px] flex justify-between items-center border-b border-b-[#ededed]">
+              <h2 className="text-[#242529] font-[500] font-[Inter] text-[14px] leading-[20px] py-[2px] px-[4px]">Change email address</h2>
+
+              <button
+                onClick={() => setOpen(false)}
+                className="text-[black] font-[Inter] text-[14px] py-[5px] px-[7px] hover:rounded-[3px] hover:bg-[#fbfbfb] cursor-pointer font-400"
+              >
+                X
+              </button>
+            </div>
+            <div className='px-[16px] pt-[16px] pb-[24px] flex flex-col gap-[4px]'>
+              <p className='text-[#60000008c] text-[12px] font-[Inter] font-[500]'>New Email Address</p>
+              <input className='h-[34px] min-h-[34px] avtive:border-[#3B82F6] font-[Inter] text-[14px] text-[#242529] font-[500] outline-none focus:border-blue-500 focus:outline-none focus:ring-0" w-[100%] outline-none rounded-[10px] px-[10px] border border-[#ededed]' type="email" name="" id="" />
+
+            </div>
+            <div className='h-[44px] min-h-[44px] flex justify-between items-center pl-[12px] pr-[8px] max-h-[44px] border-t border-t-[#ededed]'>
+                <div></div>
+                <div className='flex items-center gap-[6px]'>
+                  <button className='bg-[#FFFFFF] hover:bg-[#F8F9FA] btn-shadow gap-[6px] rounded-[8px] cursor-pointer pl-[8px] pr-[6px] py-[4px] text-[#242529] font-[Inter] text-[14px] font-[500] max-h-[28px] leading-[20px] tracking-[-0.02em] flex items-center' onClick={() => setOpen(false)}>Cancel <div className='px-[3px] h-[16px] text-[10px] rounded-[4px] border border: 1px solid rgba(80, 81, 84, 0.05); font-[400] flex items-center justify-center text-center'>ESC</div></button>
+                  <button className='bg-[#266DF0] border border-[#2262d8] hover:bg-[#215BC4] gap-[6px] rounded-[8px] cursor-pointer px-[8px] py-[4px] text-[#FFFFFF] font-[Inter] text-[14px] font-[500] max-h-[28px] leading-[20px] tracking-[-0.02em] flex items-center w-[182px]'>Change email address <div className='rounded-[4px] h-[16px] w-[14px] px-[3px] border border-[#4683f2] border-[1px]'></div></button>
+                </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      )}
             {pendingEmail && (
               <p className="text-xs text-orange-600 font-geist">
                 Check your email and click the confirmation link to activate {pendingEmail}
@@ -142,12 +185,60 @@ const MockPersonalInfoSection = ({ data, onChange }: { data: Record<string, stri
               <Button
                 variant="ghost"
                 size="sm"
-                className="absolute right-2 top-1/2 -translate-y-1/2 h-6 px-2 text-xs font-geist text-gray-500 hover:text-gray-700"
-                onClick={() => alert('🎨 DESIGN MODE: Edit Password clicked!')}
+                className="absolute right-2 top-1/2 cursor-pointer -translate-y-1/2 h-6 px-2 text-xs font-geist text-gray-500 hover:text-gray-700"
+                onClick={() => setOpen2(true)}
+                // onClick={() => alert('🎨 DESIGN MODE: Edit Password clicked!')}
               >
                 Edit
               </Button>
             </div>
+            {open2 && (
+        <div
+          className="fixed inset-0 bg-black/20 flex justify-center h-auto  z-50"
+          onClick={() => setOpen2(false)} // click outside to close
+        >
+          {/* Popup Box */}
+          <div className='bg-[#e5e5e5] h-fit  p-[3px] rounded-[16px] mt-[100px]' style={{ boxShadow: "rgba(255, 255, 255, 0) 0px 0px 0px 1px inset, rgba(28, 40, 64, 0.12) 0px 8px 28px -6px, rgba(28, 40, 64, 0.16) 0px 18px 88px -4px",}}>
+          <div
+            className="bg-[#fefefe] rounded-[14px] border border-[#d5d5d5]"
+            style={{ width: "800px" }}
+            onClick={(e) => e.stopPropagation()} // prevent close when clicking inside
+          >
+            <div className="p-[8px] flex justify-between items-center border-b border-b-[#ededed]">
+              <h2 className="text-[#242529] font-[500] font-[Inter] text-[14px] leading-[20px] py-[2px] px-[4px]">Change password</h2>
+
+              <button
+                onClick={() => setOpen2(false)}
+                className="text-[black] font-[Inter] text-[14px] py-[5px] px-[7px] hover:rounded-[3px] hover:bg-[#fbfbfb] cursor-pointer font-400"
+              >
+                X
+              </button>
+            </div>
+            <div className='space-y-[16px]'>
+            <div className='px-[16px] pt-[16px] flex flex-col gap-[4px]'>
+              <p className='text-[rgba(96,0,0,0.55)] text-[12px] font-[Inter] font-[500]'>Current Password</p>
+              <input className='h-[34px] min-h-[34px] avtive:border-[#3B82F6] font-[Inter] text-[14px] text-[#242529] font-[500] outline-none focus:border-blue-500 focus:outline-none focus:ring-0" w-[100%] outline-none rounded-[10px] px-[10px] border border-[#ededed]' type="text" placeholder='Enter current password' name="" id="" />
+            </div>
+            <div className='px-[16px] flex flex-col gap-[4px]'>
+              <p className='text-[rgba(96,0,0,0.55)] text-[12px] font-[Inter] font-[500]'>New Password</p>
+              <input className='h-[34px] min-h-[34px] avtive:border-[#3B82F6] font-[Inter] text-[14px] text-[#242529] font-[500] outline-none focus:border-blue-500 focus:outline-none focus:ring-0" w-[100%] outline-none rounded-[10px] px-[10px] border border-[#ededed]' type="text" placeholder='Enter new password' name="" id="" />
+            </div>
+            <div className='px-[16px] flex flex-col gap-[4px]'>
+              <p className='text-[rgba(96,0,0,0.55)] text-[12px] font-[Inter] font-[500]'>Confirm New Password</p>
+              <input className='h-[34px] min-h-[34px] avtive:border-[#3B82F6] font-[Inter] text-[14px] text-[#242529] font-[500] outline-none focus:border-blue-500 focus:outline-none focus:ring-0" w-[100%] outline-none rounded-[10px] px-[10px] border border-[#ededed]' type="text" placeholder='Confirm new password' name="" id="" />
+            </div>
+            </div>
+            <div className='h-[44px] mt-[16px] min-h-[44px] flex justify-between items-center pl-[12px] pr-[8px] max-h-[44px] border-t border-t-[#ededed]'>
+                <div></div>
+                <div className='flex items-center gap-[6px]'>
+                  <button className='bg-[#FFFFFF] hover:bg-[#F8F9FA] btn-shadow gap-[6px] rounded-[8px] cursor-pointer pl-[8px] pr-[6px] py-[4px] text-[#242529] font-[Inter] text-[14px] font-[500] max-h-[28px] leading-[20px] tracking-[-0.02em] flex items-center' onClick={() => setOpen2(false)}>Cancel <div className='px-[3px] h-[16px] text-[10px] rounded-[4px] border border: 1px solid rgba(80, 81, 84, 0.05); font-[400] flex items-center justify-center text-center'>ESC</div></button>
+                  <button className='bg-[#266DF0] border border-[#2262d8] hover:bg-[#215BC4] gap-[6px] rounded-[8px] cursor-pointer px-[8px] py-[4px] text-[#FFFFFF] font-[Inter] text-[14px] font-[500] max-h-[28px] leading-[20px] tracking-[-0.02em] flex items-center'>Change password <div className='rounded-[4px] h-[16px] w-[14px] px-[3px] border border-[#4683f2] border-[1px]'></div></button>
+                </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      )}
           </div>
         </div>
       </div>
