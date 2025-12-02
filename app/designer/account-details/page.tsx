@@ -135,8 +135,8 @@ const MockPersonalInfoSection = ({ data, onChange }: { data: Record<string, stri
               </button>
             </div>
             <div className='px-[16px] pt-[16px] pb-[24px] flex flex-col gap-[4px]'>
-              <p className='text-[#60000008c] text-[12px] font-[Inter] font-[500]'>New Email Address</p>
-              <input className='h-[34px] min-h-[34px] avtive:border-[#3B82F6] font-[Inter] text-[14px] text-[#242529] font-[500] outline-none focus:border-blue-500 focus:outline-none focus:ring-0" w-[100%] outline-none rounded-[10px] px-[10px] border border-[#ededed]' type="email" name="" id="" />
+              <p className='text-[#0000008C] text-[12px] font-[Inter] font-[500]'>New Email Address</p>
+              <input className='h-[34px] min-h-[34px] avtive:border-[#3B82F6] font-[Inter] text-[14px] text-[#242529] font-[500] outline-none focus:border-blue-500 focus:outline-none focus:ring-0" w-[100%] outline-none rounded-[10px] px-[10px] border border-[#ededed]' type="email" placeholder='Enter New Email Address' name="" id="" />
 
             </div>
             <div className='h-[44px] min-h-[44px] flex justify-between items-center pl-[12px] pr-[8px] max-h-[44px] border-t border-t-[#ededed]'>
@@ -216,15 +216,15 @@ const MockPersonalInfoSection = ({ data, onChange }: { data: Record<string, stri
             </div>
             <div className='space-y-[16px]'>
             <div className='px-[16px] pt-[16px] flex flex-col gap-[4px]'>
-              <p className='text-[rgba(96,0,0,0.55)] text-[12px] font-[Inter] font-[500]'>Current Password</p>
+              <p className='text-[#0000008C] text-[12px] font-[Inter] font-[500]'>Current Password</p>
               <input className='h-[34px] min-h-[34px] avtive:border-[#3B82F6] font-[Inter] text-[14px] text-[#242529] font-[500] outline-none focus:border-blue-500 focus:outline-none focus:ring-0" w-[100%] outline-none rounded-[10px] px-[10px] border border-[#ededed]' type="text" placeholder='Enter current password' name="" id="" />
             </div>
             <div className='px-[16px] flex flex-col gap-[4px]'>
-              <p className='text-[rgba(96,0,0,0.55)] text-[12px] font-[Inter] font-[500]'>New Password</p>
+              <p className='text-[#0000008C] text-[12px] font-[Inter] font-[500]'>New Password</p>
               <input className='h-[34px] min-h-[34px] avtive:border-[#3B82F6] font-[Inter] text-[14px] text-[#242529] font-[500] outline-none focus:border-blue-500 focus:outline-none focus:ring-0" w-[100%] outline-none rounded-[10px] px-[10px] border border-[#ededed]' type="text" placeholder='Enter new password' name="" id="" />
             </div>
             <div className='px-[16px] flex flex-col gap-[4px]'>
-              <p className='text-[rgba(96,0,0,0.55)] text-[12px] font-[Inter] font-[500]'>Confirm New Password</p>
+              <p className='text-[#0000008C] text-[12px] font-[Inter] font-[500]'>Confirm New Password</p>
               <input className='h-[34px] min-h-[34px] avtive:border-[#3B82F6] font-[Inter] text-[14px] text-[#242529] font-[500] outline-none focus:border-blue-500 focus:outline-none focus:ring-0" w-[100%] outline-none rounded-[10px] px-[10px] border border-[#ededed]' type="text" placeholder='Confirm new password' name="" id="" />
             </div>
             </div>
