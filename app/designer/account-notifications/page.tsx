@@ -100,6 +100,15 @@ export default function DesignerNotificationsPage() {
   //     )
   //   );
   // };
+  const toggleCheck = (id: number | string, type: "emailActive" | "smsActive") => {
+    setNotificationsState(prev =>
+      prev.map(item =>
+        item.id === id
+          ? { ...item, [type]: !item[type] }
+          : item
+      )
+    );
+  };
 
   return (
     <>
@@ -198,6 +207,7 @@ export default function DesignerNotificationsPage() {
         {/* EMAIL CHECKBOX */}
         <div className="w-[50px] mr-[20px] flex justify-center">
           <button
+            onClick={() => toggleCheck(notification.id, "emailActive")}
             // onClick={() => toggleCheck(notification.id, "emailActive")}
             className={`w-4 h-4 rounded-[5px] border flex items-center justify-center cursor-pointer transition
               ${notification.emailActive ? "bg-[#0070FF] border-[#0070FF]" : "bg-white border-[#E6E7EA]"}`}
@@ -219,6 +229,7 @@ export default function DesignerNotificationsPage() {
         {/* SMS CHECKBOX */}
         <div className="w-[50px] flex justify-center">
           <button
+            onClick={() => toggleCheck(notification.id, "smsActive")}
             // onClick={() => toggleCheck(notification.id, "smsActive")}
             className={`w-4 h-4 rounded-[5px] border flex items-center cursor-pointer justify-center transition
               ${notification.smsActive ? "bg-[#0070FF] border-[#0070FF]" : "bg-white border-[#E6E7EA]"}`}
