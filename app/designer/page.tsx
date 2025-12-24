@@ -75,6 +75,78 @@ export default function DesignerIndexPage() {
                 </div>
               </div>
             </Link>
+
+            {/* Ticket History Empty*/}
+            <Link href="/designer/ticket-history-empty">
+              <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-6 border border-gray-200 hover:border-blue-300 cursor-pointer group">
+                <div className="flex items-center justify-center w-16 h-16 bg-purple-100 rounded-lg mb-4 mx-auto group-hover:bg-purple-200 transition-colors">
+                  <Bell className="w-8 h-8 text-purple-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-center mb-2">Ticket History Empty</h3>
+                <p className="text-gray-600 text-center mb-4">
+                  Email preferences, push notifications, and communication settings
+                </p>
+                <div className="bg-purple-50 border border-purple-200 rounded-lg p-3">
+                  <p className="text-sm text-purple-700 text-center font-medium">
+                    ✓ Mock data loaded
+                  </p>
+                </div>
+              </div>
+            </Link>
+
+            {/* Ticket History */}
+            <Link href="/designer/ticket-history">
+              <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-6 border border-gray-200 hover:border-blue-300 cursor-pointer group">
+                <div className="flex items-center justify-center w-16 h-16 bg-purple-100 rounded-lg mb-4 mx-auto group-hover:bg-purple-200 transition-colors">
+                  <Bell className="w-8 h-8 text-purple-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-center mb-2">Ticket History</h3>
+                <p className="text-gray-600 text-center mb-4">
+                  Email preferences, push notifications, and communication settings
+                </p>
+                <div className="bg-purple-50 border border-purple-200 rounded-lg p-3">
+                  <p className="text-sm text-purple-700 text-center font-medium">
+                    ✓ Mock data loaded
+                  </p>
+                </div>
+              </div>
+            </Link>
+
+            {/* Store Integration */}
+            <Link href="/designer/store-integration">
+              <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-6 border border-gray-200 hover:border-blue-300 cursor-pointer group">
+                <div className="flex items-center justify-center w-16 h-16 bg-purple-100 rounded-lg mb-4 mx-auto group-hover:bg-purple-200 transition-colors">
+                  <Bell className="w-8 h-8 text-purple-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-center mb-2">Store Integration</h3>
+                <p className="text-gray-600 text-center mb-4">
+                  Email preferences, push notifications, and communication settings
+                </p>
+                <div className="bg-purple-50 border border-purple-200 rounded-lg p-3">
+                  <p className="text-sm text-purple-700 text-center font-medium">
+                    ✓ Mock data loaded
+                  </p>
+                </div>
+              </div>
+            </Link>
+
+            {/* Store Integration Empty */}
+            <Link href="/designer/store-integration-empty">
+              <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-6 border border-gray-200 hover:border-blue-300 cursor-pointer group">
+                <div className="flex items-center justify-center w-16 h-16 bg-purple-100 rounded-lg mb-4 mx-auto group-hover:bg-purple-200 transition-colors">
+                  <Bell className="w-8 h-8 text-purple-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-center mb-2">Store Integration Empty</h3>
+                <p className="text-gray-600 text-center mb-4">
+                  Email preferences, push notifications, and communication settings
+                </p>
+                <div className="bg-purple-50 border border-purple-200 rounded-lg p-3">
+                  <p className="text-sm text-purple-700 text-center font-medium">
+                    ✓ Mock data loaded
+                  </p>
+                </div>
+              </div>
+            </Link>
           </div>
 
           {/* Design Notes */}
